@@ -1,4 +1,4 @@
-import User from "../Models/userModel.js";
+import User from "../models/userModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import HandleError from "../Utils/handleError.js";
 import jwt from "jsonwebtoken";
@@ -12,7 +12,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-
+    
     // show users
     const users = await User.find();
 
@@ -52,7 +52,7 @@ export const updateUserById = catchAsync(async (req, res, next) => {
   const profilePhoto = req.body?.profilePhoto || "";
   const img = req.file?.filename || "";
   const token = req.headers.authorization.split(" ")[1];
-  const { id, role } = jwt.verify(token, process.env.JWT_SECRET);
+  const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
 
   if (role !== "admin" && id !== req.params.id) {
     return next(new HandleError("You don't have permission to update this user", 401));

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const detailSistemSchema = new Schema({
+const detailSistemSchema = new mongoose.Schema({
   ram: {
     name: { type: String, required: true },
     value: { type: String, required: true },

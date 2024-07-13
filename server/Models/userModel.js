@@ -72,22 +72,24 @@ const userSchema = new mongoose.Schema(
         default: 0,
       },
     },
+    token: {
+      type: String,
+    },
     favorites: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
     ],
-    rol:{
-        type:String,
-        enum:["admin","user"],
-        default:"user"
-    }
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+    },
   },
   { timestamps: true }
 );
 
+const User = mongoose.model("User", userSchema);
 
-const User = mongoose.model("user",userSchema)
-
-export default User
+export default User;
