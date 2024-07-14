@@ -11,6 +11,7 @@ import bannerRoute from "./Routes/bannerRoute.js";
 import authRoute from "./Routes/authRoute.js";
 import HandleError from "./Utils/handleError.js";
 import catchError from "./Utils/catchError.js";
+import searchRoute from "./Routes/searchRoute.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +29,7 @@ app.use("/products", productRoute);
 app.use("/categories", categoryRoute);
 app.use("/sliders", sliderRoute);
 app.use("/banners", bannerRoute);
+app.use("/search", searchRoute);
 app.use("/auth", authRoute);
 app.use("*", (req, res, next) => {
   return next(new HandleError("Route Not Found", 404));
