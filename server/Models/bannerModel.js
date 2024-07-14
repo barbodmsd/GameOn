@@ -8,7 +8,8 @@ const bannerSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, "image is requied"],
+      required: [true, "image is required"],
+      default:''
     },
   },
   { timestamps: true }

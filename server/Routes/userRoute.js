@@ -1,6 +1,6 @@
 import express from 'express'
 import { addFavoriteProduct, addToCart, deleteUserById, getAllUser, updateUserById } from '../Controllers/UserCn.js'
-import upload from "../Utils/UploadFile.js"
+import upload from "../Utils/uploadFile.js"
 
 const userRoute=express.Router()
 userRoute.route("/").get(getAllUser)
