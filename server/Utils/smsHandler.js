@@ -39,7 +39,7 @@ export const sendAuthCode = async (Mobile) => {
   }
 };
 
-export const verifyCode = async (Mobile, Code) => {
+export const verifyAuthCode = async (Mobile, Code) => {
   try {
     const res = await fetch("https://api.limosms.com/api/checkcode", {
       method: "POST",

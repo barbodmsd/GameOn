@@ -52,10 +52,10 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       require: [true, "Password Required"],
-      match: [
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
-      ],
+      // match: [
+      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      //   "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
+      // ],
     },
     address: [addressSchema],
     profilePhoto: {
@@ -64,6 +64,7 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       require: [true, "Phone Required"],
+      unique:[true,'phone number already exist']
     },
     cart: [cartItemSchema],
     wallet: {
