@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../Models/userModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import HandleError from "../Utils/handleError.js";
-import { sendAuthCode, verifyAuthCode } from "../Utils/smsHandler.js";
+import {  sendAuthCode, verifyAuthCode } from "../Utils/smsHandler.js";
 
 export const register = catchAsync(async (req, res) => {
   const { role, password, ...others } = req.body;
