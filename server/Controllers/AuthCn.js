@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../Models/userModel.js";
+import User from "../models/userModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import HandleError from "../Utils/handleError.js";
 import {  sendAuthCode, verifyAuthCode } from "../Utils/smsHandler.js";
