@@ -1,4 +1,8 @@
-import express from 'express'
-const authRoute=express.Router()
+import express from "express";
+import { login, register } from "../Controllers/AuthCn.js";
+const authRoute = express.Router();
 
-export default authRoute
+authRoute.route("/register").post(register)
+authRoute.route("/").post(login)
+
+export default authRoute;

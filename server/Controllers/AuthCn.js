@@ -1,0 +1,39 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../Models/userModel.js";
+import catchAsync from "../Utils/catchAsync.js";
+import HandleError from "../Utils/handleError.js";
+
+export const register = catchAsync(async (req, res) => {
+  const { role, password, ...others } = req.body;
+  const hashPassword = bcrypt.hashSync(password, 10);
+  const newUser = await User.create({ ...others, password: hashPassword });
+  return res.status(201).json({
+    status: "success",
+    message: "Register successfully",
+  });
+});
+
+export const login = catchAsync(async (req, res, next) => {
+  const { username, password } = req.body;
+  const user = await User.find({ username }).select("-password -__v");
+  if (!user) {
+    return next(new HandleError("username or password is incorrect"));
+  }
+  const compare = bcrypt.compareSync(password, user.password);
+  if (!compare) {
+    return next(new HandleError("username or password is incorrect"));
+  }
+  const token = jwt.sign(
+    { role: user.role, id: user._id },
+    process.env.SECRET_KEY
+  );
+  return res.status(200).json({
+    status: "success",
+    message: "Login successfully",
+    data: {
+      user,
+      token,
+    },
+  });
+});

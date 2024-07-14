@@ -38,9 +38,9 @@ const addressSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema(
   {
-    UserName: {
+    username: {
       type: String,
-      require: [true, "UserName Required"],
+      require: [true, "username Required"],
       trim: true,
     },
     email: {
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
       ],
     },
-    Addres: [addressSchema],
+    address: [addressSchema],
     profilePhoto: {
       type: String,
     },
@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: [true, "Phone Required"],
     },
-    Cart: [cartItemSchema],
+    cart: [cartItemSchema],
     wallet: {
       balance: {
         type: Number,
