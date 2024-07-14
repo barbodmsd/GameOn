@@ -4,15 +4,15 @@ import HandleError from "../Utils/handleError.js";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import { __dirname } from "../app.js";
+import Product from "../Models/productModel.js";
+import mongoose from "mongoose";
 
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
-
   // Check if Admin exists
   const token = req.headers.authorization.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-    
     // show users
     const users = await User.find();
 
@@ -29,8 +29,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 
 //Get user by id
 export const getUserById = catchAsync(async (req, res, next) => {
-
-  // show user by id 
+  // show user by id
   const user = await User.findById(req.params.id);
 
   // Check if user exists
@@ -49,23 +48,24 @@ export const getUserById = catchAsync(async (req, res, next) => {
 
 // Update user by id
 export const updateUserById = catchAsync(async (req, res, next) => {
-  const profilePhoto = req.body?.profilePhoto || "";
-  const img = req.file?.filename || "";
+  const profilePhoto = req.file?.filename || "";
   const token = req.headers.authorization.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
 
   if (role !== "admin" && id !== req.params.id) {
-    return next(new HandleError("You don't have permission to update this user", 401));
+    return next(
+      new HandleError("You don't have permission to update this user", 401)
+    );
   }
 
   let user;
   const { role: bodyRole, id: bodyId, ...others } = req.body;
 
-  if (img) {
+  if (profilePhoto) {
     const oldUser = await User.findById(req.params.id);
     user = await User.findByIdAndUpdate(
       req.params.id,
-      { ...others, profilePhoto: img },
+      { ...others, profilePhoto: profilePhoto },
       { new: true, runValidators: true }
     );
     if (oldUser.profilePhoto) {
@@ -94,15 +94,12 @@ export const updateUserById = catchAsync(async (req, res, next) => {
   });
 });
 
-
 // Delete user by id
 export const deleteUserById = catchAsync(async (req, res, next) => {
-
   // Check if Admin exists
   const token = req.headers.authorization.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-
     // Delete user
     const deleteUser = await User.findByIdAndDelete(req.params.id);
 
@@ -121,11 +118,11 @@ export const deleteUserById = catchAsync(async (req, res, next) => {
 
 // Add product to favorites
 export const addFavoriteProduct = catchAsync(async (req, res, next) => {
-  const userId = req.params.userId;
-  const productId = req.body.productId;
+  const {id} = req.params;
+  const { _id } = req.body;
 
   // Check if user exists
-  const user = await User.findById(userId);
+  const user = await User.findById(id);
   if (!user) {
     return res.status(404).json({
       status: "fail",
@@ -133,9 +130,17 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     });
   }
 
+  const product = await Product.findById(_id)
+  if (!product) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Product not found",
+    });
+  }
+
   // Add product to favorites if not already added
-  if (!user.favorites.includes(productId)) {
-    user.favorites.push(productId);
+  if (!user.favorites.some(favorite => favorite.equals(product._id))) {
+    user.favorites.push(product);
     await user.save();
   }
 
@@ -149,16 +154,21 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
 
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {
-  const userId = req.params.userId;
+  const { id } = req.params;
   const { product, quantity } = req.body;
 
   // Check if user exists
-  const user = await User.findById(userId);
+  const user = await User.findById(id);
   if (!user) {
     return res.status(404).json({
       status: "fail",
       message: "User not found",
     });
+  }
+
+  // Ensure user.Cart is initialized
+  if (!user.Cart) {
+    user.Cart = [];
   }
 
   // Check if the item already exists in cart
@@ -184,23 +194,18 @@ export const addToCart = catchAsync(async (req, res, next) => {
   });
 });
 
-
 // Update user wallet balance
 export const updateUserWallet = catchAsync(async (req, res, next) => {
-  const { balance } = req.body;
-  const userId = req.params.userId;
-
+  const { wallet } = req.body;
+  const { id } = req.params;
   // Find the user by userId
-  const user = await User.findById(userId);
-
+  const user = await User.findById(id);
   if (!user) {
     return next(new HandleError("User not found", 404));
   }
-
   // Update the wallet balance
-  user.wallet.balance = balance;
+ user.wallet.balance += wallet.balance
   await user.save();
-
   res.status(200).json({
     status: "success",
     data: {
