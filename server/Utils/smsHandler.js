@@ -29,7 +29,7 @@ export const sendAuthCode = async (Mobile) => {
       },
       body: JSON.stringify({
         Mobile,
-        Footer: "welcome to i3center",
+        Footer: "welcome to GameOn!",
       }),
     });
     const data = await res.json();
