@@ -1,7 +1,5 @@
 import Product from "../Models/productModel.js";
 import catchAsync from "../Utils/catchAsync.js";
-import HandleError from "../Utils/handleError.js";
-import jwt from "jsonwebtoken";
 
 export const getAllProduct = catchAsync(async (req, res, next) => {
   const products = await Product.find();

@@ -8,16 +8,13 @@ import {getUserById,
   updateUserWallet,
 } from "../Controllers/UserCn.js";
 import upload from "../Utils/uploadFile.js";
-import isLogin from "../Middleware/isLogin.js";
+import { checkAdmin } from "../Middleware/checkAdmin.js";
+import { checkUser } from "../Middleware/checkUser.js";
 
 const userRoute = express.Router();
-userRoute.route("/").get(getAllUser);
-userRoute
-  .route("/:id")
-  .patch(upload.single("file"), updateUserById)
-  .delete(deleteUserById)
-  .get(getUserById);
-userRoute.route("/:id/cart").post(addToCart);
-userRoute.route("/favorites/:id").post(isLogin,addFavoriteProduct);
-userRoute.route("/:id/wallet").post(updateUserWallet);
+userRoute.route("/").get(checkAdmin,getAllUser);
+userRoute.route("/:id").patch(checkUser,upload.single("file"), updateUserById).delete(checkAdmin,deleteUserById).get(checkAdmin,getUserById);
+userRoute.route("/:id/cart").post(checkUser,addToCart);
+userRoute.route("/favorites/:id").post(checkUser,addFavoriteProduct);
+userRoute.route("/:id/wallet").post(checkUser,updateUserWallet);
 export default userRoute;

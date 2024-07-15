@@ -5,29 +5,17 @@ import fs from "fs";
 import { __dirname } from "../app.js";
 import Product from "../Models/productModel.js";
 import ApiFeatures from "../Utils/apiFeatures.js";
-import User from "../models/userModel.js";
+import User from "../Models/userModel.js";
 
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
-  // Check if Admin exists
-  const token = req?.headers?.authorization?.split(" ")[1];
-  const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
-  if (role == "admin" || id == req.params.id) {
-    const features = new ApiFeatures(User, req.query)
-      .filters()
-      .limitFields()
-      .sort()
-      .populate()
-      .paginate();
-    const users = await features.query;
-    res.status(200).json({
-      status: "success",
-      results: users.length,
-      data: users,
-    });
-  } else {
-    return next(new HandleError("you don't have permission", 401));
-  }
+  const features = new ApiFeatures(User, req.query).filters().limitFields().sort().populate().paginate();
+  const users = await features.query;
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    data: users,
+  });
 });
 
 //Get user by id
@@ -99,24 +87,15 @@ export const updateUserById = catchAsync(async (req, res, next) => {
 
 // Delete user by id
 export const deleteUserById = catchAsync(async (req, res, next) => {
-  // Check if Admin exists
-  const token = req.headers.authorization.split(" ")[1];
-  const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
-  if (role == "admin" || id == req.params.id) {
-    // Delete user
-    const deleteUser = await User.findByIdAndDelete(req.params.id);
-
-    // Check delete user and delete profile image
-    if (deleteUser.profilePhoto) {
-      fs.unlinkSync(`${__dirname}/Public/${deleteUser.imageUrl}`);
-    }
-
-    return res.status(200).json({
-      status: "success",
-    });
-  } else {
-    return next(new HandleError("you don't have permission", 401));
+  // Delete user
+  const deleteUser = await User.findByIdAndDelete(req.params.id);
+  // Check delete user and delete profile image
+  if (deleteUser.profilePhoto) {
+    fs.unlinkSync(`${__dirname}/Public/${deleteUser.imageUrl}`);
   }
+  return res.status(200).json({
+    status: "success",
+  });
 });
 
 // Add product to favorites
@@ -154,8 +133,6 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     },
   });
 });
-
-
 
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {

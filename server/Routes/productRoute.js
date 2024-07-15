@@ -6,13 +6,9 @@ import {
   getByIdProduct,
   updateProduct,
 } from "../Controllers/ProductCn.js";
-import { verifyAdmin } from "../Middleware/verifyAdmin.js";
+import { checkAdmin } from "../Middleware/checkAdmin.js";
 const productRoute = express.Router();
-productRoute.route("/").get(getAllProduct).post(verifyAdmin, createProduct);
-productRoute
-  .route("/:productId")
-  .get(getByIdProduct)
-  .patch(verifyAdmin, updateProduct)
-  .delete(verifyAdmin, deleteProduct);
+productRoute.route("/").get(getAllProduct).post(checkAdmin, createProduct);
+productRoute.route("/:productId").get(getByIdProduct).patch(checkAdmin, updateProduct).delete(checkAdmin, deleteProduct);
 
 export default productRoute;
