@@ -6,6 +6,7 @@ import fs from "fs";
 import { __dirname } from "../app.js";
 import Product from "../Models/productModel.js";
 import mongoose from "mongoose";
+import ApiFeatures from "../Utils/apiFeatures.js";
 
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
@@ -13,15 +14,13 @@ export const getAllUser = catchAsync(async (req, res, next) => {
   const token = req?.headers?.authorization?.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-    // show users
-    const users = await User.find().select('-__v -password')
-
-    return res.status(200).json({
+    const features = new ApiFeatures(User.find(),req.query).filters().sort().paginate().limitFields().populate()
+    const users = await features.query
+    res.status(200).json({
       status: "success",
-      data: {
-        users,
-      },
-    });
+      results: users.length,
+      data: users
+      });
   } else {
     return next(new HandleError("you don't have permission", 401));
   }
