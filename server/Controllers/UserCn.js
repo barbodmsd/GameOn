@@ -119,7 +119,7 @@ export const deleteUserById = catchAsync(async (req, res, next) => {
 // Add product to favorites
 export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   const {id} = req.params;
-  const { _id } = req.body;
+  const { productId } = req.body;
 
   // Check if user exists
   const user = await User.findById(id);
@@ -130,7 +130,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     });
   }
 
-  const product = await Product.findById(_id)
+  const product = await Product.findById(productId)
   if (!product) {
     return res.status(404).json({
       status: "fail",
@@ -139,7 +139,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   }
 
   // Add product to favorites if not already added
-  if (!user.favorites.some(favorite => favorite.equals(product._id))) {
+  if (!user.favorites.some(favorite => favorite.equals(product.productId))) {
     user.favorites.push(product);
     await user.save();
   }
@@ -158,33 +158,39 @@ export const addToCart = catchAsync(async (req, res, next) => {
   const { product, quantity } = req.body;
 
   // Check if user exists
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate('cart.product');
   if (!user) {
     return res.status(404).json({
-      status: "fail",
+      status: "error",
       message: "User not found",
     });
   }
 
-  // Ensure user.Cart is initialized
-  if (!user.Cart) {
-    user.Cart = [];
-  }
+  const cardProduct = await Product.findById(product)
+  if (!cardProduct) {
+    return res.status(404).json({
+      status: "error",
+      message: "Product not found",
+      });
+    }
 
   // Check if the item already exists in cart
-  const cartItemIndex = user.Cart.findIndex((item) =>
-    item.product.equals(product)
+  const cartItemIndex = user.cart.findIndex((item) =>
+    item.product._id.equals(product)
   );
 
   if (cartItemIndex === -1) {
     // If item doesn't exist, add it to cart
-    user.Cart.push({ product, quantity });
+    user.cart.push({ product, quantity });
   } else {
     // If item exists, update its quantity
-    user.Cart[cartItemIndex].quantity += quantity;
+    user.cart[cartItemIndex].quantity += quantity;
   }
 
   await user.save();
+
+  // Populate the cart products after saving
+  await user.populate('cart.product');
 
   res.status(200).json({
     status: "success",

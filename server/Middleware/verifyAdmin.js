@@ -1,5 +1,5 @@
 import Product from "../Models/productModel.js";
-import User from "../Models/userModel.js";
+import User from "../models/userModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import jwt from "jsonwebtoken";
 export const verifyAdmin = catchAsync(async (req, res, next) => {
