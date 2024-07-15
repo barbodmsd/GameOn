@@ -1,12 +1,11 @@
-import User from "../models/userModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import HandleError from "../Utils/handleError.js";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import { __dirname } from "../app.js";
 import Product from "../Models/productModel.js";
-import mongoose from "mongoose";
 import ApiFeatures from "../Utils/apiFeatures.js";
+import User from "../models/userModel.js";
 
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
@@ -14,13 +13,18 @@ export const getAllUser = catchAsync(async (req, res, next) => {
   const token = req?.headers?.authorization?.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-    const features = new ApiFeatures(User,req.query).filters().sort().paginate().limitFields().populate()
-    const users = await features.query
+    const features = new ApiFeatures(User, req.query)
+      .filters()
+      .limitFields()
+      .sort()
+      .populate()
+      .paginate();
+    const users = await features.query;
     res.status(200).json({
       status: "success",
       results: users.length,
-      data: users
-      });
+      data: users,
+    });
   } else {
     return next(new HandleError("you don't have permission", 401));
   }
@@ -29,7 +33,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 //Get user by id
 export const getUserById = catchAsync(async (req, res, next) => {
   // show user by id
-  const user = await User.findById(req.params.id).select('-__v -password')
+  const user = await User.findById(req.params.id).select("-__v -password");
 
   // Check if user exists
   if (!user) {
@@ -117,7 +121,7 @@ export const deleteUserById = catchAsync(async (req, res, next) => {
 
 // Add product to favorites
 export const addFavoriteProduct = catchAsync(async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const { productId } = req.body;
 
   // Check if user exists
@@ -129,7 +133,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     });
   }
 
-  const product = await Product.findById(productId)
+  const product = await Product.findById(productId);
   if (!product) {
     return res.status(404).json({
       status: "fail",
@@ -138,7 +142,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   }
 
   // Add product to favorites if not already added
-  if (!user.favorites.some(favorite => favorite.equals(product.productId))) {
+  if (!user.favorites.some((favorite) => favorite.equals(product.productId))) {
     user.favorites.push(product);
     await user.save();
   }
@@ -151,13 +155,15 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { product, quantity } = req.body;
 
   // Check if user exists
-  const user = await User.findById(id).populate('cart.product');
+  const user = await User.findById(id).populate("cart.product");
   if (!user) {
     return res.status(404).json({
       status: "error",
@@ -165,13 +171,13 @@ export const addToCart = catchAsync(async (req, res, next) => {
     });
   }
 
-  const cardProduct = await Product.findById(product)
+  const cardProduct = await Product.findById(product);
   if (!cardProduct) {
     return res.status(404).json({
       status: "error",
       message: "Product not found",
-      });
-    }
+    });
+  }
 
   // Check if the item already exists in cart
   const cartItemIndex = user.cart.findIndex((item) =>
@@ -189,7 +195,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   await user.save();
 
   // Populate the cart products after saving
-  await user.populate('cart.product');
+  await user.populate("cart.product");
 
   res.status(200).json({
     status: "success",
@@ -209,7 +215,7 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
     return next(new HandleError("User not found", 404));
   }
   // Update the wallet balance
- user.wallet.balance += wallet.balance
+  user.wallet.balance += wallet.balance;
   await user.save();
   res.status(200).json({
     status: "success",

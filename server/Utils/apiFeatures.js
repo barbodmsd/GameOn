@@ -5,7 +5,7 @@ class ApiFeatures{
     }
     filters(){
         const queryObj={...this.queryString}
-        const fieldsItems=['page','sort','limit','fields']
+        const fieldsItems=['page','sort','limit','fields','populate']
         for (const key in fieldsItems) {
             delete queryObj[key];
         }
@@ -28,6 +28,13 @@ class ApiFeatures{
             this.query=this.query.select(fieldsBy)
         }else{
             this.query=this.query.select('-__v')
+        }
+        return this
+    }
+    populate(){
+        if(this.queryString.fields){
+            const populateBy=this.queryString.fields.split(',').join(' ')
+            this.query=this.query.populate(populateBy)
         }
         return this
     }

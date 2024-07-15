@@ -8,6 +8,7 @@ import {getUserById,
   updateUserWallet,
 } from "../Controllers/UserCn.js";
 import upload from "../Utils/uploadFile.js";
+import isLogin from "../Middleware/isLogin.js";
 
 const userRoute = express.Router();
 userRoute.route("/").get(getAllUser);
@@ -17,6 +18,6 @@ userRoute
   .delete(deleteUserById)
   .get(getUserById);
 userRoute.route("/:id/cart").post(addToCart);
-userRoute.route("/:id/favorites").post(addFavoriteProduct);
+userRoute.route("/favorites/:id").post(isLogin,addFavoriteProduct);
 userRoute.route("/:id/wallet").post(updateUserWallet);
 export default userRoute;
