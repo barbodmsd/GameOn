@@ -10,11 +10,11 @@ import mongoose from "mongoose";
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
   // Check if Admin exists
-  const token = req.headers.authorization.split(" ")[1];
+  const token = req?.headers?.authorization?.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
     // show users
-    const users = await User.find();
+    const users = await User.find().select('-__v -password')
 
     return res.status(200).json({
       status: "success",
@@ -30,7 +30,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 //Get user by id
 export const getUserById = catchAsync(async (req, res, next) => {
   // show user by id
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select('-__v -password')
 
   // Check if user exists
   if (!user) {
