@@ -14,7 +14,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
   const token = req?.headers?.authorization?.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
   if (role == "admin" || id == req.params.id) {
-    const features = new ApiFeatures(User.find(),req.query).filters().sort().paginate().limitFields().populate()
+    const features = new ApiFeatures(User,req.query).filters().sort().paginate().limitFields().populate()
     const users = await features.query
     res.status(200).json({
       status: "success",
