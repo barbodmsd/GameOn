@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="flex">
           <SidNav />
-          <div>
+          <div className="w-full">
             <Header />
             {children}
             <Footer />

@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div className='h-screen px-8 mt-5'>Home</div>
   )
 }
