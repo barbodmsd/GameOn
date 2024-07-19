@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import BestGames from "@/components/BestGames";
 import React from "react";
+import Products from "./Products";
 
 export default function Games() {
   return < >
@@ -8,12 +9,12 @@ export default function Games() {
     {/* main */}
     <div className='w-full min-h-[300px]'>
     <Banner/>
+    <Products/>
     </div>
+    {/* aside */}
     <div>
         <BestGames/>
     </div>
-   
-
   </div>
   </>;
 }
