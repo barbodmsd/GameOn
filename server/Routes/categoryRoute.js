@@ -6,7 +6,7 @@ const categoryRoute=express.Router()
 
 categoryRoute
   .route("/")
-  .post(checkAdmin,upload.array("file"), createCategory)
+  .post(checkAdmin,upload.single("file"), createCategory)
   .get(getAllCategory);
 
   categoryRoute.route('/:id').delete(checkAdmin,deleteCategory)  

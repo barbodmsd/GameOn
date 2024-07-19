@@ -19,8 +19,8 @@ export const getByIdProduct = catchAsync(async (req, res, next) => {
 });
 
 export const createProduct = catchAsync(async (req, res, next) => {
-  const newProduct = req.body;
-  const product = await Product.create(newProduct);
+  const images = req.files.map(file => file.filename);
+  const product = await Product.create({...req.body,images});
   res.status(200).json({
     status: "success",
     data: product,
@@ -28,8 +28,9 @@ export const createProduct = catchAsync(async (req, res, next) => {
 });
 
 export const updateProduct = catchAsync(async (req, res, next) => {
+  const images = req.files.map(file => file.filename);
   const {productId} = req.params;
-  const product = await Product.findByIdAndUpdate(productId, req.body, {
+  const product = await Product.findByIdAndUpdate(productId, req.body,images, {
     new: true,
   });
   res.status(200).json({
