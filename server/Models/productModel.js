@@ -26,10 +26,12 @@ const productSchema = new mongoose.Schema(
       required: [true, "Name Product Required"],
       trim: true,
     },
-    image: {
-      type: String,
-      required: [true, "Image Product Required"],
-    },
+    image: [
+      {
+        type: String,
+        required: [true, "Image Product Required"],
+      },
+    ],
     price: {
       type: String,
       required: [true, "Price Product Required"],
@@ -51,25 +53,25 @@ const productSchema = new mongoose.Schema(
     platform: {
       type: String,
     },
-    color:{
-        type:String,
+    color: {
+      type: String,
     },
-    reigen:{
-        type:String,
+    reigen: {
+      type: String,
     },
     detailSistem: [detailSistemSchema],
-    top:{
-        type:Boolean,
+    top: {
+      type: Boolean,
     },
-    populer:{
-        type:Boolean,
+    populer: {
+      type: Boolean,
     },
-    bestGame:{
-        type:Boolean,
+    bestGame: {
+      type: Boolean,
     },
-    mostSuled:{
-        type:Boolean,
-    }
+    mostSuled: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );
