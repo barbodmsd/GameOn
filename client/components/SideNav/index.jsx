@@ -335,7 +335,7 @@ export default function SidNav() {
             {/* digitals products */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/games"
+                pageAddress === "/digital-products"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}>
