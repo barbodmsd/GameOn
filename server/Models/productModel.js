@@ -54,7 +54,12 @@ const productSchema = new mongoose.Schema(
     platform: {
       type: String,
     },
-    color: {
+    color: [
+      {
+        type: String,
+      }
+    ],
+    brand:{
       type: String,
     },
     reigen: {

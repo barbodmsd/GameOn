@@ -21,8 +21,9 @@ export const getByIdProduct = catchAsync(async (req, res, next) => {
 });
 
 export const createProduct = catchAsync(async (req, res, next) => {
+  const colors = req.body.color ? req.body.color.split(",").map(color => color.trim()) : [];
   const images = req?.files?.map(file => file?.filename);
-  const product = await Product.create({...req.body,images});
+  const product = await Product.create({...req.body,color:colors,images});
   res.status(200).json({
     status: "success",
     data: product,
