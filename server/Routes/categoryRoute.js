@@ -1,6 +1,6 @@
 import express from 'express'
 import { createCategory, deleteCategory, getAllCategory } from '../Controllers/CategoryCn.js';
-import upload from '../Utils/uploadFile.js';
+import upload from '../Utils/UploadFile.js';
 import { checkAdmin } from '../Middleware/checkAdmin.js';
 const categoryRoute=express.Router()
 
