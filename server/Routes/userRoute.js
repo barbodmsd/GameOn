@@ -7,7 +7,7 @@ import {getUserById,
   updateUserById,
   updateUserWallet,
 } from "../Controllers/UserCn.js";
-import upload from "../Utils/uploadFile.js";
+import upload from "../Utils/UploadFile.js";
 import { checkAdmin } from "../Middleware/checkAdmin.js";
 import { checkUser } from "../Middleware/checkUser.js";
 
