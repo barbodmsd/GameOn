@@ -2,9 +2,15 @@ import Product from "../Models/productModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 import fs from "fs";
 import { __dirname } from "../app.js";
+import ApiFeatures from "../Utils/apiFeatures.js";
 
 export const getAllProduct = catchAsync(async (req, res, next) => {
-  const products = await Product.find();
+  const features = new ApiFeatures(Product, req.query)
+    .filters()
+    .populate()
+    .limitFields()
+    .sort();
+  const products = await features.query;
   res.status(200).json({
     status: "success",
     data: products,
@@ -12,7 +18,7 @@ export const getAllProduct = catchAsync(async (req, res, next) => {
 });
 
 export const getByIdProduct = catchAsync(async (req, res, next) => {
-  const {productId} = req.params;
+  const { productId } = req.params;
   const product = await Product.findById(productId);
   res.status(200).json({
     status: "success",
@@ -21,9 +27,11 @@ export const getByIdProduct = catchAsync(async (req, res, next) => {
 });
 
 export const createProduct = catchAsync(async (req, res, next) => {
-  const colors = req.body.color ? req.body.color.split(",").map(color => color.trim()) : [];
-  const images = req?.files?.map(file => file?.filename);
-  const product = await Product.create({...req.body,color:colors,images});
+  const colors = req.body.color
+    ? req.body.color.split(",").map((color) => color.trim())
+    : [];
+  const images = req?.files?.map((file) => file?.filename);
+  const product = await Product.create({ ...req.body, color: colors, images });
   res.status(200).json({
     status: "success",
     data: product,
@@ -31,9 +39,9 @@ export const createProduct = catchAsync(async (req, res, next) => {
 });
 
 export const updateProduct = catchAsync(async (req, res, next) => {
-  const images = req.files.map(file => file.filename);
-  const {productId} = req.params;
-  const product = await Product.findByIdAndUpdate(productId, req.body,images, {
+  const images = req.files.map((file) => file.filename);
+  const { productId } = req.params;
+  const product = await Product.findByIdAndUpdate(productId, req.body, images, {
     new: true,
   });
   res.status(200).json({
@@ -43,13 +51,13 @@ export const updateProduct = catchAsync(async (req, res, next) => {
 });
 
 export const deleteProduct = catchAsync(async (req, res, next) => {
-  const {productId} = req.params;
+  const { productId } = req.params;
   const product = await Product.findByIdAndDelete(productId);
-  if(product.images){
-    fs.unlinkSync(__dirname + "/Public/" + product.images)
+  if (product.images) {
+    fs.unlinkSync(__dirname + "/Public/" + product.images);
   }
   res.status(200).json({
     status: "success",
-    massege:`Delete product : ${product.title}`
+    massege: `Delete product : ${product.title}`,
   });
 });
