@@ -1,16 +1,8 @@
-"use client";
-import fetchData from "@/Utils/fetchData";
-import { useEffect, useState } from "react";
+'use client'
 
 export default function Products() {
-  const [product, setProduct] = useState();
-  useEffect(() => {
-    (async () => {
-      const res = await fetchData("products");
-      setProduct(res);
-    })();
-  }, []);
-  console.log(product);
+ 
+ 
   return (
     <div className='mt-[20px]'>
       <div className='flex gap-2  items-center'>

@@ -33,7 +33,7 @@ export default function Header() {
       <div className="flex items-center gap-5">
         <span>userName</span>
         <img
-          class="inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white"
+          className="inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white"
           src="Profile.svg"
           alt="profile imge"
         />
