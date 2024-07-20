@@ -9,7 +9,8 @@ export const getAllProduct = catchAsync(async (req, res, next) => {
     .filters()
     .populate()
     .limitFields()
-    .sort();
+    .sort()
+    .paginate()
   const products = await features.query;
   res.status(200).json({
     status: "success",
