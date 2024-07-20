@@ -19,6 +19,7 @@ export default function Products() {
   }, []);
   const items = products?.map((e, index) => (
     <CDCard
+    id={e._id}
       key={index}
       platform={e.platform}
       title={e.title}

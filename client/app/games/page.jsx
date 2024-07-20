@@ -6,7 +6,7 @@ import Products from "./Products";
 export default function Games() {
   
   return <>
-  <div className='h-screen px-8 mt-5 flex justify-between gap-3'>
+  <div className='min-h-screen px-8 mt-5 flex justify-between gap-3'>
     {/* main */}
     <div className='w-full min-h-[300px]'>
     <Banner index={1}/>
