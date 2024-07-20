@@ -2,8 +2,7 @@
 import { useState,useEffect } from "react";
 
 export default function Products() {
-  const [value, setValue] = useState();
-  useEffect(()=>{console.log(value)},[value])
+  
   return (
     <div className='mt-[20px]'>
       <div className='flex gap-2  items-center'>
