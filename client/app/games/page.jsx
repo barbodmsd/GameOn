@@ -9,7 +9,7 @@ export default function Games() {
   <div className='h-screen px-8 mt-5 flex justify-between gap-3'>
     {/* main */}
     <div className='w-full min-h-[300px]'>
-    <Banner/>
+    <Banner index={1}/>
     <Products/>
     </div>
     {/* aside */}

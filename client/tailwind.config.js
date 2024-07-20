@@ -13,7 +13,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        // main color yello
+        // main color yellow
         "my-yellow": "#bdfd00",
         // the gray color for the text
         'txt': "#7d8085",
