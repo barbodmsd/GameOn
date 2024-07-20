@@ -2,7 +2,7 @@
 import fetchData from "@/Utils/FetchData";
 import { useEffect, useState } from "react";
 import Card from "./Card";
-import Products from "./Products";
+import Tilt from "react-parallax-tilt";
 
 export default function DigitalProducts() {
   const [banner, setBanner] = useState();
@@ -52,18 +52,18 @@ export default function DigitalProducts() {
             </button>
           </div>
           <div className="w-[55%] -translate-y-1 h-[115%]">
-            <img
-              src={"http://localhost:7000/" + banner?.image}
-              alt="baner-image"
-              className=" w-[90%] h-[90%]"
-            />
+            <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
+              <img
+                src={"http://localhost:7000/" + banner?.image}
+                alt="baner-image"
+                className=" w-[90%] h-[90%]"
+              />
+            </Tilt>
           </div>
         </div>
         <div className="w-[230px] h-[530px] bg-black rounded-l-2xl"></div>
       </div>
-      <div className="">
-        {cardDtyle}
-      </div>
+      <div className="">{cardDtyle}</div>
     </div>
   );
 }
