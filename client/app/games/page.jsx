@@ -39,7 +39,7 @@ export default function Games() {
 
 
 
-// meta data for CEO
+// meta data for SEO
 export const generateMetadata=()=>{
     return {
         title:'Games'
