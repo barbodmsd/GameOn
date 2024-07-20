@@ -7,8 +7,9 @@ import {
   updateProduct,
 } from "../Controllers/ProductCn.js";
 import { checkAdmin } from "../Middleware/checkAdmin.js";
+import upload from "../Utils/UploadFile.js";
 const productRoute = express.Router();
-productRoute.route("/").get(getAllProduct).post(checkAdmin, createProduct);
-productRoute.route("/:productId").get(getByIdProduct).patch(checkAdmin, updateProduct).delete(checkAdmin, deleteProduct);
+productRoute.route("/").get(getAllProduct).post(checkAdmin,upload.array("file"), createProduct);
+productRoute.route("/:productId").get(getByIdProduct).patch(checkAdmin,upload.array("file"), updateProduct).delete(checkAdmin, deleteProduct);
 
 export default productRoute;

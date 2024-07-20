@@ -6,3 +6,22 @@ body {
   background-color: #212123;
   color: white;
 }
+
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #191919;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #383838;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #585858;
+}

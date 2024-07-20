@@ -107,6 +107,8 @@ export default function SidNav() {
               </div>
             </li>
           </ul>
+
+
         </div>
         {/* categories */}
         <div className='my-10 '>
@@ -329,6 +331,26 @@ export default function SidNav() {
                 />
               </svg>
               <Link href={"/games"}>Games</Link>
+            </li>
+            {/* digitals products */}
+            <li
+              className={`text-sm flex items-center gap-3 ${
+                pageAddress === "/digital-products"
+                  ? "text-[#BDFD00]"
+                  : "hover:text-[#BDFD00]"
+              }  `}>
+              <svg
+                width='14'
+                height='15'
+                viewBox='0 0 14 15'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  d='M7.58335 2.67588V4.19807L7.00002 4.76818L6.41669 4.19807V2.67588H7.58335ZM11.6667 6.66664V7.80686H10.1092L9.52585 7.23675L10.1092 6.66664H11.6667ZM3.89085 6.66664L4.47419 7.23675L3.89085 7.80686H2.33335V6.66664H3.89085ZM7.00002 9.70533L7.58335 10.2754V11.7976H6.41669V10.2754L7.00002 9.70533ZM8.75002 1.53566H5.25002V4.67126L7.00002 6.38159L8.75002 4.67126V1.53566ZM12.8334 5.52643H9.62502L7.87502 7.23675L9.62502 8.94708H12.8334V5.52643ZM4.37502 5.52643H1.16669V8.94708H4.37502L6.12502 7.23675L4.37502 5.52643ZM7.00002 8.09192L5.25002 9.80224V12.9378H8.75002V9.80224L7.00002 8.09192Z'
+                  fill='#7D8085'
+                />
+              </svg>
+              <Link href={"/digital-products"}>Digital products</Link>
             </li>
           </ul>
         </div>
