@@ -32,11 +32,11 @@ export default function CDCard({ title, img, id, price, platform }) {
               <h6>{title.slice(0, 5)}</h6>
               <p className='text-txt'>{platform.slice(0, 5)}</p>
             </div>
-            <div
+            <button
               onClick={handleClick}
-              className=' cursor-pointer border rounded-full px-1.5 text-my-yellow border-my-yellow flex justify-center '>
+              className=' rounded-full px-3 p-1 border border-my-yellow text-my-yellow'>
               +
-            </div>
+            </button>
           </div>
         </div>
   );
