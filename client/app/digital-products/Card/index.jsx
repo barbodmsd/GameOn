@@ -5,24 +5,23 @@ import "./style.css";
 export default function index({title, brand,price,image}) {
   return (
     <Tilt
-      className="background-stripes parallax-effect-glare-scale bg-[#7D8085] w-[300px] h-[400px] "
+      className="background-stripes rounded-2xl parallax-effect-glare-scale bg-[#28282A] w-[250px] h-[290px] "
       perspective={4000}
       tiltMaxAngleX={10}
       tiltMaxAngleY={10}
-      glareEnable={true}
       glareMaxOpacity={1}
       scale={1}
     >
-      <div className="inner-element flex gap-40 flex-col">
-        <div className="flex flex-col justify-center items-center gap-5">
+      <div className="inner-element flex gap-10 flex-col">
+        <div className="flex flex-col justify-center items-center gap-2">
           {/*text card*/}
-          <img src={image} alt="cart-image" />
+          <img src={image} alt="cart-image" className="w-[150px] -translate-y-10" />
           <h1>{title}</h1>
           <span>{brand}</span>
         </div>
         <div className="flex justify-between px-10">
           <p className="praice">${price}</p>
-          <button type="button" className=" hover:bg-black rounded-full hover:text-white">
+          <button type="button" className=" rounded-full hover:text-white">
             <svg
               width="24"
               height="24"
