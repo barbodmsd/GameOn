@@ -20,7 +20,7 @@ export default function CDCard({ title, img, id, price, platform }) {
             src={img}
             alt={title}
           />
-          <span className='absolute top-1 left-1 bg-gray-600  rounded text-my-yellow'>
+          <span className='absolute top-1 left-1 bg-gray-600 px-1 rounded text-my-yellow'>
             ${price}
           </span>
           <div className='flex justify-between w-[100%] items-center'>
