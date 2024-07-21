@@ -3,6 +3,7 @@ import fetchData from "@/Utils/FetchData";
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Tilt from "react-parallax-tilt";
+import CardBest from "./CardBest"
 
 export default function DigitalProducts() {
   const [banner, setBanner] = useState();
@@ -69,7 +70,9 @@ export default function DigitalProducts() {
             </Tilt>
           </div>
         </div>
-        <div className="w-[230px] h-[530px] bg-black rounded-l-2xl"></div>
+        <div className="w-[230px] h-[530px] bg-black rounded-l-2xl">
+          <CardBest/>
+        </div>
       </div>
       <div className="flex mt-10 gap-20">
         {/* text */}
