@@ -23,7 +23,7 @@ export default function Products() {
       key={index}
       platform={e.platform}
       title={e.title}
-      img={"http://localhost:7000/" + e.images[1]}
+      img={"http://localhost:7000/" + e.images[0]}
       price={e.price}
     />
   ));
