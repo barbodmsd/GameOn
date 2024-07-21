@@ -37,17 +37,17 @@ export default function Products() {
         <h4 className='text-2xl font-bold mr-3'>Our Games</h4>
         <button
           onClick={() => setValue("top")}
-          className={` ${value=='top'&&  ' bg-my-yellow text-black '} border border-txt rounded-full px-4 py-1 text-txt font-bold`}>
+          className={value=='top'?'btn-focus':'btn-notFocus'}>
           Top
         </button>
         <button
           onClick={() => setValue("populer")}
-          className={` ${value=='populer'&& 'bg-my-yellow text-black'} border border-txt rounded-full px-4 py-1 text-txt font-bold`}>
+          className={value=='populer'?'btn-focus':'btn-notFocus'}>
           Popular
         </button>
         <button
           onClick={() => setValue("mostSuled")}
-          className={` ${value=='mostSuled'&& 'bg-my-yellow text-black'} border border-txt rounded-full px-4 py-1 text-txt font-bold`}>
+          className={value=='mostSuled'?'btn-focus':'btn-notFocus'}>
           Most Sold
         </button>
       </div>
