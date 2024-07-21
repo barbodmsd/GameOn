@@ -1,5 +1,5 @@
 import React from "react";
-import ppp from "@/public/pp.jpg";
+import Atropos from "atropos/.";
 export default function PdCard({ product }) {
   const {
     images,
@@ -17,12 +17,26 @@ export default function PdCard({ product }) {
     <section className='w-[100%] h-[400px] flex gap-3 items-center  p-2'>
       {/* left side */}
       <section className='w-[78%] h-[100%] relative'>
-        <div className='h-[50%] w-[100%] bg-my-yellow '/>
+        <div className='h-[50%] w-[100%] bg-my-yellow ' />
         {/* product details */}
         <section className='flex justify-between w-[100%] h-[100%] absolute top-0 '>
           {/* img */}
-          <div className='w-[40%] h-[100%]'>
-            <img src={'http://localhost:7000/'+images[0]} alt={title} width='100%' height='100%' />
+          <div className='w-[40%] p-3 h-[100%]'>
+            <Atropos className='atropos w-[100%] h-[100%]'>
+              <div className={"atropos-scale"}>
+                <div className={"atropos-rotate"}>
+                  <div className={"atropos-inner"}>
+                    <img
+                      alt={title}
+                      src={"http://localhost:7000" + images[0]}
+                      data-atropos-offset='-5'
+                      width='100%'
+                      height='100%'
+                    />
+                  </div>
+                </div>
+              </div>
+            </Atropos>
           </div>
           {/* text  */}
           <div className='flex flex-col justify-between w-[58%] h-[100%]'>
