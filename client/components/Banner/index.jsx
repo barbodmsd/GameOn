@@ -16,7 +16,7 @@ export default async function Banner({index}) {
       <div className=' gap-2 text-center w-[40%] h-[100%] p-5 flex flex-col justify-center items-center'>
         <h2 className="font-bold text-2xl mb-2">{banner.title}</h2>
         <h5 className="text-xs text-center ">{banner.description}</h5>
-        <button className="bg-my-yellow mt-2 hover:scale-110 duration-300 text-black py-2 px-4 rounded-full font-bold ">Get The Game </button>
+        <button className="bg-my-yellow mt-2 animate-bounce text-black py-2 px-4 rounded-full font-bold ">Get The Game </button>
       </div>
       {/* image */}
       <div className='w-[55%] -translate-y-12 h-[115%]'>

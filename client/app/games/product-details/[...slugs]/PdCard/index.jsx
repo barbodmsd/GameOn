@@ -14,6 +14,7 @@ export default function PdCard({ product }) {
     detailSistem,
   } = product;
   const { ram, cpu, gpu, hard } = detailSistem[0]
+  console.log({detailSistem})
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
@@ -30,10 +31,10 @@ export default function PdCard({ product }) {
           {/* text  */}
           <div className='flex flex-col justify-between w-[58%] h-[100%]'>
             {/* top side */}
-            <div className='flex justify-between w-[100%] h-[50%] p-5'>
+            <div className='flex justify-between items-center w-[100%] h-[50%] p-5'>
               {/* title and platform */}
               <div className='flex flex-col gap-3 justify-center'>
-                <h2 className='text-4xl text-black font-bold'>{title}</h2>
+                <h2 className='text-4xl text-black font-bold '>{title}</h2>
                 <p className='text-txt text-xl font-bold'>{platform}</p>
                 <span className='rounded-full w-[130px] flex justify-center items-center py-1 font-bold text-black bg-stone-600/50'>
                   NEW GAME
@@ -74,14 +75,14 @@ export default function PdCard({ product }) {
                 <div className='flex flex-col gap-3 '>
                   <p className='text-xl text-my-yellow font-bold'>$ {price}</p>
                   <div className='flex gap-3 items-center'>
-                    <button className='bg-my-yellow mt-2 hover:scale-110 duration-300 text-black py-2 px-4 rounded-full font-bold '>
+                    <button className='bg-my-yellow  animate-bounce mt-2  text-black py-2 px-4 rounded-full font-bold '>
                       Order Now
                     </button>
                     <div className='flex gap-2'>
-                      <button className='rounded-full px-3 p-1 border border-my-yellow'>
+                      <button className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'>
                         +
                       </button>
-                      <button className='rounded-full px-3 p-1 border border-my-yellow'>
+                      <button className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'>
                         +
                       </button>
                     </div>

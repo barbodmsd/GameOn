@@ -32,7 +32,7 @@ export default function Products() {
   ));
 
   return (
-    <div className='flex pl-7 mt-12 gap-10 flex-wrap w-[100%]'>
+    <div className='flex pl-7 pb-7 mt-12 gap-10 flex-wrap w-[100%]'>
       {/* text */}
       <div className='flex gap-6 '>
         <h4 className='text-2xl font-bold mr-3'>Our Games</h4>
