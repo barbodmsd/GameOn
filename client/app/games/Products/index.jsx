@@ -28,8 +28,7 @@ export default function Products() {
       price={e.price}
     />
   ));
-  console.log({value});
-  console.log({products});
+  
   return (
     <div className='flex pl-7 mt-12 gap-10 flex-wrap w-[100%]'>
       {/* text */}
