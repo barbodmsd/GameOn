@@ -65,7 +65,7 @@ const productSchema = new mongoose.Schema(
     reigen: {
       type: String,
     },
-    detailSistem: [detailSistemSchema],
+    detailSistem: detailSistemSchema,
     top: {
       type: Boolean,
     },
