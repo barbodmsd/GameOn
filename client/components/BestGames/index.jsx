@@ -8,7 +8,7 @@ const getData = async () => {
       "http://localhost:7000/products"
     );
     const data = await res.json();
-    return data.data.slice(4,10);
+    return data.data.slice(3,8);
   } catch (error) {
     console.log(error);
   }
@@ -46,7 +46,7 @@ export default async function BestGames() {
     />
   ));
   return (
-    <section className='flex flex-col p-2 py-5 gap-4 w-[200px] h-[500px] rounded-l-2xl bg-black'>
+    <section className='flex flex-col p-2 py-5 gap-6 w-[200px] h-[500px] rounded-l-2xl bg-black'>
       <span className="flex gap-4">
         <h5 className='font-bold'>Best Game</h5>
         <span className="px-2 font-bold rounded-full text-black bg-my-yellow">20</span>
