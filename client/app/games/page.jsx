@@ -10,6 +10,7 @@ export default function Games() {
     {/* main */}
     <div className='w-full min-h-[300px]'>
     <Banner index={1}/>
+    {/* all the result cards */}
     <Products/>
     </div>
     {/* aside */}

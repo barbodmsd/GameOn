@@ -9,10 +9,10 @@ export default function CDCard({ title, img, id, price, platform }) {
   };
 
   return (
-    <Tilt>
+    <div
+    className='w-[250px]  min-h-[90px] overflow-hidden rounded-md relative flex flex-col gap-3'>
+            <Tilt>
       <Link href={ `/games/product-details/${id}/${title.replaceAll(" ", "-").toLowerCase()}`}>
-        <div
-          className='w-[250px]  min-h-[90px] overflow-hidden rounded-md relative flex flex-col gap-3'>
           <img
             width={"100%"}
             className='rounded-md'
@@ -20,6 +20,10 @@ export default function CDCard({ title, img, id, price, platform }) {
             src={img}
             alt={title}
           />
+      </Link>
+    </Tilt>
+
+
           <span className='absolute top-1 left-1 bg-gray-600 px-1 rounded text-my-yellow'>
             ${price}
           </span>
@@ -35,7 +39,5 @@ export default function CDCard({ title, img, id, price, platform }) {
             </div>
           </div>
         </div>
-      </Link>
-    </Tilt>
   );
 }
