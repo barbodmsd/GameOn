@@ -1,0 +1,23 @@
+
+.card-best:hover {
+    background-color: #BDFD00;
+    width: 106%;
+}
+
+.card-best:hover .card-best-image {
+    margin: 0;
+}
+
+.card-best:hover .btn-icon-cart {
+    display: block;
+}
+
+
+.card-best:hover .btn-icon-left {
+    display: none;
+}
+
+
+.card-best:hover .card-best-praice {
+    display: block;
+}
