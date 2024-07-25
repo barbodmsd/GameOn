@@ -332,7 +332,7 @@ export default function SidNav() {
             {/* games */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/games"
+                pageAddress === "/digital-product-page"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
@@ -349,12 +349,12 @@ export default function SidNav() {
                   fill="#7D8085"
                 />
               </svg>
-              <Link href={"/games"}>Games</Link>
+              <Link href={"/digital-product-page"}>Games</Link>
             </li>
-            {/* digitals products */}
+            {/* physical products */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/digital-products"
+                pageAddress === "/physical-product-page"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
@@ -371,7 +371,7 @@ export default function SidNav() {
                   fill="#7D8085"
                 />
               </svg>
-              <Link href={"/digital-products"}>Digital products</Link>
+              <Link href={"/physical-product-page"}>Digital products</Link>
             </li>
           </ul>
         </div>
