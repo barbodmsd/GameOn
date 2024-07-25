@@ -137,18 +137,18 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { product, quantity } = req.body;
+  const { productId, quantity } = req.body;
 
   // Check if user exists
-  const user = await User.findById(id).populate("cart.product");
+  const user = await User.findById(id).populate("cart.productId");
   if (!user) {
     return res.status(404).json({
       status: "error",
       message: "User not found",
     });
   }
-
-  const cardProduct = await Product.findById(product);
+  console.log(req.body)
+  const cardProduct = await Product.findById(productId);
   if (!cardProduct) {
     return res.status(404).json({
       status: "error",
@@ -156,14 +156,14 @@ export const addToCart = catchAsync(async (req, res, next) => {
     });
   }
 
-  // Check if the item already exists in cart
-  const cartItemIndex = user.cart.findIndex((item) =>
-    item.product._id.equals(product)
+   // Check if the item already exists in cart
+   const cartItemIndex = user.cart.findIndex((item) =>
+    item.productId._id.equals(productId)
   );
 
   if (cartItemIndex === -1) {
     // If item doesn't exist, add it to cart
-    user.cart.push({ product, quantity });
+    user.cart.push({ productId, quantity });
   } else {
     // If item exists, update its quantity
     user.cart[cartItemIndex].quantity += quantity;
@@ -172,7 +172,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   await user.save();
 
   // Populate the cart products after saving
-  await user.populate("cart.product");
+  await user.populate("cart.productId");
 
   res.status(200).json({
     status: "success",
@@ -180,6 +180,52 @@ export const addToCart = catchAsync(async (req, res, next) => {
       user,
     },
   });
+});
+
+// delet item [quantity]
+export const deletItemQuantityCart = catchAsync(async(req,res,nex)=>{
+  const {id} = req.params;
+  const {productId,quantity} = req.body;
+
+  const user = await User.findById(id)
+  const product = await Product.findById(productId)
+  if(!user || !product){
+    return res.status(404).json({
+      status:"error",
+      message: "User and product not found"
+    })
+  }
+
+  const cartItemIndex = user.cart.findIndex((item) =>
+    item.productId._id.equals(productId)
+  );
+
+  if (cartItemIndex === -1){
+    return res.status(404).json({
+      status:"error",
+      message:"Item not found in cart"
+    })
+  }
+
+  const newQuantity = user.cart[cartItemIndex].quantity - quantity;
+
+  if (newQuantity > 0) {
+    
+    user.cart[cartItemIndex].quantity = newQuantity;
+  } else {
+  
+    user.cart.splice(cartItemIndex, 1);
+  }
+
+  await user.save()
+  const updatedUser = await User.findById(id).select('cart');
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      cart: updatedUser.cart,
+    },
+  })
 });
 
 // Update user wallet balance
