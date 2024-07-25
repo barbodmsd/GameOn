@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className=" flex w-full h-20 items-center  px-8 justify-between">
+    <header className=" flex w-full h-20 items-center  px-10 justify-between">
       <div>
         <div className="relative  mt-2 rounded-md shadow-sm">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
