@@ -10,10 +10,10 @@ export default function PhysicalProductPage() {
   useEffect(() => {
     (async () => {
       try {
-        const resProducts = await fetchData("products");
+        const resProducts = await fetchData("products?key=physical");
         const resBanners = await fetchData("banners");
-        setBanner(resBanners.data[1]);
-        setProducts(resProducts.data.slice(0, 4));
+        setBanner(resBanners.data[0]);
+        setProducts(resProducts.data);
       } catch (error) {
         console.log(error);
       }
