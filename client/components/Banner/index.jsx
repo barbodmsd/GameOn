@@ -1,7 +1,7 @@
 import React from "react";
 export const getData = async (index) => {
   try {
-    const res = await fetch(process.env.API_URL + "banners");
+    const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST + "banners");
     const data = await res.json();
     return data.data[index];
   } catch (error) {
