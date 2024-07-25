@@ -16,28 +16,28 @@ export default function Home() {
   const url = process.env.NEXT_PUBLIC_DB_HOST
   console.log(url)
   // Fetch sliders data
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchData("sliders");
-        setImageSlider(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await fetchData("sliders");
+  //       setImageSlider(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
 
   // Fetch initial products data
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchData("products");
-        setProductsCard(res.data.slice(0, 4));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await fetchData("products");
+  //       setProductsCard(res.data.slice(0, 4));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
 
   // Fetch products based on the selected filter
   useEffect(() => {
