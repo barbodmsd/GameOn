@@ -10,13 +10,11 @@ export default function DigitalProductCard({ title, img, id, price, platform }) 
 
   return (
     <div
-    className='w-[250px]  min-h-[90px] overflow-hidden rounded-md relative flex flex-col gap-3'>
+    className='w-[150px]  min-h-[90px] overflow-hidden rounded-md relative flex flex-col gap-3'>
             <Tilt>
       <Link href={ `/digital-product-page/product-details/${id}/${title.replaceAll(" ", "-").toLowerCase()}`}>
           <img
-            width={"100%"}
-            className='rounded-md'
-            height={"100%"}
+            className='rounded-md w-[180px] h-[220px]'
             src={img}
             alt={title}
           />
