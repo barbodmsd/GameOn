@@ -24,7 +24,7 @@ export default function ProductsList() {
     <DigitalProductCard
       id={e._id}
       key={index}
-      platform={e.platform}
+      platform={e.detailgames.platform}
       title={e.title}
       img={process.env.NEXT_PUBLIC_DB_HOST + e.images[0]}
       price={e.price}
