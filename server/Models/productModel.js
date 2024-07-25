@@ -22,17 +22,21 @@ const detailSistemSchema = new mongoose.Schema({
 const detailgamesSchema = new mongoose.Schema({
   language: {
     type: String,
+    trim: true, // Added to remove any extra spaces
   },
-  ege: {
+  age: { // Fixed typo from 'ege' to 'age'
     type: String,
+    trim: true,
   },
   platform: {
     type: String,
+    trim: true,
   },
-  reigen: {
+  region: { // Fixed typo from 'reigen' to 'region'
     type: String,
+    trim: true,
   },
-})
+});
 
 const productSchema = new mongoose.Schema(
   {
@@ -40,55 +44,61 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Name Product Required"],
       trim: true,
+      unique: [true, "Product name must be unique"], // Added unique constraint
     },
     description: {
       type: String,
       required: [true, "Description Product Required"],
     },
     price: {
-      type: String,
+      type: Number, // Changed from String to Number
       required: [true, "Price Product Required"],
     },
     images: [
       {
         type: String,
-        required: [true, "Images Product Required"],
+        // Removed required here to validate number of images separately if needed
       }
     ],
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    detailgames:detailgamesSchema,  
-    detailSistem:detailSistemSchema,
+    detailgames: detailgamesSchema,
+    detailSistem: detailSistemSchema,
     color: [
       {
         type: String,
       }
     ],
-    brand:{
+    brand: {
       type: String,
     },
     top: {
       type: Boolean,
+      default: false, // Added default value
     },
     populer: {
       type: Boolean,
+      default: false, // Added default value
     },
     bestGame: {
       type: Boolean,
+      default: false, // Added default value
     },
     mostSuled: {
       type: Boolean,
+      default: false, // Added default value
     },
-    key:{
-      type:String,
-      enum:["digital","physical"],
+    key: {
+      type: String,
+      enum: ["digital", "physical"],
       required: [true, "Key Product Required"],
     }
   },
   { timestamps: true }
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
+
 export default Product;
