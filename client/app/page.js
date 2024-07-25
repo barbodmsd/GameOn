@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import fetchData from "@/Utils/FetchData";
+import PhysicalProductCard from "@/components/PhysicalProductCard";
+import DigitalProductCard from "@/components/DigitalProductCard";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import fetchData from "@/Utils/FetchData";
-import Card from "./digital-products/Card";
-import CDCard from "./games/CDCard";
 
 export default function Home() {
   const [imageSlider, setImageSlider] = useState([]); // Initialize as empty array
@@ -13,7 +13,8 @@ export default function Home() {
   const [activBtn, setActiveBtn] = useState("All");
   const [value, setValue] = useState("top");
   const [products, setProducts] = useState([]); // Initialize as empty array
-
+  const url = process.env.NEXT_PUBLIC_DB_HOST
+  console.log(url)
   // Fetch sliders data
   useEffect(() => {
     (async () => {
@@ -53,27 +54,27 @@ export default function Home() {
     })();
   }, [value]);
 
-  // Create CDCard components
+  // Create DigitalProductCard components
   const items = products.map((e, index) => (
-    <CDCard
+    <DigitalProductCard
       id={e._id}
       key={index}
       platform={e.platform}
       title={e.title}
-      img={"http://localhost:7000/" + e.images[0]}
+      img={process.env.NEXT_PUBLIC_DB_HOST + e.images[0]}
       price={e.price}
     />
   ));
 
   // Filter and map products to Card components
   const createCards = (product, index) => (
-    <Card
+    <PhysicalProductCard
       id={product._id}
       key={index}
       title={product.title}
       brand={product.brand}
       price={product.price}
-      image={"http://localhost:7000/" + product.images[1]}
+      image={process.env.NEXT_PUBLIC_DB_HOST + product.images[1]}
     />
   );
 
@@ -90,7 +91,7 @@ export default function Home() {
     <SwiperSlide key={index}>
       <img
         className="w-full h-96 rounded-lg"
-        src={"http://localhost:7000/" + e.image}
+        src={process.env.NEXT_PUBLIC_DB_HOST + e.image}
       />
     </SwiperSlide>
   ));
