@@ -10,7 +10,7 @@ export default function ProductsList() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetchData("products");
+        const res = await fetchData("products?key=physical");
         setProductsCard(res.data.slice(0, 4));
       } catch (error) {
         console.log(error);
