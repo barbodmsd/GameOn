@@ -19,6 +19,21 @@ const detailSistemSchema = new mongoose.Schema({
   },
 });
 
+const detailgamesSchema = new mongoose.Schema({
+  language: {
+    type: String,
+  },
+  ege: {
+    type: String,
+  },
+  platform: {
+    type: String,
+  },
+  reigen: {
+    type: String,
+  },
+})
+
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -26,33 +41,30 @@ const productSchema = new mongoose.Schema(
       required: [true, "Name Product Required"],
       trim: true,
     },
+    description: {
+      type: String,
+      required: [true, "Description Product Required"],
+    },
+    price: {
+      type: String,
+      required: [true, "Price Product Required"],
+    },
+    mainImage:{
+      type:String,
+      required: [true, "Main image Product Required"],
+    },
     images: [
       {
         type: String,
         required: [true, "Images Product Required"],
       }
     ],
-    price: {
-      type: String,
-      required: [true, "Price Product Required"],
-    },
-    description: {
-      type: String,
-      required: [true, "Description Product Required"],
-    },
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    language: {
-      type: String,
-    },
-    ege: {
-      type: String,
-    },
-    platform: {
-      type: String,
-    },
+    detailgames:detailgamesSchema,  
+    detailSistem:detailSistemSchema,
     color: [
       {
         type: String,
@@ -61,10 +73,6 @@ const productSchema = new mongoose.Schema(
     brand:{
       type: String,
     },
-    reigen: {
-      type: String,
-    },
-    detailSistem: [detailSistemSchema],
     top: {
       type: Boolean,
     },
@@ -77,6 +85,11 @@ const productSchema = new mongoose.Schema(
     mostSuled: {
       type: Boolean,
     },
+    key:{
+      type:String,
+      enum:["digital","physical"],
+      required: [true, "Key Product Required"],
+    }
   },
   { timestamps: true }
 );
