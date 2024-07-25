@@ -10,8 +10,8 @@ export default function DigitalProductPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetchData("products");
-        setProducts(res.data.slice(0, 3));
+        const res = await fetchData("products?key=digital");
+        setProducts(res.data);
       } catch (error) {
         console.log(error);
       }
