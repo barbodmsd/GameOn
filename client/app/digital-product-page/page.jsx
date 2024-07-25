@@ -11,7 +11,7 @@ export default function DigitalProductPage() {
     (async () => {
       try {
         const res = await fetchData("products");
-        setProducts(res.data.slice(4, 8));
+        setProducts(res.data.slice(0, 3));
       } catch (error) {
         console.log(error);
       }
