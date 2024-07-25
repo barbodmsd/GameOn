@@ -1,7 +1,6 @@
 "use client";
 import fetchData from "@/Utils/FetchData";
 import { useEffect, useState } from "react";
-import Tilt from "react-parallax-tilt";
 import BestGames from "@/components/BestGames";
 import ProductsList from "./ProductsList";
 
@@ -11,17 +10,9 @@ export default function PhysicalProductPage() {
   useEffect(() => {
     (async () => {
       try {
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-  useEffect(() => {
-    (async () => {
-      try {
         const resProducts = await fetchData("products");
         const resBanners = await fetchData("banners");
-        setBanner(resBanners.data[0]);
+        setBanner(resBanners.data[1]);
         setProducts(resProducts.data.slice(0, 4));
       } catch (error) {
         console.log(error);
@@ -35,7 +26,7 @@ export default function PhysicalProductPage() {
       title={e?.title}
       brand={e?.brand}
       price={e?.price}
-      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[1]}
+      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[0]}
     />
   ));
 
