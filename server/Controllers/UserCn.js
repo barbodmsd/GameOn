@@ -9,7 +9,13 @@ import User from "../Models/userModel.js";
 
 // Get all users
 export const getAllUser = catchAsync(async (req, res, next) => {
-  const features = new ApiFeatures(User, req.query).filters().limitFields().sort().populate().paginate();
+  // Apply filters, sorting, field limiting, populating, and pagination
+  const features = new ApiFeatures(User, req.query)
+    .filters()
+    .limitFields()
+    .sort()
+    .populate()
+    .paginate();
   const users = await features.query;
   res.status(200).json({
     status: "success",
@@ -18,9 +24,9 @@ export const getAllUser = catchAsync(async (req, res, next) => {
   });
 });
 
-//Get user by id
+// Get user by ID
 export const getUserById = catchAsync(async (req, res, next) => {
-  // show user by id
+  // Find user by ID and exclude certain fields
   const user = await User.findById(req.params.id).select("-__v -password");
 
   // Check if user exists
@@ -37,12 +43,13 @@ export const getUserById = catchAsync(async (req, res, next) => {
   });
 });
 
-// Update user by id
+// Update user by ID
 export const updateUserById = catchAsync(async (req, res, next) => {
   const profilePhoto = req.file?.filename || "";
   const token = req.headers.authorization.split(" ")[1];
   const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
 
+  // Check if the user has permission to update
   if (role !== "admin" && id !== req.params.id) {
     return next(
       new HandleError("You don't have permission to update this user", 401)
@@ -79,21 +86,22 @@ export const updateUserById = catchAsync(async (req, res, next) => {
     });
   }
 
-  return res.status(200).json({
+  return res.status(201).json({
     status: "success",
     data: user,
   });
 });
 
-// Delete user by id
+// Delete user by ID
 export const deleteUserById = catchAsync(async (req, res, next) => {
-  // Delete user
+  // Delete user by ID
   const deleteUser = await User.findByIdAndDelete(req.params.id);
-  // Check delete user and delete profile image
+
+  // Check if user had a profile photo and delete it
   if (deleteUser.profilePhoto) {
     fs.unlinkSync(`${__dirname}/Public/${deleteUser.imageUrl}`);
   }
-  return res.status(200).json({
+  return res.status(201).json({
     status: "success",
   });
 });
@@ -112,6 +120,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     });
   }
 
+  // Check if product exists
   const product = await Product.findById(productId);
   if (!product) {
     return res.status(404).json({
@@ -126,7 +135,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
     await user.save();
   }
 
-  res.status(200).json({
+  res.status(201).json({
     status: "success",
     data: {
       user,
@@ -139,7 +148,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { productId, quantity } = req.body;
 
-  // Check if user exists
+  // Check if user exists and populate cart
   const user = await User.findById(id).populate("cart.productId");
   if (!user) {
     return res.status(404).json({
@@ -147,7 +156,8 @@ export const addToCart = catchAsync(async (req, res, next) => {
       message: "User not found",
     });
   }
-  console.log(req.body)
+
+  // Check if product exists
   const cardProduct = await Product.findById(productId);
   if (!cardProduct) {
     return res.status(404).json({
@@ -156,8 +166,8 @@ export const addToCart = catchAsync(async (req, res, next) => {
     });
   }
 
-   // Check if the item already exists in cart
-   const cartItemIndex = user.cart.findIndex((item) =>
+  // Check if the item already exists in cart
+  const cartItemIndex = user.cart.findIndex((item) =>
     item.productId._id.equals(productId)
   );
 
@@ -174,7 +184,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   // Populate the cart products after saving
   await user.populate("cart.productId");
 
-  res.status(200).json({
+  res.status(201).json({
     status: "success",
     data: {
       user,
@@ -182,65 +192,72 @@ export const addToCart = catchAsync(async (req, res, next) => {
   });
 });
 
-// delet item [quantity]
-export const deletItemQuantityCart = catchAsync(async(req,res,nex)=>{
-  const {id} = req.params;
-  const {productId,quantity} = req.body;
+// Delete item quantity from cart
+export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { productId, quantity } = req.body;
 
-  const user = await User.findById(id)
-  const product = await Product.findById(productId)
-  if(!user || !product){
+  // Check if user exists
+  const user = await User.findById(id);
+  const product = await Product.findById(productId);
+  if (!user || !product) {
     return res.status(404).json({
-      status:"error",
-      message: "User and product not found"
-    })
+      status: "error",
+      message: "User and product not found",
+    });
   }
 
+  // Find the cart item index
   const cartItemIndex = user.cart.findIndex((item) =>
     item.productId._id.equals(productId)
   );
 
-  if (cartItemIndex === -1){
+  // If item not found in cart, return error
+  if (cartItemIndex === -1) {
     return res.status(404).json({
-      status:"error",
-      message:"Item not found in cart"
-    })
+      status: "error",
+      message: "Item not found in cart",
+    });
   }
 
+  // Calculate the new quantity
   const newQuantity = user.cart[cartItemIndex].quantity - quantity;
 
   if (newQuantity > 0) {
-    
+    // Update quantity if new quantity is greater than 0
     user.cart[cartItemIndex].quantity = newQuantity;
   } else {
-  
+    // Remove item from cart if new quantity is 0 or less
     user.cart.splice(cartItemIndex, 1);
   }
 
-  await user.save()
-  const updatedUser = await User.findById(id).select('cart');
+  await user.save();
+  const updatedUser = await User.findById(id).select("cart");
 
-  res.status(200).json({
-    status: 'success',
+  res.status(201).json({
+    status: "success",
     data: {
       cart: updatedUser.cart,
     },
-  })
+  });
 });
 
 // Update user wallet balance
 export const updateUserWallet = catchAsync(async (req, res, next) => {
   const { wallet } = req.body;
   const { id } = req.params;
-  // Find the user by userId
+
+  // Find the user by ID
   const user = await User.findById(id);
   if (!user) {
     return next(new HandleError("User not found", 404));
   }
+
   // Update the wallet balance
   user.wallet.balance += wallet.balance;
   await user.save();
-  res.status(200).json({
+
+  res.status(201).json({
     status: "success",
     data: {
       user,

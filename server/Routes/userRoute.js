@@ -16,25 +16,29 @@ import { checkUser } from "../Middleware/checkUser.js";
 const userRoute = express.Router();
 
 // Route for getting all users
-userRoute.get("/", checkAdmin, getAllUser);
+userRoute.route("/").get(checkAdmin, getAllUser);
 
 // Route for getting, updating, or deleting a user by ID
-userRoute.route("/:id")
+userRoute
+  .route("/:id")
   .get(checkAdmin, getUserById) // GET user by ID
   .patch(checkUser, upload.single("file"), updateUserById) // PATCH user by ID
-  .delete(checkAdmin, deleteUserById); // DELETE user by ID
+  .delete(checkAdmin,checkUser, deleteUserById); // DELETE user by ID
 
-// Route for adding a product to the cart
-// Route for deleting a product to the cart
-userRoute.route("/:id/cart").delete(checkUser,deletItemQuantityCart).post(checkUser, addToCart)
 
-// Route for adding a favorite product
-userRoute.post("/:id/favorites", checkUser, addFavoriteProduct);
+// Route cart
+userRoute
+  .route("/:id/cart")
+  .delete(checkUser, deletItemQuantityCart) // Route for adding a product to the cart
+  .post(checkUser, addToCart); // Route for deleting a product to the cart
 
-// Route for deleting a favorite product
-userRoute.delete("/:id/favorites",checkUser)
+// Route favorite product
+userRoute
+  .route("/:id/favorites")
+  .post(checkUser, addFavoriteProduct) // Route for adding a favorite product
+  .delete(checkUser); // Route for deleting a favorite product
 
 // Route for updating user's wallet
-userRoute.post("/:id/wallet", checkUser, updateUserWallet);
+userRoute.route("/:id/wallet").post(checkUser, updateUserWallet);
 
 export default userRoute;

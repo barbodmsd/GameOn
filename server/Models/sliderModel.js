@@ -12,7 +12,7 @@ const sliderSchema = new mongoose.Schema(
       type: String,
       required: [true, "Image URL is required"], // Added required constraint
       trim: true, // Removed any extra spaces
-    }
+    },
   },
   { timestamps: true }
 );
