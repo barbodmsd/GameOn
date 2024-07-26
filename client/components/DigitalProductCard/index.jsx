@@ -27,8 +27,8 @@ export default function DigitalProductCard({ title, img, id, price, platform }) 
           </span>
           <div className='flex justify-between w-[100%] items-center'>
             <div>
-              <h6>{title.slice(0, 5)}</h6>
-              <p className='text-txt'>{platform.slice(0, 5)}</p>
+              <h6>{title?.slice(0, 5)}</h6>
+              <p className='text-txt'>{platform?.slice(0, 5)}</p>
             </div>
             <button
               onClick={handleClick}
