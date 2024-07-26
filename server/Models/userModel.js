@@ -50,15 +50,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Email Required"], 
       unique: [true, "Email Already Taken"],
-      match: [/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g, "Email Invalid"],
+      match: [/(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm, "Email Invalid"],
     },
     password: {
       type: String,
       required: [true, "Password Required"], 
-      // match: [
-      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      //   "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
-      // ],
+      match: [/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/g,"Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
+  ],
     },
     address: [addressSchema], 
     profilePhoto: {
