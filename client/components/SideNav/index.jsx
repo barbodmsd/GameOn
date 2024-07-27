@@ -24,7 +24,7 @@ export default function SidNav() {
             {/* profile */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/post"
+                pageAddress === "/profile"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
@@ -49,7 +49,7 @@ export default function SidNav() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Profile</Link>
+              <Link href={"/profile"}>Profile</Link>
             </li>
             {/* favorite */}
             <li

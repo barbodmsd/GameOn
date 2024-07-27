@@ -26,6 +26,13 @@ export default function DigitalProductPage() {
 }
 
 
+export const generateMetadata=()=>{
+  return {
+    title:'Digital Games',
+  }
+}
+
+
 
 
 

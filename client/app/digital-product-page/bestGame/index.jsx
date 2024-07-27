@@ -35,8 +35,8 @@ const CardBest = ({ id, title, brand, image, price }) => {
             </div>
             {/* title card */}
             <div className=''>
-              <p className=' text-sm'>{title}</p>
-              <p className=' text-sm'>{brand}</p>
+              <p className=' text-sm'>{title.slice(0,20)}</p>
+              <p className=' text-xs text-txt'>{brand}</p>
             </div>
           </div>
           {/* BestGames card praice */}
@@ -79,7 +79,6 @@ const CardBest = ({ id, title, brand, image, price }) => {
 };
 export default async function BestGame() {
   const bestGames = await getData();
-  console.log({ bestGames });
   const items = bestGames?.map((e, index) => (
     <CardBest
       key={index}
