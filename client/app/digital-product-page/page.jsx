@@ -1,37 +1,13 @@
-"use client";
-import Banner from "@/components/Banner";
-import BestGames from "@/components/BestGames";
-import React, { useEffect, useState } from "react";
 import ProductsList from "./ProductsList";
-import fetchData from "@/Utils/FetchData";
+import GameBanner from "./banner";
+import BestGame from "./bestGame";
 
 export default function DigitalProductPage() {
-  const [products, setProducts] = useState();
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchData("products?key=digital");
-        setProducts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-  const bestGames = products?.map((e, index) => (
-    <BestGames
-      id={e?._id}
-      key={index}
-      title={e?.title}
-      brand={e?.brand}
-      price={e?.price}
-      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[0]}
-    />
-  ));
   return <>
   <div className='min-h-screen px-8 mt-5 flex justify-between gap-3'>
     {/* main */}
     <div className='w-full min-h-[300px]'>
-    {/* <Banner index={1}/> */}
+    <GameBanner/>
     {/* all the result cards */}
     <ProductsList/>
     </div>
@@ -40,10 +16,10 @@ export default function DigitalProductPage() {
           <div className="px-5 py-5 flex gap-5">
             <p>Best Game</p>
             <div className=" bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm">
-              10{" "}
+              10
             </div>
           </div>
-          {bestGames}
+          <BestGame/>
         </div>
   </div>
   </>;

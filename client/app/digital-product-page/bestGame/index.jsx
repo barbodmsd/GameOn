@@ -2,8 +2,20 @@ import Link from "next/link";
 import "./style.css";
 import React from "react";
 
-
-export default function BestGames({ title, brand, price, image, id }) {
+// &bestGame=true&page=1&limit=5
+const getData = async () => {
+  try {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_DB_HOST +
+        "products?key=digital"
+    );
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const CardBest = ({ id, title, brand, image, price }) => {
   return (
     <Link
       href={`/digital-product-page/product-details/${id}/${title
@@ -64,4 +76,19 @@ export default function BestGames({ title, brand, price, image, id }) {
       </div>
     </Link>
   );
+};
+export default async function BestGame() {
+  const bestGames = await getData();
+  console.log({ bestGames });
+  const items = bestGames?.map((e, index) => (
+    <CardBest
+      key={index}
+      title={e?.title}
+      brand={e?.brand}
+      price={e?.price}
+      id={e?._id}
+      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[0]}
+    />
+  ));
+  return <>{items}</>;
 }
