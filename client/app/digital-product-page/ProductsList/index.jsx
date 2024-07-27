@@ -10,7 +10,7 @@ export default function ProductsList() {
     (async () => {
       try {
         const res = await fetch(
-          `http://localhost:7000/products?key=digital`
+          `http://localhost:7000/products?key=digital&${value}=true`
         );
         const data = await res.json();
         setProducts(data.data);
@@ -18,7 +18,7 @@ export default function ProductsList() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [value]);
 
   const items = products?.map((e, index) => (
     <DigitalProductCard

@@ -14,7 +14,6 @@ export default function PdCard({ product }) {
     detailSistem,
   } = product;
   const { ram, cpu, gpu, hard } = detailSistem[0]
-  console.log({detailSistem})
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
