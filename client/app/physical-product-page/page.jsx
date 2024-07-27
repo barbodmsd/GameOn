@@ -55,11 +55,11 @@ export default function PhysicalProductPage() {
         </div>
         <ProductsList />
       </div>
-      <div className="w-[360px] h-[530px] bg-black rounded-l-2xl">
+      <div className="w-[80%] h-[100%] bg-black rounded-l-2xl pb-5">
         <div className="px-5 py-5 flex gap-5">
           <p>Best Game</p>
           <div className=" bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm">
-            10{" "}
+            {bestGames && bestGames.length}
           </div>
         </div>
         {bestGames}
