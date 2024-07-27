@@ -6,11 +6,11 @@ import React from "react";
 export default function BestGames({ title, brand, price, image, id }) {
   return (
     <Link
-      href={`/digital-product-page/product-details/${id}/${title
+      href={`/physical-product-page/product-details/${id}/${title
         .replaceAll(" ", "-")
         .toLowerCase()}`}>
       <div className='w-[100%] mt-4'>
-        <div className='card-best  flex items-center justify-between  hover:text-black w-[100%]  rounded-l-lg  hover:-translate-x-14 transition-all duration-300 h-14'>
+        <div className='card-best  flex items-center justify-between  hover:text-black w-[100%]  rounded-l-lg  hover:-translate-x-20 transition-all duration-300 h-14'>
           {/* BestGames card details */}
           <div className='flex gap-5 items-center'>
             {/* image card */}
