@@ -11,7 +11,7 @@ export default function ProductsList() {
     (async () => {
       try {
         const res = await fetchData("products?key=physical");
-        setProductsCard(res.data.slice(0, 4));
+        setProductsCard(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -25,7 +25,7 @@ export default function ProductsList() {
       title={product.title}
       brand={product.brand}
       price={product.price}
-      image={process.env.NEXT_PUBLIC_DB_HOST + product.images[1]}
+      image={process.env.NEXT_PUBLIC_DB_HOST + product.images[0]}
     />
   );
 
