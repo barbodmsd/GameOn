@@ -8,15 +8,13 @@ export default function index({ product }) {
   const [activBtn, setActiveBtn] = useState("details");
   const {
     images,
-    platform,
     title,
     price,
     description,
-    reigen,
-    ege,
-    language,
-    detailSistem,
+    color,
+    brand
   } = product;
+  const colors = color?.map((e,index)=><div key={index} className={`w-6 h-6 bg-${e} rounded-full`}></div>)
   return (
     <div className="text-black flex my-10">
       <div className="w-[430px] h-[700px] bg-my-yellow flex flex-col items-center justify-between py-10">
@@ -76,7 +74,7 @@ export default function index({ product }) {
         </div>
       </div>
       <div className="flex pl-11">
-        <div className="flex flex-col justify-around">
+        <div className="flex flex-col justify-around relative">
           {/* btn */}
           <div className="flex gap-5 justify-end">
             <button
@@ -97,18 +95,21 @@ export default function index({ product }) {
             </button>
           </div>
           {/* image */}
-          <div className=" -translate-x-16">
+          <div className="  -right-16 top-10 h-[200px] absolute w-[600px]">
             <Tilt>
               <img
                 src={process.env.NEXT_PUBLIC_DB_HOST + images[1]}
                 alt=""
-                className="w-[700px]"
+                className="w-full "
               />
             </Tilt>
           </div>
+          <dev className="h-full">
+
+          </dev>
           {/* text */}
           <div className="text-white">
-            <p>Original Product</p>
+            <p>Original Product ({brand})</p>
             <h5>
               {title} <span className="text-bg-200">FEEL</span>
             </h5>
@@ -144,7 +145,7 @@ export default function index({ product }) {
         </div>
         <div>
           <div className="transform rotate-90 translate-y-44">
-            <span className="text-bg-300 text-[130px] font-bold "> XBOX</span>
+            <span className="text-bg-300 text-[130px] font-bold "> {brand.toUpperCase()}</span>
           </div>
         </div>
         <div className="flex flex-col justify-around pr-10">
@@ -162,10 +163,7 @@ export default function index({ product }) {
           <div className=" flex flex-col gap-5">
             <div className="text-white font-bold text-sm">SELECT A COLOR</div>
             <div className="flex gap-4">
-              <div className="w-6 h-6 bg-white rounded-full"></div>
-              <div className="w-6 h-6 bg-white rounded-full"></div>
-              <div className="w-6 h-6 bg-white rounded-full"></div>
-              <div className="w-6 h-6 bg-white rounded-full"></div>
+              {colors}
             </div>
           </div>
         </div>
