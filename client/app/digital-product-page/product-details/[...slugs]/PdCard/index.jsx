@@ -1,29 +1,27 @@
-"use client"
-import Tilt from 'react-parallax-tilt'
+"use client";
+import Tilt from "react-parallax-tilt";
 
 export default function PdCard({ product }) {
-  const {
-    images,
-    title,
-    price,
-    description,
-    detailSistem,
-    detailgames
-  } = product;
-  const {platform,reigen,ege,language}=detailgames[0]
-  const { ram, cpu, gpu, hard } = detailSistem[0]
+  const { images, title, price, description, detailSistem, detailgames } =
+    product;
+  const { platform, reigen, ege, language } = detailgames[0];
+  const { ram, cpu, gpu, hard } = detailSistem[0];
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
       <section className='w-[78%] h-[100%] relative'>
         <div className='h-[50%] w-[100%] bg-my-yellow ' />
         {/* product details */}
-        <section className='flex justify-between w-[100%] h-[100%] absolute top-0 '>
+        <section className='flex xl:justify-center xl:gap-2 justify-between w-[100%] h-[100%] absolute top-0 '>
           {/* img */}
           <div className='w-[40%] rounded-2xl p-3 h-[100%]'>
-          <Tilt>
-          <img className="rounded-2xl w-[100%] h-[100%]" src={process.env.NEXT_PUBLIC_DB_HOST + images[0]} alt={title} />
-          </Tilt>
+            <Tilt className='rounded-2xl w-[100%] h-[100%]'>
+              <img
+                className='rounded-2xl w-[100%] h-[100%]'
+                src={process.env.NEXT_PUBLIC_DB_HOST + images[0]}
+                alt={title}
+              />
+            </Tilt>
           </div>
           {/* text  */}
           <div className='flex flex-col justify-between w-[58%] h-[100%]'>
@@ -111,21 +109,33 @@ export default function PdCard({ product }) {
       </section>
       {/* right side */}
       <div className='flex flex-col px-2 items-center gap-4 w-[20%] h-[100%]'>
-          <Tilt>
-        <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
-          <img src={process.env.NEXT_PUBLIC_DB_HOST + images[1]} alt={title}className='rounded-xl ' />
-        </div>
-          </Tilt>
-          <Tilt>
-        <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
-          <img src={process.env.NEXT_PUBLIC_DB_HOST + images[2]} alt={title} className='rounded-xl '/>
-        </div>
-          </Tilt>
-          <Tilt>
-        <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
-          <img src={process.env.NEXT_PUBLIC_DB_HOST + images[3]} alt={title} className='rounded-xl ' />
-        </div>
-          </Tilt>
+        <Tilt>
+          <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
+            <img
+              src={process.env.NEXT_PUBLIC_DB_HOST + images[1]}
+              alt={title}
+              className='rounded-xl '
+            />
+          </div>
+        </Tilt>
+        <Tilt>
+          <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
+            <img
+              src={process.env.NEXT_PUBLIC_DB_HOST + images[2]}
+              alt={title}
+              className='rounded-xl '
+            />
+          </div>
+        </Tilt>
+        <Tilt>
+          <div className='w-[100%]  rounded-xl overflow-hidden h-24 '>
+            <img
+              src={process.env.NEXT_PUBLIC_DB_HOST + images[3]}
+              alt={title}
+              className='rounded-xl '
+            />
+          </div>
+        </Tilt>
       </div>
     </section>
   );

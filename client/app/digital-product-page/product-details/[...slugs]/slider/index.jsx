@@ -23,7 +23,7 @@ export default function Slider() {
       }
     })();
   }, []);
-  console.log(products);
+  
   const items = products?.map((e, index) => (
     <SwiperSlide key={index}>
       <DigitalProductCard
