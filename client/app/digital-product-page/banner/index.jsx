@@ -11,8 +11,16 @@ const getData = async () => {
 };
 export default async function GameBanner() {
   const banners = await getData();
-  return <div className="w-full h-[350px] flex gap-2">
-    <div className="w-[40%] bg-white h-[100%]"></div>
-    <div className="w-[60%] bg-white h-[100%]"></div>
-  </div>;
+  return (
+    <div className='w-full h-[350px] flex gap-2'>
+      <div className='w-[40%] flex flex-col gap-2 items-center rounded-2xl bg-bg-300 h-[100%]'>
+        <img
+          src={process.env.NEXT_PUBLIC_DB_HOST+banners[3]?.image}
+          alt={banners[3]?.title}
+          className='w-[100%] h-[100%] object-cover rounded-2xl'
+        />
+      </div>
+      <div className='w-[60%] flex rounded-2xl bg-bg-300 h-[100%]'></div>
+    </div>
+  );
 }

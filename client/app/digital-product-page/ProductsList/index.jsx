@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import DigitalProductCard from "@/components/DigitalProductCard";
 
 export default function ProductsList() {
-  const [value, setValue] = useState("top");
+  const [value, setValue] = useState("");
   const [products, setProducts] = useState();
   useEffect(() => {
     (async () => {
@@ -36,6 +36,11 @@ export default function ProductsList() {
       {/* text */}
       <div className='flex gap-6 '>
         <h4 className='text-2xl font-bold mr-3'>Our Games</h4>
+        <button
+          onClick={() => setValue("")}
+          className={value == "" ? "btn-focus" : "btn-notFocus"}>
+          All
+        </button>
         <button
           onClick={() => setValue("top")}
           className={value == "top" ? "btn-focus" : "btn-notFocus"}>

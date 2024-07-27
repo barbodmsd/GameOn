@@ -4,15 +4,13 @@ import Tilt from 'react-parallax-tilt'
 export default function PdCard({ product }) {
   const {
     images,
-    platform,
     title,
     price,
     description,
-    reigen,
-    ege,
-    language,
     detailSistem,
+    detailgames
   } = product;
+  const {platform,reigen,ege,language}=detailgames[0]
   const { ram, cpu, gpu, hard } = detailSistem[0]
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
