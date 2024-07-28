@@ -22,7 +22,7 @@ useEffect(() => {
 
 const bestGames = products?.map((product, index) => (
   <BestGames
-    id={product.id}
+    id={product._id}
     key={index}
     title={product.title}
     brand={product.brand}
@@ -36,7 +36,7 @@ const bestGames = products?.map((product, index) => (
         <Banner />
         <ProductsList />
       </div>
-      <div className="w-[25%] h-[100%] bg-black rounded-l-2xl pb-5">
+      <div className="w-[23%] h-[100%] bg-black rounded-l-2xl pb-5">
         <div className="px-5 py-5 flex gap-5">
           <p>Best Game</p>
           <div className="bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm">
