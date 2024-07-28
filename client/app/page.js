@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import fetchData from "@/Utils/FetchData";
-import PhysicalProductCard from "@/components/PhysicalProductCard";
+import PhysicalProductCard from "@/app/physical-product-page/PhysicalProductCard";
 import DigitalProductCard from "@/components/DigitalProductCard";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
