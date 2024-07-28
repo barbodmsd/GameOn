@@ -6,81 +6,76 @@ import Tilt from "react-parallax-tilt";
 export default function index({ product }) {
   const [quantity, setQuantity] = useState(0);
   const [activBtn, setActiveBtn] = useState("details");
-  const {
-    images,
-    title,
-    price,
-    description,
-    color,
-    brand
-  } = product;
-  const colors = color?.map((e,index)=><div key={index} className={`w-6 h-6 bg-${e} rounded-full`}></div>)
+  const { images, title, price, description, color, brand } = product;
+  const colors = color?.map((e, index) => (
+    <div key={index} className={`w-6 h-6 bg-${e} rounded-full`}></div>
+  ));
   return (
-    <div className="text-black flex my-10">
-      <div className="w-[430px] h-[700px] bg-my-yellow flex flex-col items-center justify-between py-10">
-        <div className="w-52 h-52 rounded-xl bg-[#85B200]">
-          <img src="Xboxxs.png" alt="image" />
-        </div>
-        <div className="flex flex-col items-center gap-4">
-          <div>
-            <h5 className="font-bold text-xs ">PRODUCT QUANTITY</h5>
+    <div className="text-black my-10">
+      <div className="flex justify-stretch pl-11 w-full gap-10 h-screen">
+        <div className=" w-[340px] h-[700px] bg-my-yellow flex flex-col items-center justify-between py-10">
+          <div className="w-52 h-52 rounded-xl bg-[#85B200]">
+            <img src="Xboxxs.png" alt="image" />
           </div>
-          <div className="flex gap-4 ">
-            <button
-              type="button"
-              onClick={() => {
-                setQuantity(1);
-              }}
-              className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
-                quantity === 1 ? "bg-black text-white" : ""
-              }`}
-            >
-              1
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setQuantity(2);
-              }}
-              className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
-                quantity === 2 ? "bg-black text-white" : ""
-              }`}
-            >
-              2
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setQuantity(3);
-              }}
-              className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
-                quantity === 3 ? "bg-black text-white" : ""
-              }`}
-            >
-              3
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setQuantity(4);
-              }}
-              className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
-                quantity === 4 ? "bg-black text-white" : ""
-              }`}
-            >
-              4
-            </button>
+          <div className="flex flex-col items-center gap-4">
+            <div>
+              <h5 className="font-bold text-xs ">PRODUCT QUANTITY</h5>
+            </div>
+            <div className="flex gap-4 ">
+              <button
+                type="button"
+                onClick={() => {
+                  setQuantity(1);
+                }}
+                className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
+                  quantity === 1 ? "bg-black text-white" : ""
+                }`}
+              >
+                1
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuantity(2);
+                }}
+                className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
+                  quantity === 2 ? "bg-black text-white" : ""
+                }`}
+              >
+                2
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuantity(3);
+                }}
+                className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
+                  quantity === 3 ? "bg-black text-white" : ""
+                }`}
+              >
+                3
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuantity(4);
+                }}
+                className={` border-2 border-black px-3 py-1 rounded-lg font-bold text-xl ${
+                  quantity === 4 ? "bg-black text-white" : ""
+                }`}
+              >
+                4
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex pl-11">
-        <div className="flex flex-col justify-around relative">
+        <div className="flex flex-col justify-around   ">
           {/* btn */}
-          <div className="flex gap-5 justify-end">
+          <div className="flex gap-5 justify-end text-sm">
             <button
               type="button"
               onClick={() => setActiveBtn("details")}
-              className={activBtn == "details" ? "btn-focus" : "btn-notFocus"}
+              className={activBtn == "details" ? "btn-focus" : "btn-notFocus text-sm"}
             >
               details
             </button>
@@ -88,32 +83,29 @@ export default function index({ product }) {
               type="button"
               onClick={() => setActiveBtn("description")}
               className={
-                activBtn == "description" ? "btn-focus" : "btn-notFocus"
+                activBtn == "description" ? "btn-focus" : "btn-notFocus text-sm"
               }
             >
               Description
             </button>
           </div>
           {/* image */}
-          <div className="  -right-16 top-10 h-[200px] absolute w-[600px]">
+          <div className=" absolute left-[30%] w-[35%] mb-10">
             <Tilt>
               <img
-                src={process.env.NEXT_PUBLIC_DB_HOST + images[1]}
+                src={process.env.NEXT_PUBLIC_DB_HOST + images[0]}
                 alt=""
-                className="w-full "
+                className=" "
               />
             </Tilt>
           </div>
-          <dev className="h-full">
-
-          </dev>
+          <dev className="h-full"></dev>
           {/* text */}
           <div className="text-white">
-            <p>Original Product ({brand})</p>
-            <h5>
-              {title} <span className="text-bg-200">FEEL</span>
+            <p className="text-sm text-[#6b6b6b]" >Original Product ( {brand})</p>
+            <h5 className="my-4 text-2xl">
+              {title.slice(0,10)} <span className="text-text">FEEL</span>
             </h5>
-            <p>THE GAME</p>
           </div>
           {/* price an btn */}
           <div className="flex items-center gap-20">
@@ -143,12 +135,15 @@ export default function index({ product }) {
             </button>
           </div>
         </div>
-        <div>
-          <div className="transform rotate-90 translate-y-44">
-            <span className="text-bg-300 text-[130px] font-bold "> {brand.toUpperCase()}</span>
+        <div className="pt-20">
+          <div className="rotate-90 w-[100px] ">
+            <span className="text-bg-300 text-[130px] font-bold ">
+              {" "}
+              {brand.toUpperCase()}
+            </span>
           </div>
         </div>
-        <div className="flex flex-col justify-around pr-10">
+        <div className="flex flex-col justify-around pl-32 ">
           <div className="flex flex-col gap-5">
             <div className="w-40 h-40 rounded-xl bg-white">
               <img src={process.env.NEXT_PUBLIC_DB_HOST + images[0]} alt="" />
@@ -162,9 +157,7 @@ export default function index({ product }) {
           </div>
           <div className=" flex flex-col gap-5">
             <div className="text-white font-bold text-sm">SELECT A COLOR</div>
-            <div className="flex gap-4">
-              {colors}
-            </div>
+            <div className="flex gap-4">{colors}</div>
           </div>
         </div>
       </div>
