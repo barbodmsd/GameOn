@@ -15,7 +15,7 @@ export default function index({ product }) {
       <div className="flex justify-stretch pl-11 w-full gap-10 h-screen">
         <div className=" w-[340px] h-[700px] bg-my-yellow flex flex-col items-center justify-between py-10">
           <div className="w-52 h-52 rounded-xl bg-[#85B200]">
-            <img src="Xboxxs.png" alt="image" />
+            <img src="http://localhost:7000/bag-ds.png" alt="image" className="p-5"/>
           </div>
           <div className="flex flex-col items-center gap-4">
             <div>
@@ -104,7 +104,7 @@ export default function index({ product }) {
           <div className="text-white">
             <p className="text-sm text-[#6b6b6b]" >Original Product ( {brand})</p>
             <h5 className="my-4 text-2xl">
-              {title.slice(0,10)} <span className="text-text">FEEL</span>
+              {title.slice(0,10)}
             </h5>
           </div>
           {/* price an btn */}
