@@ -11,7 +11,9 @@ export default function PhysicalProductCard({
   id,
 }) {
   return (
-    <Link href={`/physical-product-page/product-details/${id}`}>
+    <Link href={`/physical-product-page/product-details/${id}/${title
+        .replaceAll(" ", "-")
+        .toLowerCase()}`}>
       <Tilt
         className="background-stripes rounded-2xl parallax-effect-glare-scale bg-[#28282A] w-[206px] h-[303px] "
         perspective={4000}
