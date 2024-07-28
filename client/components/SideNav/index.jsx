@@ -7,7 +7,7 @@ export default function SidNav() {
   const pageAddress = usePathname();
   return (
     <div className="  w-72 max-md:fixed">
-      <div className=" custom-scrollbar sidenav h-screen w-64 fixed max-md:-translate-x-full  transition-all px-14 bg-[#191919] overflow-y-scroll  text-white ">
+      <div className=" custom-scrollbar sidenav h-screen w-64 fixed z-10 max-md:-translate-x-full  transition-all px-14 bg-[#191919] overflow-y-auto  text-white ">
         <div className="logo my-6 ">
           <h1 className=" text-2xl font-bold">GameOn</h1>
         </div>
