@@ -1,7 +1,7 @@
 "use client";
 import fetchData from "@/Utils/FetchData";
 import { useEffect, useState } from "react";
-import PhysicalProductCard from "@/components/PhysicalProductCard";
+import PhysicalProductCard from "@/app/physical-product-page/PhysicalProductCard";
 
 
 export default function ProductsList() {
@@ -37,7 +37,7 @@ export default function ProductsList() {
   const cardDtyle = filterProducts((e) => e);
   return (
     <div>
-      <div className="flex mt-10 gap-20">
+      <div className="flex mt-20 gap-20">
         {/* text */}
         <div>
           <h5 className="font-bold text-xl">Our Games</h5>
@@ -74,7 +74,7 @@ export default function ProductsList() {
           </button>
         </div>
       </div>
-      <div className=" mt-16 mb-16 flex flex-wrap gap-20 ">
+      <div className=" mt-10 mb-16 flex flex-wrap gap-5 ">
         {activBtn === "Top"
           ? top
           : activBtn === "Popular"
