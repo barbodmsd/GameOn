@@ -1,10 +1,11 @@
+'use client'
 import PasswordIcon from "@/components/icon/password";
 import UserIcon from "@/components/icon/user";
 import { DevTool } from "@hookform/devtools";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-export default function Login() {
+export default function Login({handlePageType}) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
@@ -76,7 +77,17 @@ export default function Login() {
             Login
           </button>
         </form>
+        {/* forget password */}
+        <div className='text-left flex flex-col gap-1  w-full mt-6'>
+          <h6 className='text-xs text-my-yellow hover:underline cursor-pointer'>
+            Forget Password?
+          </h6>
+          <h6 className='text-xs text-my-yellow hover:underline cursor-pointer' onClick={handlePageType}>
+            Are you don't have an account? Register
+          </h6>
+        </div>
       </div>
+      {/* image */}
       <div className='w-[50%] '></div>
       <DevTool control={control} />
     </div>
