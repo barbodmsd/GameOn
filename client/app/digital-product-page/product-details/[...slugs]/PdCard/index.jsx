@@ -28,15 +28,15 @@ export default function PdCard({ product }) {
             {/* top side */}
             <div className='flex justify-between items-center w-[100%] h-[50%] p-5'>
               {/* title and platform */}
-              <div className='flex flex-col gap-3 justify-center'>
-                <h2 className='text-4xl text-black font-bold '>{title}</h2>
+              <div className='flex flex-col gap-3 justify-center w-[40%]'>
+                <h2 className='text-2xl text-black font-bold '>{title}</h2>
                 <p className='text-txt text-xl font-bold'>{platform}</p>
                 <span className='rounded-full w-[130px] flex justify-center items-center py-1 font-bold text-black bg-stone-600/50'>
                   NEW GAME
                 </span>
               </div>
               {/* table */}
-              <div className='w-[40%] text-sm  py-2 divide-y divide-txt flex flex-col items-center  rounded-2xl h-[65%] bg-bg-300'>
+              <div className='w-[45%] text-sm  py-2 divide-y divide-txt flex flex-col items-center  rounded-2xl h-[65%] bg-bg-300'>
                 <div className='flex px-3 py-0.5  w-[100%] justify-between'>
                   <h5 className='text-txt'>Platform</h5>
                   <h6 className='text-txt'>{platform}</h6>
