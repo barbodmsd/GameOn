@@ -2,6 +2,7 @@
 import fetchData from "@/Utils/FetchData";
 import { useEffect, useState } from "react";
 import PhysicalProductCard from "@/app/physical-product-page/PhysicalProductCard";
+import { SwiperSlide } from "swiper/react";
 
 
 export default function ProductsList() {
