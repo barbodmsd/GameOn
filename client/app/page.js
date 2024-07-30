@@ -145,18 +145,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 500 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-[268px] h-[375px] rounded-2xl bg-bg-300"
+            className="w-[268px] h-[375px] rounded-2xl "
           >
-            box1
+            {banerImage[6]}
           </motion.div>
           <div className="flex flex-col gap-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="w-[493px] h-[148px] rounded-2xl bg-bg-300"
+              className="w-[493px] h-[148px] rounded-2xl "
             >
-              box top
+              {banerImage[8]}
             </motion.div>
             <div className="flex justify-center gap-3">
               <motion.div
@@ -165,7 +165,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
               >
-                L
+                {banerImage[10]}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -173,7 +173,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
               >
-                R
+                {banerImage[9]}
               </motion.div>
             </div>
           </div>
@@ -181,9 +181,9 @@ export default function Home() {
             initial={{ opacity: 0, y: -500 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-[268px] h-[375px] rounded-2xl bg-bg-300"
+            className="w-[268px] h-[375px] rounded-2xl "
           >
-            box2
+            {banerImage[7]}
           </motion.div>
         </div>
       )}
