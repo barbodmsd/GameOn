@@ -5,7 +5,7 @@ import UserIcon from "@/components/icon/user";
 import { DevTool } from "@hookform/devtools";
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import { motion } from "framer-motion";
 export default function Register({ handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
@@ -14,7 +14,11 @@ export default function Register({ handlePageType }) {
     console.log(data);
   };
   return (
-    <div className='w-full h-full flex justify-evenly p-10 '>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className='w-full h-full flex justify-evenly p-10 '>
       {/* image */}
       <div className='w-[50%] '></div>
       {/* form */}
@@ -116,6 +120,6 @@ export default function Register({ handlePageType }) {
         </div>
       </div>
       <DevTool control={control} />
-    </div>
+    </motion.div>
   );
 }
