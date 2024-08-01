@@ -151,8 +151,8 @@ export default function SidNavProfile() {
           <Link href={"/"}>
             <div className=" flex flex-col items-center text-center gap-5 p-2  bg-[#BDFD00] w-full h-40 text-black rounded-2xl translate-x-0">
               <h3 className="font-bold">Investing tips</h3>
-              <p className="text-xs">Unlucking thr sexrets  to <br/>suocful in panels</p>
-              <button type="button" className=" bg-bg-100 px-5 py-1 rounded-xl text-sm text-white">Get PRO Plan</button>
+              <p className="text-xs font-bold">Unlucking thr sexrets to suocful in panels</p>
+              <button type="button" className=" bg-bg-100 px-5 py-1 rounded-xl text-xs text-white">Get PRO Plan</button>
             </div>
           </Link>
         </div>
