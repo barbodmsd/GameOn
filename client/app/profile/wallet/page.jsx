@@ -12,7 +12,11 @@ export default function page() {
     }
   return (
     <div className="mx-10">
-      <h1 className="text-my-yellow mt-5 font-bold text-2xl">Wallet</h1>
+      <div className="mt-5">
+        {/* title page */}
+        <span className="text-txt font-bold text-lg">user name</span>
+        <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
+      </div>
       <div className=" main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
         <div className="flex w-full gap-5">
           <div className=" bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl ">
