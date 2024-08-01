@@ -14,7 +14,6 @@ export default function RootLayout({ children }) {
           <div className="w-full">
             <Header />
             {children}
-            <Footer />
           </div>
         </div>
       </body>
