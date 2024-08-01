@@ -54,7 +54,7 @@ export default function SidNav() {
             {/* favorite */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/post"
+                pageAddress === "/profile/favorite"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
@@ -78,7 +78,7 @@ export default function SidNav() {
             {/* Balance */}
             <li
               className={`text-sm flex items-center gap-3 relative ${
-                pageAddress === "/post"
+                pageAddress === "/profile/wallet"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
