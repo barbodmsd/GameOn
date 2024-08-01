@@ -1,12 +1,22 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "./style.css";
+import { format } from "date-fns";
+
 
 export default function SidNavProfile() {
+  const [date , setDate] = useState(new Date())
+  useEffect(()=>{
+    const now = setInterval(() => {
+      setDate(new Date())
+    }, 1000);
+    return () => clearInterval(now);
+  },[])
   return (
     <div className="  w-72 max-md:fixed">
-      <div className=" custom-scrollbar sidenav h-screen w-64 fixed z-10 max-md:-translate-x-full  transition-all px-14 bg-bg-200 overflow-y-auto  text-white ">
-        <div className="logo my-6 flex gap-20 items-center ">
+      <div className=" flex flex-col custom-scrollbar sidenav h-screen w-64 fixed z-10 max-md:-translate-x-full  transition-all px-14 bg-bg-200 overflow-y-auto  text-white ">
+        <div className="logo my-6 flex gap-10 items-center ">
           <div>
             <h1 className=" text-2xl font-bold">GameOn</h1>
           </div>
@@ -32,7 +42,7 @@ export default function SidNavProfile() {
           </div>
         </div>
         <div className="my-10">
-          <ul className="space-y-5 text-[#7D8085]">
+          <ul className="space-y-9 text-[#7D8085]">
             {/* Dashboard */}
             <li className={`text-sm flex items-center gap-3`}>
               <svg
@@ -59,7 +69,7 @@ export default function SidNavProfile() {
             </li>
             {/* Wallet */}
             <li className={`text-sm flex items-center gap-3`}>
-            <svg
+              <svg
                 width="12"
                 height="10"
                 viewBox="0 0 12 10"
@@ -85,7 +95,7 @@ export default function SidNavProfile() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Wallet</Link>
+              <Link href={"/profile/wallet"}>Wallet</Link>
             </li>
             {/* Favorite */}
             <li className={`text-sm flex items-center gap-3 relative`}>
@@ -103,7 +113,7 @@ export default function SidNavProfile() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Favorite</Link>
+              <Link href={"/profile/favorite"}>Favorite</Link>
             </li>
             {/* Settings */}
             <li className={`text-sm flex items-center gap-3 relative`}>
@@ -133,17 +143,49 @@ export default function SidNavProfile() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Settings</Link>
+              <Link href={"/profile/settings"}>Settings</Link>
             </li>
           </ul>
         </div>
-        <div className="bu  my-8">
+        <div className="bu my-8">
           <Link href={"/"}>
-            {" "}
-            <button className="bg-[#BDFD00] w-24 h-8 text-black rounded-2xl translate-x-0 hover:bg-[#8eb41b] transition-all text-xs font-bold ">
-              go to home
-            </button>
+            <div className=" flex flex-col items-center text-center gap-5 p-2  bg-[#BDFD00] w-full h-40 text-black rounded-2xl translate-x-0">
+              <h3 className="font-bold">Investing tips</h3>
+              <p className="text-xs">Unlucking thr sexrets  to <br/>suocful in panels</p>
+              <button type="button" className=" bg-bg-100 px-5 py-1 rounded-xl text-sm text-white">Get PRO Plan</button>
+            </div>
           </Link>
+        </div>
+        <div className="bu my-8">
+          <div className="pb-9">
+            <span className="text-sm font-bold text-txt  border-b-2 pb-5 border-b-gray-600">{format(date,'yyyy MM dd HH:mm:ss')}</span>
+          </div>
+          <div>
+            <Link href={"/"}>
+              <button className=" flex justify-between items-center w-full h-8 text-txt rounded-2xl translate-x-0 transition-all text-xs font-bold ">
+                log out
+                <svg
+                  width="20"
+                  height="20"
+
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.5801 6.70864C14.8121 6.70865 15.0347 6.61646 15.1988 6.45237C15.3629 6.28828 15.4551 6.06572 15.4551 5.83366C15.4551 5.60159 15.3629 5.37903 15.1988 5.21493C15.0347 5.05084 14.8121 4.95865 14.5801 4.95864L7.58007 4.95855C7.03859 4.95854 6.51928 5.17364 6.13639 5.55652C5.7535 5.9394 5.53839 6.45871 5.53838 7.00019L5.53819 21.0002C5.53819 21.5417 5.75328 22.061 6.13616 22.4439C6.51905 22.8268 7.03835 23.0419 7.57983 23.0419L14.5798 23.042C14.8119 23.042 15.0345 22.9498 15.1986 22.7857C15.3627 22.6216 15.4548 22.3991 15.4548 22.167C15.4548 21.9349 15.3627 21.7124 15.1986 21.5483C15.0345 21.3842 14.8119 21.292 14.5799 21.292L7.57986 21.2919C7.5025 21.2919 7.42831 21.2612 7.37362 21.2065C7.31892 21.1518 7.28819 21.0776 7.28819 21.0002L7.28838 7.00021C7.28838 6.92286 7.31911 6.84867 7.37381 6.79398C7.42851 6.73928 7.50269 6.70855 7.58005 6.70855L14.5801 6.70864Z"
+                    fill="#7d8085"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M11.0801 11.241C10.2751 11.241 9.62179 11.8943 9.62178 12.6993L9.62175 15.3127C9.62174 16.1177 10.2751 16.771 11.0801 16.771L16.4619 16.7711C16.4693 16.8567 16.4771 16.9422 16.4852 17.0277L16.5482 17.6764C16.5705 17.9055 16.6477 18.1259 16.7732 18.3188C16.8988 18.5117 17.069 18.6715 17.2695 18.7846C17.47 18.8977 17.6948 18.9608 17.9248 18.9686C18.1549 18.9763 18.3834 18.9285 18.591 18.8291C20.498 17.9154 22.2244 16.6649 23.6871 15.1378L23.8026 15.0177C24.0634 14.7455 24.209 14.3831 24.2091 14.0062C24.2091 13.6292 24.0634 13.2668 23.8026 12.9947L23.6859 12.8745C22.2236 11.3475 20.4977 10.097 18.5912 9.18311C18.3835 9.08372 18.155 9.03587 17.925 9.04361C17.6949 9.05135 17.4701 9.11445 17.2696 9.22756C17.0692 9.34068 16.8989 9.50047 16.7734 9.69338C16.6478 9.8863 16.5706 10.1066 16.5483 10.3357L16.4853 10.9844L16.462 11.2411L11.0801 11.241ZM17.2728 12.9911C17.4954 12.9909 17.7096 12.9059 17.8718 12.7533C18.0339 12.6007 18.1318 12.392 18.1455 12.1698C18.1676 11.8314 18.1945 11.4919 18.2271 11.1536L18.2458 10.9646C19.7688 11.7497 21.1541 12.7769 22.3478 14.0062C21.1542 15.2355 19.7688 16.2627 18.2457 17.0476L18.2271 16.8586C18.1944 16.5203 18.1676 16.1819 18.1454 15.8424C18.1318 15.6202 18.0339 15.4115 17.8718 15.2589C17.7096 15.1063 17.4954 15.0213 17.2728 15.0211L11.3718 15.021L11.3718 12.991L17.2728 12.9911Z"
+                    fill="#7d8085"
+                  />
+                </svg>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
