@@ -73,7 +73,7 @@ export default function SidNav() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Favorite</Link>
+              <Link href={"/profile/favorite"}>Favorite</Link>
             </li>
             {/* Balance */}
             <li
@@ -109,7 +109,7 @@ export default function SidNav() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <Link href={"/post"}>Balance</Link>
+              <Link href={"/profile/wallet"}>Balance</Link>
               <div className=" flex items-center absolute  bg-[#BDFD00] -right-11 rounded-lg text-black px-2 h-6 w-15 font-bold">
                 $ 0
               </div>
