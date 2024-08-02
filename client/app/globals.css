@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  margin:0;
+* {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
@@ -21,7 +21,10 @@ html {
   .btn-notFocus {
     @apply border border-txt rounded-full px-4 py-1 text-txt font-bold;
   }
- 
+  .flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
 }
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {

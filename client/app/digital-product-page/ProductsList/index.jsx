@@ -10,7 +10,7 @@ export default function ProductsList() {
     (async () => {
       try {
         const res = await fetch(
-          `http://localhost:7000/products?key=digital&${value}=true`
+          process.env.NEXT_PUBLIC_DB_HOST+`products?key=digital&${value}=true`
         );
         const data = await res.json();
         setProducts(data.data);

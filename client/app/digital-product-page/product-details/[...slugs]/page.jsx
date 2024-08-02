@@ -4,7 +4,7 @@ import Slider from "./slider";
 
 export const getData = async (id) => {
   try {
-    const res = await fetch(`http://localhost:7000/products/${id}`);
+    const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+`products/${id}`);
     const data = await res.json();
     return data.data;
   } catch (error) {
