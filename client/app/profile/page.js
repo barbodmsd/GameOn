@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 export default function Profile() {
-  const { token } = useSelector((state) => state.persistedReducer.authSlice);
+  const { token,user } = useSelector((state) => state.persistedReducer.authSlice);
   const router=useRouter()
   if (!token) {
     router.push("/auth");
