@@ -15,7 +15,7 @@ export default function Slider() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST + "products");
+        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST + "products?key=digital");
         const data = await res.json();
         setProducts(data.data);
       } catch (error) {
@@ -36,7 +36,7 @@ export default function Slider() {
     </SwiperSlide>
   ));
   return (
-    <div div className='bg-bg-100 p-5 w-[1000px] my-10 h-[400px] rounded-2xl'>
+    <div div className='bg-bg-100 p-5 w-[1150px] my-10 h-[400px] rounded-2xl'>
       <div className='flex w-full justify-between'>
         <h2 className='text-xl font-bold'>Our Games</h2>
         <div className='flex gap-1 '>
