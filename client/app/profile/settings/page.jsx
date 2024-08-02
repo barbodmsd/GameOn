@@ -2,8 +2,10 @@
 import { DevTool } from "@hookform/devtools";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 export default function Page() {
+  const { user } = useSelector((state) => state.persistedReducer.authSlice);
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const submit = (data) => {
@@ -14,7 +16,7 @@ export default function Page() {
     <div className="mx-10">
       {/* title page */}
       <div className="mt-5">
-        <span className="text-txt font-bold text-lg">user name</span>
+        <span className="text-txt font-bold text-lg">{user.username}</span>
         <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
       </div>
       <div className="main flex gap-5 bg-bg-300 w-[90%] h-full my-8 p-10 rounded-3xl">
@@ -26,14 +28,14 @@ export default function Page() {
               alt="profile-image"
               className="bg-white rounded-full w-[100px]"
             />
-            <span>user name</span>
+            <span>{user.username}</span>
           </div>
           <div className="flex flex-col gap-2 items-center">
             <span>
-              Email: <span>test@gmail.com</span>
+              Email: <span className="text-sm">{user.email}</span>
             </span>
             <span>
-              Phone: <span>0903429192</span>
+              Phone: <span className="text-sm">{user.phone}</span>
             </span>
           </div>
           <div>
