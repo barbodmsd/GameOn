@@ -156,9 +156,9 @@ export default function SidNavProfile() {
             </div>
           </Link>
         </div>
-        <div className="bu my-8">
+        <div className=" my-8">
           <div className="pb-9">
-            <span className="text-sm font-bold text-txt  border-b-2 pb-5 border-b-gray-600">{format(date,'yyyy MM dd HH:mm:ss')}</span>
+            <span className="text-[13px] font-bold text-txt  border-b-2 pb-5 border-b-gray-600">{format(date,'yyyy MM dd HH:mm:ss')}</span>
           </div>
           <div>
             <Link href={"/"}>
