@@ -1,7 +1,10 @@
+"use client"
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { user } = useSelector((state) => state.persistedReducer.authSlice);
   return (
     <header className=' flex w-full h-20 items-center  px-10 justify-between'>
       <div>
@@ -31,7 +34,7 @@ export default function Header() {
         </div>
       </div>
       <div className='flex items-center gap-5'>
-        <span>userName</span>
+        <span>{user? user.username:""}</span>
         <img
           className='inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white'
           src='Profile.svg'
