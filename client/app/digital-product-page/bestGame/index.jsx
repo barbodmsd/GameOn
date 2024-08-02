@@ -6,8 +6,7 @@ import React from "react";
 const getData = async () => {
   try {
     const res = await fetch(
-      process.env.NEXT_PUBLIC_DB_HOST +
-        "products?key=digital"
+      process.env.NEXT_PUBLIC_DB_HOST + "products?key=digital"
     );
     const data = await res.json();
     return data.data;
@@ -35,7 +34,7 @@ const CardBest = ({ id, title, brand, image, price }) => {
             </div>
             {/* title card */}
             <div className=''>
-              <p className=' text-sm'>{title.slice(0,20)}</p>
+              <p className=' text-sm'>{title.slice(0, 20)}</p>
               <p className=' text-xs text-txt'>{brand}</p>
             </div>
           </div>
@@ -89,5 +88,19 @@ export default async function BestGame() {
       image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[0]}
     />
   ));
-  return <>{items}</>;
+  return (
+    <>
+      <div className='w-[350px] h-[500px] bg-black rounded-l-2xl'>
+        <div className='px-5 py-5 flex gap-5'>
+          <p>Best Game</p>
+          <div className=' bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm'>
+            {
+              bestGames.length
+            }
+          </div>
+        </div>
+        {items}
+      </div>
+    </>
+  );
 }
