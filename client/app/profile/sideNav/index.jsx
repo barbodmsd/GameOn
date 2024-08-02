@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "./style.css";
 import { format } from "date-fns";
-
-
+import {useDispatch} from 'react-redux'
+import { logOut } from "@/Store/Slices/authSlice";
 export default function SidNavProfile() {
   const [date , setDate] = useState(new Date())
+  const dispatch=useDispatch()
   useEffect(()=>{
     const now = setInterval(() => {
       setDate(new Date())
@@ -18,7 +19,7 @@ export default function SidNavProfile() {
       <div className=" flex flex-col custom-scrollbar sidenav h-screen w-64 fixed z-10 max-md:-translate-x-full  transition-all px-14 bg-bg-200 overflow-y-auto  text-white ">
         <div className="logo my-6 flex gap-10 items-center ">
           <div>
-            <h1 className=" text-2xl font-bold">GameOn</h1>
+            <Link href='/'><h1 className=" text-2xl font-bold">GameOn</h1></Link>
           </div>
           <div>
             <svg
@@ -162,7 +163,7 @@ export default function SidNavProfile() {
           </div>
           <div>
             <Link href={"/"}>
-              <button className=" flex justify-between items-center w-full h-8 text-txt rounded-2xl translate-x-0 transition-all text-xs font-bold ">
+              <button onClick={()=>dispatch(logOut())} className=" flex justify-between items-center w-full h-8 text-txt rounded-2xl translate-x-0 transition-all text-xs font-bold " >
                 log out
                 <svg
                   width="20"

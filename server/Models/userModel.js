@@ -42,17 +42,18 @@ const userSchema = new mongoose.Schema(
       trim: true, // Remove leading and trailing whitespace
       unique: [true, "Username already taken"], // Username must be unique
     },
-    email: {
-      type: String,
-      // required: [true, "Email Required"], // Email is required
-      trim: true, // Remove leading and trailing whitespace
-      unique: [true, "Email Already Taken"], // Email must be unique
-      match: [
-        // Regular expression to validate email format
-        /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm,
-        "Email Invalid",
-      ],
-    },
+    // email: {
+    //   type: String,
+    //   // required: [true, "Email Required"], // Email is required
+    //   trim: true, // Remove leading and trailing whitespace
+    //   unique: [true, "Email Already Taken"], // Email must be unique
+    //   sparse: true,
+    //   match: [
+    //     // Regular expression to validate email format
+    //     /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm,
+    //     "Email Invalid",
+    //   ],
+    // },
     password: {
       type: String,
       required: [true, "Password Required"], // Password is required

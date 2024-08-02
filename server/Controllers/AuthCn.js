@@ -9,9 +9,14 @@ export const register = catchAsync(async (req, res) => {
   const { role, password, ...others } = req.body;
   const hashPassword = bcrypt.hashSync(password, 10);
   const newUser = await User.create({ ...others, password: hashPassword });
+  const token = jwt.sign(
+    { role: newUser.role, id: newUser._id },
+    process.env.SECRET_KEY
+  );
   return res.status(201).json({
     status: "success",
     message: "Register successfully",
+    data:{user:newUser,token}
   });
 });
 

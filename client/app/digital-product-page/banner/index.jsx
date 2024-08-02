@@ -6,7 +6,7 @@ export default function GameBanner() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(process.end.NEXT_PUBLIC_DB_HOST+'banners');
+        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+'banners');
         const data = await res.json();
         setBanners(data.data);
       } catch (error) {

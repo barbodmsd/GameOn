@@ -5,14 +5,32 @@ import { DevTool } from "@hookform/devtools";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/Store/Slices/authSlice";
+import { useRouter } from "next/navigation";
 export default function Login({ handlePageType, banner }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log(data);
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.persistedReducer.authSlice);
+  const router = useRouter();
+  const onSubmit = async (e) => {
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST + "auth/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(e),
+      });
+      const data = await res.json();
+      dispatch(login({ user: data.data.user, token: data.data.token }));
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  if (token) {
+    router.push("/profile");
+  }
   return (
     <>
       {banner && (
