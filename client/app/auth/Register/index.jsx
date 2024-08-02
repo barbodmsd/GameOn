@@ -10,8 +10,22 @@ export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (e) => {
+    console.log(e)
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + "auth/register",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(e),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -21,7 +35,7 @@ export default function Register({ banner, handlePageType }) {
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 50 }}
           transition={{ duration: 1, y: 0 }}
-          className='w-full h-full flex justify-evenly p-10 '>
+          className='w-full h-full flex justify-center p-10 '>
           {/* image */}
           <div className='w-[50%] flex justify-center '>
             <img
@@ -31,7 +45,7 @@ export default function Register({ banner, handlePageType }) {
             />
           </div>
           {/* form */}
-          <div className='w-[350px] min-h-[500px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+          <div className='w-[380px] h-[470px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
             <h5 className='font-bold text-xl' style={{ letterSpacing: "2px" }}>
               REGISTER
             </h5>
@@ -128,7 +142,7 @@ export default function Register({ banner, handlePageType }) {
               </h6>
             </div>
           </div>
-          {/* <DevTool control={control} /> */}
+          <DevTool control={control} />
         </motion.div>
       )}
     </>

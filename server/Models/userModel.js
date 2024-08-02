@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, "Email Required"], // Email is required
+      // required: [true, "Email Required"], // Email is required
       trim: true, // Remove leading and trailing whitespace
       unique: [true, "Email Already Taken"], // Email must be unique
       match: [

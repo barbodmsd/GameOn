@@ -25,6 +25,12 @@ html {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
   }
+  .register{
+    @apply w-[380px] h-[470px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100
+  }
+  .register-error{
+    @apply w-[380px] h-[600px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100
+  }
 }
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {

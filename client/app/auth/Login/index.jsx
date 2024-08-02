@@ -20,7 +20,7 @@ export default function Login({ handlePageType, banner }) {
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 50 }}
           transition={{ duration: 1, y: 0 }}
-          className='w-full h-full flex justify-evenly p-10 '>
+          className='w-full h-full flex justify-center p-10 '>
           {/* form */}
           <div className='w-[380px] h-[400px] p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
             <h5 className='font-bold text-xl' style={{ letterSpacing: "2px" }}>
