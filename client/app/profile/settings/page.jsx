@@ -82,8 +82,7 @@ export default function Page() {
                         message: "required phone",
                       },
                     })}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.phone && (
                       <span className="text-red-900">
@@ -104,8 +103,7 @@ export default function Page() {
                         message: "required State",
                       },
                     })}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.state && (
                       <span className="text-red-900">
@@ -126,8 +124,7 @@ export default function Page() {
                         message: "required country",
                       },
                     })}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.country && (
                       <span className="text-red-900">
@@ -145,8 +142,7 @@ export default function Page() {
                     type="text"
                     id="email"
                     {...register("email")}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.email && (
                       <span className="text-red-900">
@@ -162,8 +158,7 @@ export default function Page() {
                     type="password"
                     id="password"
                     {...register("password")}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.password && (
                       <span className="text-red-900">
@@ -184,8 +179,7 @@ export default function Page() {
                         message: "required city",
                       },
                     })}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.city && (
                       <span className="text-red-900">
@@ -206,8 +200,7 @@ export default function Page() {
                         message: "required post",
                       },
                     })}
-                    className="text-black"
-                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
                   <div>
                     {errors.post && (
                       <span className="text-red-900">
