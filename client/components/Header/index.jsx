@@ -39,7 +39,7 @@ export default function Header() {
         />
         <div className='flex gap-5'>
           {/* cart */}
-          <Link href='/auth'>
+          <Link href='/cart'>
             <div className=' relative'>
               <div className=' absolute  bg-[#BDFD00] -right-2 -bottom-2 rounded-lg text-black text-center size-5'>
                 1
