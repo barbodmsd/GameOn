@@ -6,7 +6,7 @@ export default function Profile() {
   const { token } = useSelector((state) => state.persistedReducer.authSlice);
   const router=useRouter()
   if (!token) {
-    router.push("/");
+    router.push("/auth");
   }
   return (
     <div className="min-h-screen px-8 mt-5 ">

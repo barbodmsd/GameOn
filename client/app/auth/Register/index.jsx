@@ -142,7 +142,7 @@ export default function Register({ banner, handlePageType }) {
               </h6>
             </div>
           </div>
-          <DevTool control={control} />
+          {/* <DevTool control={control} /> */}
         </motion.div>
       )}
     </>
