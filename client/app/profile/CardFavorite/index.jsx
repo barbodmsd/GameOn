@@ -1,7 +1,7 @@
 import React from 'react';
 import Tilt from "react-parallax-tilt";
 
-export default function CardFavorite() {
+export default function CardFavorite({name, price,image}) {
   return (
     <Tilt
     perspective={4000}
@@ -10,10 +10,10 @@ export default function CardFavorite() {
     glareMaxOpacity={1}
     scale={1}
   >
-    <div className='flex flex-col justify-center items-center bg-bg-100 px-10 py-5 rounded-lg'>
-        <img src="" alt="product-image" srcset="" />
-        <span>name</span>
-        <span>$ 100</span>
+    <div className='flex flex-col justify-center gap-5 items-center bg-bg-100 px-10 py-5 rounded-lg'>
+        <img src={process.env.NEXT_PUBLIC_DB_HOST + image} alt="product-image" srcset="" className='w-28' />
+        <span>{name}</span>
+        <span>{price}</span>
     </div>
     </Tilt>
   )
