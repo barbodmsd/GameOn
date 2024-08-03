@@ -4,7 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 
 export default function Auth() {
-  const [pageType, setPageType] = useState("login");
+  const [pageType, setPageType] = useState("register");
   const [banner, setBanner] = useState();
   const handlePageType = () => {
     setPageType(pageType === "login" ? "register" : "login");

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/Store/Slices/authSlice";
 import { useRouter } from "next/navigation";
+import Tilt from "react-parallax-tilt";
 export default function Login({ handlePageType, banner }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
@@ -40,7 +41,8 @@ export default function Login({ handlePageType, banner }) {
           transition={{ duration: 1, y: 0 }}
           className='w-full h-full flex justify-center p-10 '>
           {/* form */}
-          <div className='w-[380px] h-[400px] p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+          <Tilt>
+          <div className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[400px] p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
             <h5 className='font-bold text-xl' style={{ letterSpacing: "2px" }}>
               LOGIN
             </h5>
@@ -114,6 +116,7 @@ export default function Login({ handlePageType, banner }) {
               </h6>
             </div>
           </div>
+          </Tilt>
           {/* image */}
           <div className='w-[50%] flex justify-center '>
             <img
