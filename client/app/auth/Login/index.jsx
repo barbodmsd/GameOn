@@ -123,6 +123,7 @@ export default function Login({ handlePageType, banner }) {
                 noValidate
                 className='flex w-full items-center p-1 flex-col gap-4'>
                 {/* phone number */}
+                
                 <div className=' w-full flex flex-col gap-2 text-left'>
                   <label className='' htmlFor='phone'>
                     Phone Number
