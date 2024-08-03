@@ -2,10 +2,8 @@
 import PasswordIcon from "@/components/icon/password";
 import PhoneIcon from "@/components/icon/phone";
 import UserIcon from "@/components/icon/user";
-import { DevTool } from "@hookform/devtools";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 import Tilt from "react-parallax-tilt";
 import { toast } from "react-toastify";
 

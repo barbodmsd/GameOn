@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "./style.css";
 import React from "react";
+import Loading from "@/components/Loading";
 
 // &bestGame=true&page=1&limit=5
 const getData = async () => {
@@ -90,17 +91,19 @@ export default async function BestGame() {
   ));
   return (
     <>
-      <div className='w-[350px] h-[500px] bg-black rounded-l-2xl'>
-        <div className='px-5 py-5 flex gap-5'>
-          <p>Best Game</p>
-          <div className=' bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm'>
-            {
-              bestGames.length
-            }
+      {bestGames ? (
+        <div className='w-[350px] h-[500px] bg-black rounded-l-2xl'>
+          <div className='px-5 py-5 flex gap-5'>
+            <p>Best Game</p>
+            <div className=' bg-[#BDFD00] w-7 h-5 rounded-2xl text-black flex justify-center items-center font-bold text-sm'>
+              {bestGames.length}
+            </div>
           </div>
+          {items}
         </div>
-        {items}
-      </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import HomeButton from "./Home";
+import Loading from "@/components/Loading";
 
 export default function Auth() {
   const [pageType, setPageType] = useState("register");
@@ -23,15 +24,18 @@ export default function Auth() {
   }, []);
   return (
     <>
-      <div className='min-h-screen flex w-full justify-center px-8 mt-5 '>
-        {pageType === "login" ? (
-          <Login banner={banner} handlePageType={handlePageType} />
-        ) : (
-          <Register banner={banner} handlePageType={handlePageType} />
-        )}
-        <HomeButton/>
-      </div>
+      {banner ? (
+        <div className='min-h-screen flex w-full justify-center px-8 mt-5 '>
+          {pageType === "login" ? (
+            <Login banner={banner} handlePageType={handlePageType} />
+          ) : (
+            <Register banner={banner} handlePageType={handlePageType} />
+          )}
+          <HomeButton />
+        </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }
-
