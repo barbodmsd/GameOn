@@ -21,9 +21,9 @@ userRoute.route("/").get(checkAdmin, getAllUser);
 // Route for getting, updating, or deleting a user by ID
 userRoute
   .route("/:id")
-  .get(checkAdmin, getUserById) // GET user by ID
+  .get(checkAdmin, checkUser, getUserById) // GET user by ID
   .patch(checkUser, upload.single("file"), updateUserById) // PATCH user by ID
-  .delete(checkAdmin,checkUser, deleteUserById); // DELETE user by ID
+  .delete(checkAdmin, checkUser, deleteUserById); // DELETE user by ID
 
 
 // Route cart
