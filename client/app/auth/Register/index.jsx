@@ -22,9 +22,7 @@ export default function Register({ banner, handlePageType }) {
         }
       );
       const data = await res.json();
-      if (data.status == "success") {
-        toast.info(data.message);
-      }
+      toast.success('hello')
     } catch (error) {
       console.log(error);
     }
@@ -85,6 +83,7 @@ export default function Register({ banner, handlePageType }) {
                   <label htmlFor='username'>Username</label>
                   <div className='w-full relative'>
                     <input
+                    autoFocus
                       className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
                       type='text'
                       id='username'
@@ -156,7 +155,7 @@ export default function Register({ banner, handlePageType }) {
                     {errors.phone?.message}
                   </p>
                 </div>
-                <button className=' bg-my-yellow py-2 px-16 text-black font-bold rounded-xl outline-none border-none'>
+                <button type='submit' className=' bg-my-yellow py-2 px-16 text-black font-bold rounded-xl outline-none border-none'>
                   Register
                 </button>
               </form>

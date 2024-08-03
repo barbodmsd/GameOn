@@ -132,6 +132,7 @@ export default function Login({ handlePageType, banner }) {
                   </label>
                   <div className='w-full relative'>
                     <input
+                    autoFocus
                       className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
                       type='text'
                       id='phone'
@@ -236,6 +237,7 @@ export default function Login({ handlePageType, banner }) {
                     </label>
                     <div className='w-full relative'>
                       <input
+                      autoFocus
                         className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
                         type='text'
                         id='username'
