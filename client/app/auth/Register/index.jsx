@@ -70,7 +70,7 @@ export default function Register({ banner, handlePageType }) {
                 times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                 ease: "backInOut",
               }}
-              className='relative w-full h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+              className='relative w-full pb-8 h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>

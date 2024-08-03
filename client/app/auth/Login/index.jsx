@@ -29,9 +29,9 @@ export default function Login({ handlePageType, banner }) {
         body: JSON.stringify(e),
       });
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token: data.data.token }))
-      if(data.status=='success'){
-        toast.info(data.message)
+      dispatch(login({ user: data.data.user, token: data.data.token }));
+      if (data.status == "success") {
+        toast.info(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -71,8 +71,8 @@ export default function Login({ handlePageType, banner }) {
       } else {
         dispatch(login({ user: data.data.user, token: data.data.token }));
       }
-      if(data.status=='success'){
-        toast.info(data.message)
+      if (data.status == "success") {
+        toast.info(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -113,7 +113,7 @@ export default function Login({ handlePageType, banner }) {
                 times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                 ease: "backInOut",
               }}
-              className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-full p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+              className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-full p-2 pb-8 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>
@@ -153,7 +153,7 @@ export default function Login({ handlePageType, banner }) {
                     {errors.phone?.message}
                   </p>
                 </div>
-                {/* value */}
+                {/* code */}
                 {value && (
                   <div className=' w-full flex flex-col gap-2 text-left'>
                     <label className='' htmlFor='code'>
@@ -167,6 +167,10 @@ export default function Login({ handlePageType, banner }) {
                         placeholder='Code'
                         {...register("code", {
                           required: "code is required",
+                          validate: {
+                            incorrectCode: (e) =>
+                              e == code || "code is incorrect",
+                          },
                         })}
                       />
                       <span className='absolute left-[3%] top-[50%] translate-y-[-50%] text-txt  text-xs'>
@@ -215,7 +219,7 @@ export default function Login({ handlePageType, banner }) {
                   times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                   ease: "backInOut",
                 }}
-                className='w-full h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+                className='w-full h-full hover:shadow-xl pb-8 duration-300 hover:shadow-my-yellow/20  p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
                 <h5
                   className='font-bold text-xl'
                   style={{ letterSpacing: "2px" }}>
