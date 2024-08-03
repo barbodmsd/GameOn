@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import {motion} from 'framer-motion'
 
 export default function GameBanner() {
   const [banners, setBanners] = useState();
@@ -19,7 +20,9 @@ export default function GameBanner() {
       {banners ? (
         <div className='w-full h-[350px] flex gap-2'>
           {/* left side */}
-          <div className='w-[40%] h-[100%] flex flex-col gap-1 items-center rounded-2xl bg-bg-300  text-left'>
+          <motion.div initial={{ opacity: 0, x: -500 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }} className='w-[40%] h-[100%] flex flex-col gap-1 items-center rounded-2xl bg-bg-300  text-left'>
             {/* image */}
             <img
               src={process.env.NEXT_PUBLIC_DB_HOST + banners[2]?.image}
@@ -36,9 +39,11 @@ export default function GameBanner() {
                 GET THE GAME
               </button>
             </div>
-          </div>
+          </motion.div>
           {/* right side */}
-          <div className='w-[60%] flex rounded-2xl bg-bg-300 h-[100%]'>
+          <motion.div initial={{ opacity: 0, x: 500 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }} className='w-[60%] flex rounded-2xl bg-bg-300 h-[100%]'>
             <div className='flex  justify-center flex-col gap-5 pl-3 w-[50%]'>
               <h2 className='text-2xl  font-bold'>{banners[3]?.title}</h2>
               <h6 className='text-xs '>{banners[3].description}</h6>
@@ -55,11 +60,13 @@ export default function GameBanner() {
                 className='w-[75%] -translate-y-6 object-cover'
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       ) : (
         <p>loading...</p>
       )}
-    </>
+    </>initial={{ opacity: 0, x: -500 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
   );
 }

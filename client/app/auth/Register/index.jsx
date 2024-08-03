@@ -7,13 +7,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+import { toast } from "react-toastify";
 
 export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
   const onSubmit = async (e) => {
-    console.log(e);
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_DB_HOST + "auth/register",
@@ -24,7 +24,9 @@ export default function Register({ banner, handlePageType }) {
         }
       );
       const data = await res.json();
-      console.log(data);
+      if(data.status=='success'){
+        toast.info(data.message)
+      }
     } catch (error) {
       console.log(error);
     }

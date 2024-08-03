@@ -10,6 +10,7 @@ import { login } from "@/Store/Slices/authSlice";
 import { useRouter } from "next/navigation";
 import Tilt from "react-parallax-tilt";
 import PhoneIcon from "@/components/icon/phone";
+import { toast } from "react-toastify";
 export default function Login({ handlePageType, banner }) {
   const form = useForm();
   const [value, setValue] = useState();
@@ -28,7 +29,10 @@ export default function Login({ handlePageType, banner }) {
         body: JSON.stringify(e),
       });
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token: data.data.token }));
+      dispatch(login({ user: data.data.user, token: data.data.token }))
+      if(data.status=='success'){
+        toast.info(data.message)
+      }
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +70,9 @@ export default function Login({ handlePageType, banner }) {
         setCode(data.message);
       } else {
         dispatch(login({ user: data.data.user, token: data.data.token }));
+      }
+      if(data.status=='success'){
+        toast.info(data.message)
       }
     } catch (error) {
       console.log(error);
