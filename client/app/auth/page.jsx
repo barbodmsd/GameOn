@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
+import HomeButton from "./Home";
 
 export default function Auth() {
   const [pageType, setPageType] = useState("register");
@@ -28,11 +29,9 @@ export default function Auth() {
         ) : (
           <Register banner={banner} handlePageType={handlePageType} />
         )}
+        <HomeButton/>
       </div>
     </>
   );
 }
 
-// 6104 3376 3571 0278
-// hosein moradi mellat
-// one milion
