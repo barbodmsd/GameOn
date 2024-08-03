@@ -48,7 +48,27 @@ export default function Register({ banner, handlePageType }) {
           </div>
           {/* form */}
           <Tilt>
-            <div className='relative w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[470px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+            <motion.div initial={{
+                rotate: "0deg",
+                scale: 0,
+                y: 0,
+              }}
+              animate={{
+                rotate: "360deg",
+                scale: 1,
+                y: [0, 200, -200, -200, 0], //keyframe
+              }}
+              exit={{
+                rotate: "0deg",
+                scale: 0,
+                y: 0,
+                // when you use exit props should be in AnimatePresence cmp
+              }}
+              transition={{
+                duration: 0.5,
+                times: [0, 0.25, 0.5, 0.85, 1], //keyframe
+                ease: "backInOut",
+              }}  className='relative w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[470px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>
@@ -147,7 +167,7 @@ export default function Register({ banner, handlePageType }) {
                 </h6>
               </div>
              
-            </div>
+            </motion.div>
           </Tilt>
 
           {/* <DevTool control={control} /> */}
