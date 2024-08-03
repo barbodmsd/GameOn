@@ -22,8 +22,8 @@ export default function Register({ banner, handlePageType }) {
         }
       );
       const data = await res.json();
-      if(data.status=='success'){
-        toast.info(data.message)
+      if (data.status == "success") {
+        toast.info(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -47,8 +47,9 @@ export default function Register({ banner, handlePageType }) {
             />
           </div>
           {/* form */}
-          <Tilt>
-            <motion.div initial={{
+          <Tilt className='h-full w-[380px]'>
+            <motion.div
+              initial={{
                 rotate: "0deg",
                 scale: 0,
                 y: 0,
@@ -68,7 +69,8 @@ export default function Register({ banner, handlePageType }) {
                 duration: 0.5,
                 times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                 ease: "backInOut",
-              }}  className='relative w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[470px] p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+              }}
+              className='relative w-full h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>
@@ -166,7 +168,6 @@ export default function Register({ banner, handlePageType }) {
                   Already have an account? Login
                 </h6>
               </div>
-             
             </motion.div>
           </Tilt>
 

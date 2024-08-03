@@ -113,7 +113,7 @@ export default function Login({ handlePageType, banner }) {
                 times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                 ease: "backInOut",
               }}
-              className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[350px] p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+              className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-full p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>
@@ -162,7 +162,7 @@ export default function Login({ handlePageType, banner }) {
                     <div className='w-full relative'>
                       <input
                         className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
-                        type='number'
+                        type='text'
                         id='code'
                         placeholder='Code'
                         {...register("code", {
@@ -192,7 +192,7 @@ export default function Login({ handlePageType, banner }) {
               </div>
             </motion.div>
           ) : (
-            <Tilt>
+            <Tilt className='w-[380px] h-full '>
               <motion.div
                 initial={{
                   rotate: "0deg",
@@ -215,7 +215,7 @@ export default function Login({ handlePageType, banner }) {
                   times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                   ease: "backInOut",
                 }}
-                className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-[400px] p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+                className='w-full h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
                 <h5
                   className='font-bold text-xl'
                   style={{ letterSpacing: "2px" }}>
