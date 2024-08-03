@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {motion} from 'framer-motion'
+import Loading from "@/components/Loading";
 
 export default function GameBanner() {
   const [banners, setBanners] = useState();
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+'banners');
+        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+'bdanners');
         const data = await res.json();
         setBanners(data.data);
       } catch (error) {
@@ -63,10 +64,8 @@ export default function GameBanner() {
           </motion.div>
         </div>
       ) : (
-        <p>loading...</p>
+        <Loading/>
       )}
-    </>initial={{ opacity: 0, x: -500 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+    </>
   );
 }
