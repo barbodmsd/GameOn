@@ -66,13 +66,10 @@ export default function Login({ handlePageType, banner }) {
         }
       );
       const data = await res.json();
-      if (!data.status) {
-        setCode(data.message);
-      } else {
+      if (data.status != "fail") {
         dispatch(login({ user: data.data.user, token: data.data.token }));
-      }
-      if (data.status == "success") {
-        toast.info(data.message);
+      } else {
+        setCode(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -132,7 +129,7 @@ export default function Login({ handlePageType, banner }) {
                   </label>
                   <div className='w-full relative'>
                     <input
-                    autoFocus
+                      autoFocus
                       className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
                       type='text'
                       id='phone'
@@ -168,10 +165,6 @@ export default function Login({ handlePageType, banner }) {
                         placeholder='Code'
                         {...register("code", {
                           required: "code is required",
-                          validate: {
-                            incorrectCode: (e) =>
-                              e == code || "code is incorrect",
-                          },
                         })}
                       />
                       <span className='absolute left-[3%] top-[50%] translate-y-[-50%] text-txt  text-xs'>
@@ -181,9 +174,12 @@ export default function Login({ handlePageType, banner }) {
                     <p className='text-sm text-red-500 text-left'>
                       {errors.code?.message}
                     </p>
+                    <p className='text-sm text-red-500 text-left'>
+                      {code && code}
+                    </p>
                   </div>
                 )}
-                <button className=' bg-my-yellow py-2 px-16 text-black font-bold rounded-xl outline-none border-none'>
+                <button className=' bg-my-yellow  py-2 px-16 text-black font-bold rounded-xl outline-none border-none'>
                   {value ? "Login" : "Send Sms"}
                 </button>
               </form>
@@ -237,7 +233,7 @@ export default function Login({ handlePageType, banner }) {
                     </label>
                     <div className='w-full relative'>
                       <input
-                      autoFocus
+                        autoFocus
                         className='w-full pl-8 py-2 px-4 rounded-xl bg-bg-200 outline-none'
                         type='text'
                         id='username'
