@@ -1,34 +1,61 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CardPurchases from "../CardPurchases";
 import { useSelector } from "react-redux";
 import fetchData from "@/Utils/FetchData";
 
-export default function page() {
-  const {user,token} = useSelector((state)=>state.persistedReducer.authSlice)
-  const [userBalance,setUserBalance]=useState()
-  console.log(userBalance?.user)
-  useEffect(()=>{
-    (async()=>{
-      const resUser = await fetchData(`users/${user._id}`,{
-        method: "GET",
+export default function Page() {
+  const { user, token } = useSelector((state) => state.persistedReducer.authSlice);
+  const [userBalance, setUserBalance] = useState();
+  const [cardPrice, setCardPrice] = useState(0);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      try {
+        const resUser = await fetchData(`users/${user._id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserBalance(resUser.data);
+      } catch (error) {
+        console.error('Error fetching user balance:', error);
+      }
+    };
+
+    if (token && user._id) {
+      fetchUserBalance();
+    }
+  }, [token, user._id]);
+
+  const postUserData = async () => {
+    try {
+      const resPost = await fetchData(`users/${user._id}/wallet`, {
+        method: "POST",
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      })
-      setUserBalance(resUser.data)
-    })()
-  },[])
-  const [cardPrice, setCardPrice] = useState(0);
-  const handelPriceCard = (vlaue) => {
-    if (cardPrice > 0) {
-      setCardPrice(0);
+        body: JSON.stringify({
+          wallet: {
+              balance:cardPrice
+          }
+      }),
+      });
+      setUserBalance(resPost.data);
+    } catch (error) {
+      console.error('Error posting user data:', error);
     }
-    setCardPrice(vlaue);
   };
-  // const handelAddPrice = ()=>{
-  //   setPriceUser(cardPrice)
-  // }
+
+  const handlePriceCard = (value) => {
+    setCardPrice(value);
+  };
+
+  const handleAddPrice = () => {
+    postUserData();
+  };
+
   return (
     <div className="mx-10">
       <div className="mt-5">
@@ -36,12 +63,14 @@ export default function page() {
         <span className="text-txt font-bold text-lg">{user.username}</span>
         <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
       </div>
-      <div className=" main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
+      <div className="main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
         <div className="flex w-full gap-5">
-          <div className=" bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl ">
+          <div className="bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl">
             <div className="flex justify-between">
               <div>
-                <span className="text-3xl font-bold ">$ {userBalance?.user?.wallet?.balance}</span>
+                <span className="text-3xl font-bold">
+                  $ {userBalance?.user?.wallet?.balance}
+                </span>
                 <div className="flex gap-10">
                   <span className="text-green-800 text-lg">$ 20 +</span>
                   <span className="text-red-800 text-lg">$ 5 -</span>
@@ -52,54 +81,36 @@ export default function page() {
               </div>
             </div>
             <div className="flex justify-between">
-              <div className=" border-my-yellow border rounded-lg p-2">
+              <div className="border-my-yellow border rounded-lg p-2">
                 <span>$ {cardPrice}</span>
               </div>
               <button
                 type="button"
                 className="bg-my-yellow px-10 rounded-md text-bg-100 font-bold"
-                // onClick={()=>handelAddPrice()}
+                onClick={handleAddPrice}
               >
                 Add Wallet
               </button>
             </div>
           </div>
           <div className="w-[50%] h-full flex flex-wrap gap-5 justify-center">
-            <button
-              type="button"
-              onClick={() => handelPriceCard(50)}
-              className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
-            >
-              $ 50
-            </button>
-            <button
-              type="button"
-              onClick={() => handelPriceCard(100)}
-              className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
-            >
-              $ 100
-            </button>
-            <button
-              type="button"
-              onClick={() => handelPriceCard(150)}
-              className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
-            >
-              $ 150
-            </button>
-            <button
-              type="button"
-              onClick={() => handelPriceCard(200)}
-              className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
-            >
-              $ 200
-            </button>
+            {[50, 100, 150, 200].map((value) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => handlePriceCard(value)}
+                className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
+              >
+                $ {value}
+              </button>
+            ))}
           </div>
         </div>
         <div>
-          <div className=" w-full bg-bg-100 p-5 rounded-lg">
+          <div className="w-full bg-bg-100 p-5 rounded-lg">
             <h3>purchases</h3>
             <div className="w-full flex flex-col gap-5 py-5">
-              <span className="text-center text-bg-300 font-bold text-lg"> no purchases</span>
+              <span className="text-center text-bg-300 font-bold text-lg">no purchases</span>
             </div>
           </div>
         </div>
