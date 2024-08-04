@@ -1,9 +1,9 @@
 "use client";
+import fetchData from "@/Utils/FetchData";
 import { DevTool } from "@hookform/devtools";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import fetchData from "@/Utils/FetchData";
 
 export default function Page() {
   const { user, token } = useSelector(
@@ -11,31 +11,54 @@ export default function Page() {
   );
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
+  const [infoUser, setInfoUser] = useState();
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      try {
+        const resUser = await fetchData(`users/${user._id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setInfoUser(resUser.data);
+      } catch (error) {
+        console.error("Error fetching user balance:", error);
+      }
+    };
 
-  const submit = async (data) => {
-    console.log(data);
+    if (token && user._id) {
+      fetchUserBalance();
+    }
+  }, [token, user._id]);
+  const onSubmit = async (e) => {
     try {
-      const resPost = await fetchData(`users/${user._id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
-      console.log("User data updated:", resPost.data);
+      const resPost = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(e),
+        }
+      );
+      const data = await resPost.json();
     } catch (error) {
       console.error("Error posting user data:", error);
     }
   };
 
   const { errors } = formState;
-
   return (
     <div className="mx-10">
       {/* title page */}
       <div className="mt-5">
-        <span className="text-txt font-bold text-lg">{user.username}</span>
+        <span className="text-txt font-bold text-lg">
+          {infoUser?.user?.username}
+        </span>
+
         <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
       </div>
       <div className="main flex gap-5 bg-bg-300 w-[90%] h-full my-8 p-10 rounded-3xl">
@@ -47,26 +70,36 @@ export default function Page() {
               alt="profile-image"
               className="bg-white rounded-full w-[100px]"
             />
-            <span>{user.username}</span>
+            <span>{token && infoUser?.user?.username}</span>
           </div>
           <div className="flex flex-col gap-2 items-center">
             <span>
-              Email: <span className="text-sm">{user.email}</span>
+              Email: <span className="text-sm">{infoUser?.user?.email}</span>
             </span>
             <span>
-              Phone: <span className="text-sm">{user.phone}</span>
+              Phone: <span className="text-sm">{infoUser?.user?.phone}</span>
             </span>
           </div>
-          <div>
+          <div >
             <div className="bg-bg-300 w-full h-36">
-              <h5 className="p-2">Address:</h5>
-              <address>{user.address}</address>
+              <h5 className="p-1">Address:</h5>
+              <div className="flex flex-col gap-0">
+                <span className="p-5">
+                  city: {infoUser?.user?.address[0]?.city}
+                </span>
+                <span className="p-5">
+                  State: {infoUser?.user?.address[0]?.state}
+                </span>
+                <span className="p-5">
+                  country : {infoUser?.user?.address[0]?.country}
+                </span>
+              </div>
             </div>
           </div>
         </div>
         {/* inputs */}
         <div className="w-[70%] flex justify-center items-center">
-          <form onSubmit={handleSubmit(submit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full flex gap-20 pb-10">
               <div className="flex flex-col gap-10 w-[40%]">
                 {/* input username */}
@@ -119,7 +152,7 @@ export default function Page() {
                   <input
                     type="text"
                     id="state"
-                    {...register("state", {
+                    {...register("address.state", {
                       required: {
                         value: true,
                         message: "required State",
@@ -141,7 +174,7 @@ export default function Page() {
                   <input
                     type="text"
                     id="country"
-                    {...register("country", {
+                    {...register("address.country", {
                       required: {
                         value: true,
                         message: "required country",
@@ -199,7 +232,7 @@ export default function Page() {
                   <input
                     type="text"
                     id="city"
-                    {...register("city", {
+                    {...register("address.city", {
                       required: {
                         value: true,
                         message: "required city",
@@ -221,7 +254,7 @@ export default function Page() {
                   <input
                     type="number"
                     id="post"
-                    {...register("post", {
+                    {...register("address.post", {
                       required: {
                         value: true,
                         message: "required post",
