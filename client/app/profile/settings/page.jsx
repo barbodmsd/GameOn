@@ -3,15 +3,34 @@ import { DevTool } from "@hookform/devtools";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import fetchData from "@/Utils/FetchData";
 
 export default function Page() {
-  const { user } = useSelector((state) => state.persistedReducer.authSlice);
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
-  const submit = (data) => {
-    console.log("submit ok", data);
+
+  const submit = async (data) => {
+    console.log(data);
+    try {
+      const resPost = await fetchData(`users/${user._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      console.log("User data updated:", resPost.data);
+    } catch (error) {
+      console.error("Error posting user data:", error);
+    }
   };
+
   const { errors } = formState;
+
   return (
     <div className="mx-10">
       {/* title page */}
@@ -40,8 +59,8 @@ export default function Page() {
           </div>
           <div>
             <div className="bg-bg-300 w-full h-36">
-              <h5 className="p-2">address :</h5>
-              <address></address>
+              <h5 className="p-2">Address:</h5>
+              <address>{user.address}</address>
             </div>
           </div>
         </div>
@@ -84,7 +103,8 @@ export default function Page() {
                         message: "required phone",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.phone && (
                       <span className="text-red-900">
@@ -105,7 +125,8 @@ export default function Page() {
                         message: "required State",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.state && (
                       <span className="text-red-900">
@@ -126,7 +147,8 @@ export default function Page() {
                         message: "required country",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.country && (
                       <span className="text-red-900">
@@ -144,7 +166,8 @@ export default function Page() {
                     type="text"
                     id="email"
                     {...register("email")}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.email && (
                       <span className="text-red-900">
@@ -155,12 +178,13 @@ export default function Page() {
                 </div>
                 {/* input password */}
                 <div className="flex flex-col">
-                  <label htmlFor="password">password</label>
+                  <label htmlFor="password">Password</label>
                   <input
                     type="password"
                     id="password"
                     {...register("password")}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.password && (
                       <span className="text-red-900">
@@ -181,7 +205,8 @@ export default function Page() {
                         message: "required city",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.city && (
                       <span className="text-red-900">
@@ -202,7 +227,8 @@ export default function Page() {
                         message: "required post",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.post && (
                       <span className="text-red-900">
