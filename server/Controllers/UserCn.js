@@ -43,7 +43,6 @@ export const getUserById = catchAsync(async (req, res, next) => {
   });
 });
 
-// Update user by ID
 export const updateUserById = catchAsync(async (req, res, next) => {
   const profilePhoto = req.file?.filename || "";
 
