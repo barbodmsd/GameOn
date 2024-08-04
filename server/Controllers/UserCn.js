@@ -46,15 +46,6 @@ export const getUserById = catchAsync(async (req, res, next) => {
 // Update user by ID
 export const updateUserById = catchAsync(async (req, res, next) => {
   const profilePhoto = req.file?.filename || "";
-  const token = req.headers.authorization.split(" ")[1];
-  const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
-
-  // Check if the user has permission to update
-  if (role !== "admin" && id !== req.params.id) {
-    return next(
-      new HandleError("You don't have permission to update this user", 401)
-    );
-  }
 
   let user;
   const { role: bodyRole, id: bodyId, ...others } = req.body;
