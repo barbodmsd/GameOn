@@ -1,14 +1,17 @@
 "use client";
-import { useParams } from "next/navigation";
 import Tilt from "react-parallax-tilt";
-import { useSelector } from "react-redux";
 
-export default function PdCard({ product,removeFromCart,addToCart,quantity }) {
+export default function PdCard({
+  product,
+  removeFromCart,
+  addToCart,
+  quantity,
+}) {
   const { images, title, price, description, detailSistem, detailgames } =
     product;
   const { platform, reigen, ege, language } = detailgames[0];
   const { ram, cpu, gpu, hard } = detailSistem[0];
- 
+  console.log({ 'pdcard':quantity });
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
@@ -76,13 +79,14 @@ export default function PdCard({ product,removeFromCart,addToCart,quantity }) {
                     <button className='bg-my-yellow  animate-bounce mt-2  text-black py-2 px-4 rounded-full font-bold '>
                       Order Now
                     </button>
-                    <div className='flex gap-2'>
+                    <div className='flex gap-3 items-center'>
                       <button
+                        disabled={!quantity}
                         className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
                         onClick={removeFromCart}>
                         -
                       </button>
-                      {quantity&&<p>{quantity}</p>}
+                      {quantity && <p className='font-bold '>{quantity}</p>}
                       <button
                         className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
                         onClick={addToCart}>

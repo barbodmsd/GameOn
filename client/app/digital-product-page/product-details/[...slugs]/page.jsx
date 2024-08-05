@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PdCard from "./PdCard";
 import Slider from "./slider";
 import Loading from "@/components/Loading";
@@ -12,7 +12,6 @@ export default function GameProductDetails({ params }) {
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
-  console.log({ user });
   const dispatch = useDispatch();
   const id = params.slugs[0];
 
@@ -63,11 +62,12 @@ export default function GameProductDetails({ params }) {
     }
   };
 
-  let quantity;
-  useEffect(() => {
-    quantity = user.cart.filter((e) => e.productId._id == id)[0]
-    console.log({quantity});
+  const quantity=useMemo(() => {
+    if(user.cart){
+      return user?.cart?.filter((e) => e.productId._id == id)[0]?.quantity
+    }
   }, [value]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -81,7 +81,7 @@ export default function GameProductDetails({ params }) {
       }
     })();
   }, [id]);
-
+  
   return (
     <>
       {products ? (
