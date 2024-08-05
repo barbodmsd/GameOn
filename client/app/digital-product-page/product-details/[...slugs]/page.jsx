@@ -8,6 +8,7 @@ import { login } from "@/Store/Slices/authSlice";
 
 export default function GameProductDetails({ params }) {
   const [products, setProducts] = useState();
+  const [value, setValue] = useState(true);
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
@@ -33,7 +34,7 @@ export default function GameProductDetails({ params }) {
       );
       const data = await res.json();
       dispatch(login({ user: data.data.user, token }));
-      console.log(data);
+      setValue(!value);
     } catch (error) {
       console.log(error);
     }
@@ -55,17 +56,18 @@ export default function GameProductDetails({ params }) {
         }
       );
       const data = await res.json();
-      // dispatch(login({ user: data.data.user, token }));
-      // console.log(data);
+      dispatch(login({ user: data.data.user, token }));
+      setValue(!value);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const { quantity } = user?.cart?.filter((e) => e.productId._id == id)[0];
-
-  console.log(user.cart );
-
+  let quantity;
+  useEffect(() => {
+    quantity = user.cart.filter((e) => e.productId == id)[0]
+    console.log(quantity);
+  }, [value]);
   useEffect(() => {
     (async () => {
       try {
@@ -88,7 +90,7 @@ export default function GameProductDetails({ params }) {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             product={products}
-            quantity={0}
+            quantity={quantity}
           />
           <Slider />
         </div>

@@ -139,7 +139,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   const { productId, quantity } = req.body;
 
   // Check if user exists and populate cart
-  const user = await User.findById(id).populate("cart.productId");
+  const user = await User.findById(id)
   if (!user) {
     return res.status(404).json({
       status: "error",
@@ -222,12 +222,12 @@ export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
   }
 
   await user.save();
-  const updatedUser = await User.findById(id).select("cart");
+  const updatedUser = await User.findById(id).select("cart").populate("cart.productId")
 
   res.status(201).json({
     status: "success",
     data: {
-      user,
+      user:updatedUser,
     },
   });
 });
