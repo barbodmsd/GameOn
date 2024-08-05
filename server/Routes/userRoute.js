@@ -28,9 +28,11 @@ userRoute
 
 // Route cart
 userRoute
-  .route("/:id/cart")
-  .delete(checkUser, deletItemQuantityCart) // Route for adding a product to the cart
+  .route("/:id/add-cart")
   .post(checkUser, addToCart); // Route for deleting a product to the cart
+userRoute
+  .route("/:id/remove-cart")
+  .delete(checkUser, deletItemQuantityCart) // Route for adding a product to the cart
 
 // Route favorite product
 userRoute

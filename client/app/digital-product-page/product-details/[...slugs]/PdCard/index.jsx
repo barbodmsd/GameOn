@@ -1,18 +1,14 @@
 "use client";
+import { useParams } from "next/navigation";
 import Tilt from "react-parallax-tilt";
+import { useSelector } from "react-redux";
 
-export default function PdCard({ product }) {
+export default function PdCard({ product,removeFromCart,addToCart }) {
   const { images, title, price, description, detailSistem, detailgames } =
     product;
   const { platform, reigen, ege, language } = detailgames[0];
   const { ram, cpu, gpu, hard } = detailSistem[0];
-  const addToCart=async()=>{
-    try {
-      const res=await fetch(process.env.NEXT_PUBLIC_DB_HOST+)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+ 
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
