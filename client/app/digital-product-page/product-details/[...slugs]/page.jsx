@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import PdCard from "./PdCard";
 import Slider from "./slider";
 import Loading from "@/components/Loading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/Store/Slices/authSlice";
 
 export default function GameProductDetails({ params }) {
   const [products, setProducts] = useState();
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  const dispatch = useDispatch();
   const id = params.slugs[0];
-  const { quantity } = user.cart.filter((e) => e._id == id)[0];
 
-  console.log({ quantity });
+
   const addToCart = async () => {
     try {
       const res = await fetch(
@@ -31,6 +32,7 @@ export default function GameProductDetails({ params }) {
         }
       );
       const data = await res.json();
+      dispatch(login({ user: data.data.user, token }));
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -38,6 +40,9 @@ export default function GameProductDetails({ params }) {
   };
   const removeFromCart = async () => {};
   // const addToCart = async () => {};
+  const  {quantity}  = user.cart.filter((e) => e.productId._id == id)[0]
+
+  console.log({ quantity });
 
   useEffect(() => {
     (async () => {
@@ -52,6 +57,7 @@ export default function GameProductDetails({ params }) {
       }
     })();
   }, [id]);
+
   return (
     <>
       {products ? (
@@ -60,6 +66,7 @@ export default function GameProductDetails({ params }) {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             product={products}
+            quantity={quantity}
           />
           <Slider />
         </div>

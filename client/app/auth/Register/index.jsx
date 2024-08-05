@@ -5,11 +5,13 @@ import UserIcon from "@/components/icon/user";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Tilt from "react-parallax-tilt";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
+  const dispatch=useDispatch()
   const { errors } = formState;
   const onSubmit = async (e) => {
     try {
@@ -22,6 +24,7 @@ export default function Register({ banner, handlePageType }) {
         }
       );
       const data = await res.json();
+      dispatch(login({ user: data.data.user, token: data.data.token }));
     } catch (error) {
       console.log(error);
     }

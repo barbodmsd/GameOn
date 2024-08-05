@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import Tilt from "react-parallax-tilt";
 import { useSelector } from "react-redux";
 
-export default function PdCard({ product,removeFromCart,addToCart }) {
+export default function PdCard({ product,removeFromCart,addToCart,quantity }) {
   const { images, title, price, description, detailSistem, detailgames } =
     product;
   const { platform, reigen, ege, language } = detailgames[0];
@@ -82,6 +82,7 @@ export default function PdCard({ product,removeFromCart,addToCart }) {
                         onClick={removeFromCart}>
                         -
                       </button>
+                      {quantity&&<p>{quantity}</p>}
                       <button
                         className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
                         onClick={addToCart}>
