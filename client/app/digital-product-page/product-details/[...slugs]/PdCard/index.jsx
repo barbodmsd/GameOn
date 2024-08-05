@@ -6,6 +6,13 @@ export default function PdCard({ product }) {
     product;
   const { platform, reigen, ege, language } = detailgames[0];
   const { ram, cpu, gpu, hard } = detailSistem[0];
+  const addToCart=async()=>{
+    try {
+      const res=await fetch(process.env.NEXT_PUBLIC_DB_HOST+)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
@@ -74,10 +81,14 @@ export default function PdCard({ product }) {
                       Order Now
                     </button>
                     <div className='flex gap-2'>
-                      <button className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'>
-                        +
+                      <button
+                        className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
+                        onClick={removeFromCart}>
+                        -
                       </button>
-                      <button className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'>
+                      <button
+                        className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
+                        onClick={addToCart}>
                         +
                       </button>
                     </div>
