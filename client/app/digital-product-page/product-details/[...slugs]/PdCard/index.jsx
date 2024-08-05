@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 
 export default function PdCard({
@@ -11,7 +12,7 @@ export default function PdCard({
     product;
   const { platform, reigen, ege, language } = detailgames[0];
   const { ram, cpu, gpu, hard } = detailSistem[0];
-  console.log({ 'pdcard':quantity });
+
   return (
     <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
       {/* left side */}
@@ -76,16 +77,19 @@ export default function PdCard({
                 <div className='flex flex-col gap-3 '>
                   <p className='text-xl text-my-yellow font-bold'>$ {price}</p>
                   <div className='flex gap-3 items-center'>
-                    <button className='bg-my-yellow  animate-bounce mt-2  text-black py-2 px-4 rounded-full font-bold '>
+                    <Link href='/cart'><button className='bg-my-yellow  animate-bounce mt-2  text-black py-2 px-4 rounded-full font-bold '>
                       Order Now
                     </button>
+                    </Link>
                     <div className='flex gap-3 items-center'>
-                      <button
-                        disabled={!quantity}
-                        className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
-                        onClick={removeFromCart}>
-                        -
-                      </button>
+                      {quantity && (
+                        <button
+                          disabled={!quantity}
+                          className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
+                          onClick={removeFromCart}>
+                          -
+                        </button>
+                      )}
                       {quantity && <p className='font-bold '>{quantity}</p>}
                       <button
                         className='rounded-full px-3 p-1 border border-my-yellow text-my-yellow'
