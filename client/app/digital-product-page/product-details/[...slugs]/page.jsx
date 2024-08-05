@@ -11,9 +11,9 @@ export default function GameProductDetails({ params }) {
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  console.log({ user });
   const dispatch = useDispatch();
   const id = params.slugs[0];
-
 
   const addToCart = async () => {
     try {
@@ -38,11 +38,33 @@ export default function GameProductDetails({ params }) {
       console.log(error);
     }
   };
-  const removeFromCart = async () => {};
-  // const addToCart = async () => {};
-  const  {quantity}  = user.cart.filter((e) => e.productId._id == id)[0]
+  const removeFromCart = async () => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-cart`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            productId: id,
+            quantity: 1,
+          }),
+        }
+      );
+      const data = await res.json();
+      // dispatch(login({ user: data.data.user, token }));
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  console.log({ quantity });
+  // const { quantity } = user?.cart?.filter((e) => e.productId._id == id)[0];
+
+  console.log(user.cart );
 
   useEffect(() => {
     (async () => {
@@ -66,7 +88,7 @@ export default function GameProductDetails({ params }) {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             product={products}
-            quantity={quantity}
+            quantity={0}
           />
           <Slider />
         </div>
