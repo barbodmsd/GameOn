@@ -222,7 +222,7 @@ export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
   }
 
   await user.save();
-  const updatedUser = await User.findById(id).select("cart").populate("cart.productId")
+  const updatedUser = await User.findById(id).populate("cart.productId")
 
   res.status(201).json({
     status: "success",

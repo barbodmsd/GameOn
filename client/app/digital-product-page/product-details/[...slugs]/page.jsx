@@ -65,8 +65,8 @@ export default function GameProductDetails({ params }) {
 
   let quantity;
   useEffect(() => {
-    quantity = user.cart.filter((e) => e.productId == id)[0]
-    console.log(quantity);
+    quantity = user.cart.filter((e) => e.productId._id == id)[0]
+    console.log({quantity});
   }, [value]);
   useEffect(() => {
     (async () => {
