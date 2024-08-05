@@ -1,7 +1,7 @@
 "use client";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
-import { AnimatePresence, motion } from "framer-motion";
 export default function PdCard({
   product,
   removeFromCart,
@@ -14,7 +14,7 @@ export default function PdCard({
   const { ram, cpu, gpu, hard } = detailSistem[0];
 
   return (
-    <AnimatePresence >
+    <>
       <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
         {/* left side */}
         <section className='w-[78%] h-[100%] relative'>
@@ -181,6 +181,6 @@ export default function PdCard({
           </Tilt>
         </div>
       </section>
-    </AnimatePresence>
+    </>
   );
 }
