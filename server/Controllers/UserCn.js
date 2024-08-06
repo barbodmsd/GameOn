@@ -27,7 +27,10 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 // Get user by ID
 export const getUserById = catchAsync(async (req, res, next) => {
   // Find user by ID and exclude certain fields
-  const user = await User.findById(req.params.id).select("-__v -password");
+  const user = await User.findById(req.params.id).select("-__v -password").populate({
+    path: 'cart.productId',
+    model: 'Product'
+})
 
   // Check if user exists
   if (!user) {
@@ -139,7 +142,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   const { productId, quantity } = req.body;
 
   // Check if user exists and populate cart
-  const user = await User.findById(id)
+  const user = await User.findById(id);
   if (!user) {
     return res.status(404).json({
       status: "error",
@@ -222,12 +225,12 @@ export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
   }
 
   await user.save();
-  const updatedUser = await User.findById(id).populate("cart.productId")
+  const updatedUser = await User.findById(id).populate("cart.productId");
 
   res.status(201).json({
     status: "success",
     data: {
-      user:updatedUser,
+      user: updatedUser,
     },
   });
 });
