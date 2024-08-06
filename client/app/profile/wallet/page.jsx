@@ -41,7 +41,7 @@ export default function Page() {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-          },
+          }
           body: JSON.stringify({
             wallet: {
               balance: cardPrice,
