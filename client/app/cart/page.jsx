@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { login } from "@/Store/Slices/authSlice";
+import animation from "./cartAnimation/cartAnimation.json";
 export const CardCart = ({
   img,
   id,
@@ -155,11 +156,12 @@ export default function Cart() {
   return (
     <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
       <h2 className='text-2xl font-bold'>Cart</h2>
-      <motion.div
+      {/* <motion.div
         ref={constraintsRef}
         className='w-full h-full flex flex-col p-5 gap-5'>
         {items}
-      </motion.div>
+      </motion.div> */}
+      <Animation/>
     </div>
   );
 }
