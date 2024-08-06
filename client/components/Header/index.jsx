@@ -10,7 +10,6 @@ export default function Header() {
   );
 
   const [infoUser, setInfoUser] = useState();
-  console.log(infoUser);
   useEffect(() => {
     (async () => {
       try {
