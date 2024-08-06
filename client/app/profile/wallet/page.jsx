@@ -41,7 +41,7 @@ export default function Page() {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-          }
+          },
           body: JSON.stringify({
             wallet: {
               balance: cardPrice,
@@ -79,9 +79,7 @@ export default function Page() {
           <div className='bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl'>
             <div className='flex justify-between'>
               <div>
-                <span className='text-3xl font-bold'>
-                  {newWallet}
-                </span>
+                <span className='text-3xl font-bold'>{newWallet}</span>
                 <div className='flex gap-10'>
                   <span className='text-green-800 text-lg'>$ 20 +</span>
                   <span className='text-red-800 text-lg'>$ 5 -</span>
