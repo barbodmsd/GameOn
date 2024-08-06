@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LottieAnimation from "./Lottie";
+import { useRouter } from "next/navigation";
 
 export const CardCart = ({
   img,
@@ -87,9 +88,13 @@ export const CardCart = ({
 export default function Cart() {
   const constraintsRef = useRef(null);
   const dispatch = useDispatch();
+  const router=useRouter()
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  if(!token){
+    router.push('/auth')
+  }
   const addToCart = async (id) => {
     try {
       const res = await fetch(
@@ -136,29 +141,30 @@ export default function Cart() {
   };
 
   let totalPrice = 0;
-  const items = user.cart?.map((e, index) => {
+  const items = user?.cart?.map((e, index) => {
     totalPrice += e.productId.price * e.quantity;
+    console.log(e)
     return (
       <CardCart
         key={index}
         constraintsRef={constraintsRef}
-        id={e.productId._id}
-        addToCart={() => addToCart(e.productId._id)}
-        removeFromCart={() => removeFromCart(e.productId._id)}
-        title={e.productId.title}
-        img={process.env.NEXT_PUBLIC_DB_HOST + e.productId.images[0]}
-        price={e.productId.price * e.quantity}
-        quantity={e.quantity}
+        id={e?.productId?._id}
+        addToCart={() => addToCart(e?.productId?._id)}
+        removeFromCart={() => removeFromCart(e.productId?._id)}
+        title={e?.productId?.title}
+        img={process.env.NEXT_PUBLIC_DB_HOST + e?.productId?.images[0]}
+        price={e?.productId?.price * e?.quantity}
+        quantity={e?.quantity}
       />
     );
   });
-  console.log(totalPrice);
+  console.log({totalPrice});
   return (
     <>
-      {user.cart.length > 0 ? (
+      {user?.cart?.length > 0 ? (
         <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
           {/* text cart and clear button */}
-          <div className="flex px-3 items-center gap-[600px]">
+          <div className='flex px-3 items-center gap-[600px]'>
             <motion.div
               initial={{ y: 0.1, opacity: 0 }}
               animate={{ y: [0, -10, 10, 0], opacity: [0.1, 0.5, 0.8, 0.1] }}

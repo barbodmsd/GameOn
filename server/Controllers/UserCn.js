@@ -241,7 +241,7 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   // Find the user by ID
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate('cart.productId')
   if (!user) {
     return next(new HandleError("User not found", 404));
   }
