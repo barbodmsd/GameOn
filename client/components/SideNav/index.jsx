@@ -1,9 +1,12 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./style.css";
+import { useSelector } from "react-redux";
 
 export default function SidNav() {
+  const {user}=useSelector(state=>state.persistedReducer.authSlice)
   const pageAddress = usePathname();
   return (
     <div className="  w-72 max-md:fixed">
@@ -111,7 +114,7 @@ export default function SidNav() {
               </svg>
               <Link href={"/profile/wallet"}>Balance</Link>
               <div className=" flex items-center absolute  bg-[#BDFD00] -right-11 rounded-lg text-black px-2 h-6 w-15 font-bold">
-                $ 0
+                $ {user?.wallet?.balance}
               </div>
             </li>
           </ul>

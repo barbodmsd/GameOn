@@ -157,20 +157,29 @@ export default function Cart() {
     <>
       {user.cart.length > 0 ? (
         <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
-          <motion.div
-            initial={{ y: 0.1, opacity: 0 }}
-            animate={{ y: [0, -10, 10, 0], opacity: [0.1, 0.5, 0.8, 0.1] }}
-            transition={{ duration: 5, repeat: Infinity }}>
-            <h2 className='text-2xl font-bold' style={{ letterSpacing: "2px" }}>
-              Cart
-            </h2>
-          </motion.div>
+          {/* text cart and clear button */}
+          <div className="flex px-3 items-center gap-[600px]">
+            <motion.div
+              initial={{ y: 0.1, opacity: 0 }}
+              animate={{ y: [0, -10, 10, 0], opacity: [0.1, 0.5, 0.8, 0.1] }}
+              transition={{ duration: 5, repeat: Infinity }}>
+              <h2
+                className='text-2xl font-bold'
+                style={{ letterSpacing: "2px" }}>
+                Cart
+              </h2>
+            </motion.div>
+            <div>
+              <button className='btn-focus border-none opacity-45 duration-300  hover:opacity-100'>
+                Clear All
+              </button>
+            </div>
+          </div>
           <motion.div
             ref={constraintsRef}
-            className='w-full h-full flex flex-col p-5 gap-5'>
+            className='w-full h-full flex flex-col p-5 gap-7'>
             {items}
           </motion.div>
-          <div><button className="btn-focus border-none opacity-45 duration-300  hover:opacity-100">Clear All</button></div>
         </div>
       ) : (
         <div className='w-full h-full flex flex-col  items-center'>

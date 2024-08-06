@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import fetchData from "@/Utils/FetchData";
+import { login } from "@/Store/Slices/authSlice";
 
 export default function Page() {
   const { user, token } = useSelector((state) => state.persistedReducer.authSlice);
   const [userBalance, setUserBalance] = useState();
   const [cardPrice, setCardPrice] = useState(0);
-
+  const dispatch=useDispatch()
+  const [count,setCount]=useState(true)
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
@@ -42,7 +44,9 @@ export default function Page() {
           }
       }),
       });
+      const data=await resPost.json()
       setUserBalance(resPost.data);
+      dispatch(login({ user: data.data.user, token }));
     } catch (error) {
       console.error('Error posting user data:', error);
     }
@@ -54,13 +58,15 @@ export default function Page() {
 
   const handleAddPrice = () => {
     postUserData();
+    setCount(!count)
   };
-
+  const newWallet=useMemo(()=>user?.wallet?.balance,[count])
+  console.log(newWallet)
   return (
     <div className="mx-10">
       <div className="mt-5">
         {/* title page */}
-        <span className="text-txt font-bold text-lg">{user.username}</span>
+        <span className="text-txt font-bold text-lg">{user?.username}</span>
         <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
       </div>
       <div className="main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
@@ -69,7 +75,8 @@ export default function Page() {
             <div className="flex justify-between">
               <div>
                 <span className="text-3xl font-bold">
-                  $ {userBalance?.user?.wallet?.balance}
+                  {/* $ {userBalance?.user?.wallet?.balance} */}
+                  {newWallet}
                 </span>
                 <div className="flex gap-10">
                   <span className="text-green-800 text-lg">$ 20 +</span>
