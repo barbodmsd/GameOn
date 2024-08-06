@@ -3,6 +3,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { login } from "@/Store/Slices/authSlice";
 export const CardCart = ({
   img,
   id,
@@ -16,7 +17,6 @@ export const CardCart = ({
   return (
     <>
       <motion.div
-        
         drag
         dragConstraints={constraintsRef}
         className='w-[700px] cursor-pointer px-2 h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center justify-between'>
@@ -83,14 +83,13 @@ export const CardCart = ({
   );
 };
 export default function Cart() {
-  const [value, setValue] = useState(true);
-  const constraintsRef = useRef(null)
+  const constraintsRef = useRef(null);
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
   const dispatch = useDispatch();
 
-  const addToCart = async () => {
+  const addToCart = async (id) => {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/add-cart`,
@@ -108,12 +107,11 @@ export default function Cart() {
       );
       const data = await res.json();
       dispatch(login({ user: data.data.user, token }));
-      setValue(!value);
     } catch (error) {
       console.log(error);
     }
   };
-  const removeFromCart = async () => {
+  const removeFromCart = async (id) => {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-cart`,
@@ -131,29 +129,21 @@ export default function Cart() {
       );
       const data = await res.json();
       dispatch(login({ user: data.data.user, token }));
-      setValue(!value);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const quantity = useMemo(() => {
-  //   if (user.cart) {
-  //     return user?.cart?.filter((e) => e.productId._id == user._id)[0]
-  //       ?.quantity;
-  //   }
-  // }, [value]);
+  let totalPrice = 0;
   const items = user.cart?.map((e, index) => {
-    let totalPrice = 0;
-    totalPrice += e.productId.price;
-    console.log(e);
+    totalPrice += e.productId.price * e.quantity;
     return (
       <CardCart
         key={index}
         constraintsRef={constraintsRef}
         id={e.productId._id}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
+        addToCart={() => addToCart(e.productId._id)}
+        removeFromCart={() => removeFromCart(e.productId._id)}
         title={e.productId.title}
         img={process.env.NEXT_PUBLIC_DB_HOST + e.productId.images[0]}
         price={e.productId.price * e.quantity}
@@ -161,10 +151,15 @@ export default function Cart() {
       />
     );
   });
+  console.log(totalPrice);
   return (
     <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
       <h2 className='text-2xl font-bold'>Cart</h2>
-      <motion.div ref={constraintsRef} className='w-full h-full flex flex-col p-5 gap-5'>{items}</motion.div>
+      <motion.div
+        ref={constraintsRef}
+        className='w-full h-full flex flex-col p-5 gap-5'>
+        {items}
+      </motion.div>
     </div>
   );
 }
