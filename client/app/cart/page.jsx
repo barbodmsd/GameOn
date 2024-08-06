@@ -1,19 +1,43 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-export const CardCart = ({ addToCart, removeFromCart, quantity }) => {
+import { motion } from "framer-motion";
+import Link from "next/link";
+export const CardCart = ({
+  img,
+  id,
+  title,
+  price,
+  addToCart,
+  removeFromCart,
+  constraintsRef,
+  quantity,
+}) => {
   return (
     <>
-      <div className='w-[700px] h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center'>
-        {/* image */}
-        <div className='w-[50px] h-[50px]'>
-          <img src='sdsds' alt='title' className='w-full h-full' />
-        </div>
+      <motion.div
+        
+        drag
+        dragConstraints={constraintsRef}
+        className='w-[700px] cursor-pointer px-2 h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center justify-between'>
+        <Link
+          href={`/digital-product-page/product-details/${id}/${title
+            .replaceAll(" ", "-")
+            .toLowerCase()}`}>
+          {/* image */}
+          <div className='w-[100px] h-[70px]'>
+            <img
+              src={img}
+              alt={title}
+              className='w-full h-full object-fill rounded'
+            />
+          </div>
+        </Link>
+
         {/* title */}
-        <h2 className='font-bold text-lg '>title</h2>
+        <h2 className='font-bold text-lg '>{title}</h2>
         {/* brand */}
-        <h2 className="'font-bold text-md ">brand</h2>
+        <h2 className="'font-bold text-md text-my-yellow">${price}</h2>
         {/* button */}
         <div className='flex gap-2 items-center'>
           {quantity && (
@@ -54,12 +78,13 @@ export const CardCart = ({ addToCart, removeFromCart, quantity }) => {
             +
           </button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
 export default function Cart() {
   const [value, setValue] = useState(true);
+  const constraintsRef = useRef(null)
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
@@ -112,36 +137,34 @@ export default function Cart() {
     }
   };
 
-  const quantity = useMemo(() => {
-    if (user.cart) {
-      return user?.cart?.filter((e) => e.productId._id == user._id)[0]
-        ?.quantity;
-    }
-  }, [value]);
+  // const quantity = useMemo(() => {
+  //   if (user.cart) {
+  //     return user?.cart?.filter((e) => e.productId._id == user._id)[0]
+  //       ?.quantity;
+  //   }
+  // }, [value]);
   const items = user.cart?.map((e, index) => {
     let totalPrice = 0;
-    totalPrice += e.price;
+    totalPrice += e.productId.price;
+    console.log(e);
     return (
       <CardCart
         key={index}
+        constraintsRef={constraintsRef}
+        id={e.productId._id}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
-        quantity={quantity}
-        title={e.title}
-        price={e.price}
+        title={e.productId.title}
+        img={process.env.NEXT_PUBLIC_DB_HOST + e.productId.images[0]}
+        price={e.productId.price * e.quantity}
+        quantity={e.quantity}
       />
     );
   });
   return (
     <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
       <h2 className='text-2xl font-bold'>Cart</h2>
-      <div className='w-full h-full flex flex-col pt-5 pl-5 '>
-        <CardCart
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-          quantity={quantity}
-        />
-      </div>
+      <motion.div ref={constraintsRef} className='w-full h-full flex flex-col p-5 gap-5'>{items}</motion.div>
     </div>
   );
 }
