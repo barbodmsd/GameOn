@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LottieAnimation from "./Lottie";
+
 export const CardCart = ({
   img,
   id,
@@ -85,11 +86,10 @@ export const CardCart = ({
 };
 export default function Cart() {
   const constraintsRef = useRef(null);
+  const dispatch = useDispatch();
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
-  const dispatch = useDispatch();
-
   const addToCart = async (id) => {
     try {
       const res = await fetch(
@@ -154,14 +154,31 @@ export default function Cart() {
   });
   console.log(totalPrice);
   return (
-    <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
-      <h2 className='text-2xl font-bold'>Cart</h2>
-      {/* <motion.div
-        ref={constraintsRef}
-        className='w-full h-full flex flex-col p-5 gap-5'>
-        {items}
-      </motion.div> */}
-      <div  className="w-full h-full flex justify-center items-center"><LottieAnimation /></div>
-    </div>
+    <>
+      {user.cart.length > 0 ? (
+        <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
+          <h2 className='text-2xl font-bold'>Cart</h2>
+          <motion.div
+            ref={constraintsRef}
+            className='w-full h-full flex flex-col p-5 gap-5'>
+            {items}
+          </motion.div>
+        </div>
+      ) : (
+        <div className='w-full h-full flex flex-col  items-center'>
+          <LottieAnimation />
+          <motion.div
+            initial={{ y: 0.1, opacity: 0 }}
+            animate={{ y: [0, -10, 10, 0], opacity: [0.1, 0.5, 0.8, 0.1] }}
+            transition={{ duration: 5, repeat: Infinity }}>
+            <h2
+              className='font-bold -translate-y-16 text-2xl '
+              style={{ letterSpacing: "2px" }}>
+              Your cart is empty
+            </h2>
+          </motion.div>
+        </div>
+      )}
+    </>
   );
 }
