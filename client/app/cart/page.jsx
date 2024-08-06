@@ -1,10 +1,10 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/Store/Slices/authSlice";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { login } from "@/Store/Slices/authSlice";
-import animation from "./cartAnimation/cartAnimation.json";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import LottieAnimation from "./Lottie";
 export const CardCart = ({
   img,
   id,
@@ -161,7 +161,7 @@ export default function Cart() {
         className='w-full h-full flex flex-col p-5 gap-5'>
         {items}
       </motion.div> */}
-      <Animation/>
+      <LottieAnimation/>
     </div>
   );
 }
