@@ -161,7 +161,7 @@ export default function Cart() {
         className='w-full h-full flex flex-col p-5 gap-5'>
         {items}
       </motion.div> */}
-      <LottieAnimation/>
+      <div  className="w-full h-full flex justify-center items-center"><LottieAnimation /></div>
     </div>
   );
 }
