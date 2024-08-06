@@ -12,7 +12,6 @@ export default function Page() {
   const [cardPrice, setCardPrice] = useState(0);
   const dispatch = useDispatch();
   const [count, setCount] = useState(true);
-
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
@@ -58,7 +57,6 @@ export default function Page() {
       console.error("Error posting user data:", error);
     }
   };
-
   const handlePriceCard = (value) => {
     setCardPrice(value);
   };
