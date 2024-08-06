@@ -2,13 +2,13 @@
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export const CardCart = ({img,title,brand,price}) => {
+export const CardCart = ({ addToCart, removeFromCart, quantity }) => {
   return (
     <>
       <div className='w-[700px] h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center'>
         {/* image */}
         <div className='w-[50px] h-[50px]'>
-          <img src={img} alt={title} className='w-full h-full' />
+          <img src='sdsds' alt='title' className='w-full h-full' />
         </div>
         {/* title */}
         <h2 className='font-bold text-lg '>title</h2>
@@ -112,17 +112,35 @@ export default function Cart() {
     }
   };
 
-  const quantity=useMemo(() => {
-    if(user.cart){
-      return user?.cart?.filter((e) => e.productId._id == id)[0]?.quantity
+  const quantity = useMemo(() => {
+    if (user.cart) {
+      return user?.cart?.filter((e) => e.productId._id == user._id)[0]
+        ?.quantity;
     }
   }, [value]);
-
+  const items = user.cart?.map((e, index) => {
+    let totalPrice = 0;
+    totalPrice += e.price;
+    return (
+      <CardCart
+        key={index}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        quantity={quantity}
+        title={e.title}
+        price={e.price}
+      />
+    );
+  });
   return (
     <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
       <h2 className='text-2xl font-bold'>Cart</h2>
       <div className='w-full h-full flex flex-col pt-5 pl-5 '>
-        <CardCart />
+        <CardCart
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+          quantity={quantity}
+        />
       </div>
     </div>
   );
