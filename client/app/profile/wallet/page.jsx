@@ -32,31 +32,7 @@ export default function Page() {
     }
   }, []);
 
-  const postUserData = async () => {
-    try {
-      const resPost = await fetch(
-        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/wallet`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            wallet: {
-              balance: cardPrice,
-            },
-          }),
-        }
-      );
-      const data = await resPost.json();
-      setUserBalance(data.data);
-      dispatch(login({ user: data.data.user, token }));
-      setUser(data.data.user);
-    } catch (error) {
-      console.error("Error posting user data:", error);
-    }
-  };
+ 
   const handlePriceCard = (value) => {
     setCardPrice(value);
   };
