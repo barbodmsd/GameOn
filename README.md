@@ -1,6 +1,6 @@
 # GameOn
 
-**A collaborative project by [DevBlP](https://github.com/devblp) and [barbodmsd](https://github.com/barbodmsd) .**
+**A collaborative project by [DevBlP](https://github.com/devblp) , [barbodmsd](https://github.com/barbodmsd) and [nima Basghestani](https://github.com/nimabaghestani84)  .**
 
 ![GameOn Cover](./cover.jpg)
 
