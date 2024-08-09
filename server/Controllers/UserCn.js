@@ -27,10 +27,12 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 // Get user by ID
 export const getUserById = catchAsync(async (req, res, next) => {
   // Find user by ID and exclude certain fields
-  const user = await User.findById(req.params.id).select("-__v -password").populate({
-    path: 'cart.productId',
-    model: 'Product'
-})
+  const user = await User.findById(req.params.id)
+    .select("-__v -password")
+    .populate({
+      path: "cart.productId",
+      model: "Product",
+    });
 
   // Check if user exists
   if (!user) {
@@ -234,14 +236,34 @@ export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
     },
   });
 });
-
+// Delete all item cart
+export const deletAllItemCart = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).json({
+      status: "error",
+      message: "User not found",
+    });
+  }
+  user.cart = [];
+  await user.save();
+  res.status(200).json({
+    status: "success",
+    message:"delete all"
+    });
+});
+// delete id product
+export const deleteProduct = catchAsync(async (req, res, next) => {
+  const {id} = req.params
+});
 // Update user wallet balance
 export const updateUserWallet = catchAsync(async (req, res, next) => {
   const { wallet } = req.body;
   const { id } = req.params;
 
   // Find the user by ID
-  const user = await User.findById(id).populate('cart.productId')
+  const user = await User.findById(id).populate("cart.productId");
   if (!user) {
     return next(new HandleError("User not found", 404));
   }
