@@ -8,6 +8,7 @@ import {
   updateUserById,
   updateUserWallet,
   deletItemQuantityCart,
+  deletAllItemCart,
 } from "../Controllers/UserCn.js";
 import upload from "../Utils/UploadFile.js";
 import { checkAdmin } from "../Middleware/checkAdmin.js";
@@ -25,15 +26,12 @@ userRoute
   .patch(checkUser, upload.single("file"), updateUserById) // PATCH user by ID
   .delete(checkAdmin, checkUser, deleteUserById); // DELETE user by ID
 
-
 // Route cart
-userRoute
-  .route("/:id/add-cart")
-  .post(checkUser, addToCart); // Route for deleting a product to the cart
-userRoute
-  .route("/:id/remove-cart")
-  .delete(checkUser, deletItemQuantityCart) // Route for adding a product to the cart
+userRoute.route("/:id/add-cart").post(checkUser, addToCart); // Route for deleting a product to the cart
+userRoute.route("/:id/remove-cart").delete(checkUser, deletItemQuantityCart); // Route for adding a product to the cart
 
+// remove all cart
+userRoute.route("/:id/remove-all-cart").delete( deletAllItemCart);
 // Route favorite product
 userRoute
   .route("/:id/favorites")
