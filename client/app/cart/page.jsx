@@ -161,7 +161,6 @@ export default function Cart() {
   let totalPrice = 0;
   const items = user?.cart?.map((e, index) => {
     totalPrice += e.productId.price * e.quantity;
-    console.log(e);
     return (
       <CardCart
         key={index}
@@ -206,6 +205,7 @@ export default function Cart() {
             className='w-full h-full flex flex-col p-5 gap-7'>
             {items}
           </motion.div>
+          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice}</div>
         </div>
       ) : (
         <div className='w-full h-full flex flex-col  items-center'>
