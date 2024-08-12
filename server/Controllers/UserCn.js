@@ -250,7 +250,7 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
   await user.save();
   res.status(200).json({
     status: "success",
-    message:"delete all"
+    data:{user}
     });
 });
 // delete id product

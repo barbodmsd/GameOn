@@ -88,12 +88,12 @@ export const CardCart = ({
 export default function Cart() {
   const constraintsRef = useRef(null);
   const dispatch = useDispatch();
-  const router=useRouter()
+  const router = useRouter();
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
-  if(!token){
-    router.push('/auth')
+  if (!token) {
+    router.push("/auth");
   }
   const addToCart = async (id) => {
     try {
@@ -139,11 +139,29 @@ export default function Cart() {
       console.log(error);
     }
   };
+  const clearCart = async (id) => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-all-cart`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      dispatch(login({ user: data.data.user, token }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let totalPrice = 0;
   const items = user?.cart?.map((e, index) => {
     totalPrice += e.productId.price * e.quantity;
-    console.log(e)
+    console.log(e);
     return (
       <CardCart
         key={index}
@@ -158,7 +176,7 @@ export default function Cart() {
       />
     );
   });
-  console.log({totalPrice});
+  console.log({ totalPrice });
   return (
     <>
       {user?.cart?.length > 0 ? (
@@ -176,7 +194,9 @@ export default function Cart() {
               </h2>
             </motion.div>
             <div>
-              <button className='btn-focus border-none opacity-45 duration-300  hover:opacity-100'>
+              <button
+                className='btn-focus border-none opacity-45 duration-300  hover:opacity-100'
+                onClick={() => clearCart(user?._id)}>
                 Clear All
               </button>
             </div>

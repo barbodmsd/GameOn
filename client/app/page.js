@@ -1,20 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import fetchData from "@/Utils/FetchData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import { motion, useInView } from "framer-motion";
-import ProductsList from "@/components/ProductsList";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useRef, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Autoplay, FreeMode } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
+import DigitalProductCard from "@/components/DigitalProductCard";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import PhysicalProductCard from "./physical-product-page/PhysicalProductCard";
-import DigitalProductCard from "@/components/DigitalProductCard";
-import Loading from "@/components/Loading";
 
 export default function Home() {
   const [products, setProducts] = useState();
