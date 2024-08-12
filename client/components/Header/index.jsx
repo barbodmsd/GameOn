@@ -8,6 +8,7 @@ export default function Header() {
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  const [search, setSearch] = useState("");
 
   const [infoUser, setInfoUser] = useState();
   useEffect(() => {
@@ -25,8 +26,22 @@ export default function Header() {
       }
     })();
   }, []);
+  const handleChange=async(e)=>{
+    setSearch(e.target.value)
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+`search`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({search}),
+      });
+      const data=await res.json()
+      console.log(data);
+    } catch (error) {
+      console.error( error);
+    }
+  }
   return (
-    <header className=' flex w-full h-20 items-center  px-10 justify-between'>
+    <header className=' flex w-full h-20 items-center z-10  px-10 justify-between'>
       <div>
         <div className='relative  mt-2 rounded-md shadow-sm'>
           <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2'>
@@ -48,6 +63,8 @@ export default function Header() {
             type='text'
             name='search'
             id='search'
+            value={search}
+            onChange={handleChange}
             className=' bg-[#28282A] w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-white  sm:text-sm sm:leading-6  outline-none '
             placeholder='Search..'
           />
