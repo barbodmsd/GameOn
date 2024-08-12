@@ -3,10 +3,13 @@ import Product from "../Models/productModel.js";
 import catchAsync from "../Utils/catchAsync.js";
 
 export const search = catchAsync(async (req, res) => {
-  const categories = await Category.find({ title: { $regex: req.body.query } });
-  const products = await Product.find({ title: { $regex: req.body.query } });
+  const { search } = req.body;
+  const regex = new RegExp(search, "i"); // 'i' makes the search case-insensitive
+
+  const category = await Category.find({ title: { $regex: regex } });
+  const product = await Product.find({ title: { $regex: regex } });
   return res.status(200).json({
     status: "success",
-    data: { products, categories },
+    data: { product, category },
   });
 });
