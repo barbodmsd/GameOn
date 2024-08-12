@@ -28,7 +28,7 @@ GameOn is a comprehensive web application designed for gaming enthusiasts. It of
   - Framer motion
   - React hook form
   - React tilt
-  - 
+    
 - **Backend:**
   - Node.js
   - Express.js
