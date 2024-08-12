@@ -23,9 +23,12 @@ GameOn is a comprehensive web application designed for gaming enthusiasts. It of
 ## Technologies Used
 
 - **Frontend:**
-  - React.js
+  - Next.js
   - Tailwind CSS
-  -   
+  - Framer motion
+  - React hook form
+  - React tilt
+  - 
 - **Backend:**
   - Node.js
   - Express.js
