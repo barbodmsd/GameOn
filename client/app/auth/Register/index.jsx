@@ -2,6 +2,7 @@
 import PasswordIcon from "@/components/icon/password";
 import PhoneIcon from "@/components/icon/phone";
 import UserIcon from "@/components/icon/user";
+import { login } from "@/Store/Slices/authSlice";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Tilt from "react-parallax-tilt";
@@ -24,7 +25,7 @@ export default function Register({ banner, handlePageType }) {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token: data.data.token }));
+      dispatch(login({ user: data?.data?.user, token: data?.data?.token }));
     } catch (error) {
       console.log(error);
     }
