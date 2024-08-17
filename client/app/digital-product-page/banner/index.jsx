@@ -36,7 +36,7 @@ export default function GameBanner() {
               <h6 className='text-xs '>
                 {banners[2]?.description.slice(0, 100)}
               </h6>
-              <button className='btn-focus border-none hover:scale-105 duration-300'>
+              <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300'>
                 GET THE GAME
               </button>
             </div>
@@ -49,7 +49,7 @@ export default function GameBanner() {
               <h2 className='text-2xl  font-bold'>{banners[3]?.title}</h2>
               <h6 className='text-xs '>{banners[3].description}</h6>
               <div>
-                <button className='btn-focus border-none hover:scale-105 duration-300'>
+                <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300'>
                   GET THE GAME
                 </button>
               </div>

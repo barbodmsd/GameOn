@@ -28,7 +28,7 @@ export default function PdCard({
       setValue(!value);
       if (!value) {
         const res = await fetch(
-          process.env.NEXT_PUBLIC_DB_HOST + `users/${id}/add-cart`,
+          process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/add-cart`,
           {
             method: "POST",
             headers: {
@@ -39,7 +39,8 @@ export default function PdCard({
           }
         );
         const data = await res.json();
-        dispatch(login({ user: data?.data?.user, token }));
+        console.log(data)
+        // dispatch(login({ user: data?.data?.user, token }));
         
       }
     } catch (error) {
