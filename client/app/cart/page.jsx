@@ -40,7 +40,7 @@ export const CardCart = ({
         {/* title */}
         <h2 className='font-bold text-lg '>{title}</h2>
         {/* brand */}
-        <h2 className="'font-bold text-md text-my-yellow">${price}</h2>
+        <h2 className="'font-bold text-md text-my-yellow">${price.toFixed(2)}</h2>
         {/* button */}
         <div className='flex gap-2 items-center'>
           {quantity && (
@@ -160,7 +160,7 @@ export default function Cart() {
 
   let totalPrice = 0;
   const items = user?.cart?.map((e, index) => {
-    totalPrice += e.productId.price * e.quantity;
+    totalPrice += (e.productId.price * e.quantity)
     return (
       <CardCart
         key={index}
@@ -205,7 +205,7 @@ export default function Cart() {
             className='w-full h-full flex flex-col p-5 gap-7'>
             {items}
           </motion.div>
-          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice}</div>
+          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice.toFixed(2)}</div>
         </div>
       ) : (
         <div className='w-full h-full flex flex-col  items-center'>

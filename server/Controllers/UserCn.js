@@ -137,6 +137,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {
   const { id } = req.params;
