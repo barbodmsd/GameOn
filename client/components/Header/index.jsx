@@ -81,7 +81,6 @@ export default function Header() {
       setSearch("");
     }
   });
-  console.log(result)
   return (
     <header className=' flex w-full h-20 items-center z-10  px-10 justify-between'>
       <div>
@@ -111,7 +110,6 @@ export default function Header() {
               className='searchInp bg-[#28282A] w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-white  sm:text-sm sm:leading-6  outline-none '
               placeholder='Search..'
             />
-            {/* ///////////////////////////////////////////////////////////////// */}
             <div
               className={`absolute w-full ${
                 search ? "h-[200px]" : "h-0"
