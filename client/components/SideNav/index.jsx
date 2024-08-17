@@ -126,7 +126,7 @@ export default function SidNav() {
             {/* Mouse */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/post"
+                pageAddress === "/mouse"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}
@@ -144,7 +144,7 @@ export default function SidNav() {
                 />
               </svg>
 
-              <Link href={"/post"}>Mouse</Link>
+              <Link href={"/mouse"}>Mouse</Link>
             </li>
             {/* Head phones */}
             <li
