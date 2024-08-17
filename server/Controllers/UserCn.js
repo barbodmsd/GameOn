@@ -59,7 +59,7 @@ export const updateUserById = catchAsync(async (req, res, next) => {
     user = await User.findByIdAndUpdate(
       req.params.id,
       { ...others, profilePhoto: profilePhoto },
-      { new: true, runValidators: true }
+      { new: true }
     );
     if (oldUser.profilePhoto) {
       fs.unlinkSync(`${__dirname}/Public/${oldUser.profilePhoto}`);
@@ -69,7 +69,7 @@ export const updateUserById = catchAsync(async (req, res, next) => {
     user = await User.findByIdAndUpdate(
       req.params.id,
       { ...others, profilePhoto: "" },
-      { new: true, runValidators: true }
+      { new: true }
     );
     if (oldUser.profilePhoto) {
       fs.unlinkSync(`${__dirname}/Public/${oldUser.profilePhoto}`);
@@ -77,7 +77,6 @@ export const updateUserById = catchAsync(async (req, res, next) => {
   } else {
     user = await User.findByIdAndUpdate(req.params.id, others, {
       new: true,
-      runValidators: true,
     });
   }
 
@@ -250,12 +249,12 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
   await user.save();
   res.status(200).json({
     status: "success",
-    data:{user}
-    });
+    data: { user },
+  });
 });
 // delete id product
 export const deleteProduct = catchAsync(async (req, res, next) => {
-  const {id} = req.params
+  const { id } = req.params;
 });
 // Update user wallet balance
 export const updateUserWallet = catchAsync(async (req, res, next) => {
