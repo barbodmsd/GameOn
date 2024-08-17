@@ -138,7 +138,11 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
 });
 
 export const removeFromFavorite=catchAsync(async(req,res,next)=>{
-  
+  const user=await User.findByIdAndUpdate(req.params.id,{$pull:{favorites:req.body.productId}},{new:true})
+  return res.status(200).json({
+    status:'success',
+    data:{user}
+  })
 })
 
 // Add item to cart
