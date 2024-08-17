@@ -27,7 +27,10 @@ export const getAllUser = catchAsync(async (req, res, next) => {
 // Get user by ID
 export const getUserById = catchAsync(async (req, res, next) => {
   // Find user by ID and exclude certain fields
-  const user = await User.findById(req.params.id).select("-__v -password");
+  const user = await User.findById(req.params.id).select("-__v -password").populate({
+    path: 'cart.productId',
+    model: 'Product'
+})
 
   // Check if user exists
   if (!user) {
@@ -43,18 +46,8 @@ export const getUserById = catchAsync(async (req, res, next) => {
   });
 });
 
-// Update user by ID
 export const updateUserById = catchAsync(async (req, res, next) => {
   const profilePhoto = req.file?.filename || "";
-  const token = req.headers.authorization.split(" ")[1];
-  const { id, role } = jwt.verify(token, process.env.SECRET_KEY);
-
-  // Check if the user has permission to update
-  if (role !== "admin" && id !== req.params.id) {
-    return next(
-      new HandleError("You don't have permission to update this user", 401)
-    );
-  }
 
   let user;
   const { role: bodyRole, id: bodyId, ...others } = req.body;
@@ -149,7 +142,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   const { productId, quantity } = req.body;
 
   // Check if user exists and populate cart
-  const user = await User.findById(id).populate("cart.productId");
+  const user = await User.findById(id);
   if (!user) {
     return res.status(404).json({
       status: "error",
@@ -232,12 +225,12 @@ export const deletItemQuantityCart = catchAsync(async (req, res, next) => {
   }
 
   await user.save();
-  const updatedUser = await User.findById(id).select("cart");
+  const updatedUser = await User.findById(id).populate("cart.productId");
 
   res.status(201).json({
     status: "success",
     data: {
-      cart: updatedUser.cart,
+      user: updatedUser,
     },
   });
 });
@@ -248,7 +241,7 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   // Find the user by ID
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate('cart.productId')
   if (!user) {
     return next(new HandleError("User not found", 404));
   }

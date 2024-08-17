@@ -1,22 +1,64 @@
 "use client";
+import fetchData from "@/Utils/FetchData";
 import { DevTool } from "@hookform/devtools";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
 export default function Page() {
-  const { user } = useSelector((state) => state.persistedReducer.authSlice);
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
-  const submit = (data) => {
-    console.log("submit ok", data);
+  const [infoUser, setInfoUser] = useState();
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      try {
+        const resUser = await fetchData(`users/${user._id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setInfoUser(resUser.data);
+      } catch (error) {
+        console.error("Error fetching user balance:", error);
+      }
+    };
+
+    if (token && user._id) {
+      fetchUserBalance();
+    }
+  }, [token, user._id]);
+  const onSubmit = async (e) => {
+    try {
+      const resPost = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(e),
+        }
+      );
+      const data = await resPost.json();
+    } catch (error) {
+      console.error("Error posting user data:", error);
+    }
   };
+
   const { errors } = formState;
   return (
     <div className="mx-10">
       {/* title page */}
       <div className="mt-5">
-        <span className="text-txt font-bold text-lg">{user.username}</span>
+        <span className="text-txt font-bold text-lg">
+          {infoUser?.user?.username}
+        </span>
+
         <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
       </div>
       <div className="main flex gap-5 bg-bg-300 w-[90%] h-full my-8 p-10 rounded-3xl">
@@ -28,26 +70,36 @@ export default function Page() {
               alt="profile-image"
               className="bg-white rounded-full w-[100px]"
             />
-            <span>{user.username}</span>
+            <span>{token && infoUser?.user?.username}</span>
           </div>
           <div className="flex flex-col gap-2 items-center">
             <span>
-              Email: <span className="text-sm">{user.email}</span>
+              Email: <span className="text-sm">{infoUser?.user?.email}</span>
             </span>
             <span>
-              Phone: <span className="text-sm">{user.phone}</span>
+              Phone: <span className="text-sm">{infoUser?.user?.phone}</span>
             </span>
           </div>
-          <div>
+          <div >
             <div className="bg-bg-300 w-full h-36">
-              <h5 className="p-2">address :</h5>
-              <address></address>
+              <h5 className="p-1">Address:</h5>
+              <div className="flex flex-col gap-0">
+                <span className="p-5">
+                  city: {infoUser?.user?.address[0]?.city}
+                </span>
+                <span className="p-5">
+                  State: {infoUser?.user?.address[0]?.state}
+                </span>
+                <span className="p-5">
+                  country : {infoUser?.user?.address[0]?.country}
+                </span>
+              </div>
             </div>
           </div>
         </div>
         {/* inputs */}
         <div className="w-[70%] flex justify-center items-center">
-          <form onSubmit={handleSubmit(submit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full flex gap-20 pb-10">
               <div className="flex flex-col gap-10 w-[40%]">
                 {/* input username */}
@@ -84,7 +136,8 @@ export default function Page() {
                         message: "required phone",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.phone && (
                       <span className="text-red-900">
@@ -99,13 +152,14 @@ export default function Page() {
                   <input
                     type="text"
                     id="state"
-                    {...register("state", {
+                    {...register("address.state", {
                       required: {
                         value: true,
                         message: "required State",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.state && (
                       <span className="text-red-900">
@@ -120,13 +174,14 @@ export default function Page() {
                   <input
                     type="text"
                     id="country"
-                    {...register("country", {
+                    {...register("address.country", {
                       required: {
                         value: true,
                         message: "required country",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.country && (
                       <span className="text-red-900">
@@ -144,7 +199,8 @@ export default function Page() {
                     type="text"
                     id="email"
                     {...register("email")}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.email && (
                       <span className="text-red-900">
@@ -155,12 +211,13 @@ export default function Page() {
                 </div>
                 {/* input password */}
                 <div className="flex flex-col">
-                  <label htmlFor="password">password</label>
+                  <label htmlFor="password">Password</label>
                   <input
                     type="password"
                     id="password"
                     {...register("password")}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.password && (
                       <span className="text-red-900">
@@ -175,13 +232,14 @@ export default function Page() {
                   <input
                     type="text"
                     id="city"
-                    {...register("city", {
+                    {...register("address.city", {
                       required: {
                         value: true,
                         message: "required city",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.city && (
                       <span className="text-red-900">
@@ -196,13 +254,14 @@ export default function Page() {
                   <input
                     type="number"
                     id="post"
-                    {...register("post", {
+                    {...register("address.post", {
                       required: {
                         value: true,
                         message: "required post",
                       },
                     })}
-                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"                  />
+                    className="text-black outline-none w-60 py-1 px-2 rounded-xl"
+                  />
                   <div>
                     {errors.post && (
                       <span className="text-red-900">

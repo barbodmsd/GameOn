@@ -1,10 +1,30 @@
-"use client"
+"use client";
+import fetchData from "@/Utils/FetchData";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const { user } = useSelector((state) => state.persistedReducer.authSlice);
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
+
+  const [infoUser, setInfoUser] = useState();
+  useEffect(() => {
+    (async () => {
+      try {
+        const resUser = await fetchData(`users/${user._id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setInfoUser(resUser.data);
+      } catch (error) {
+        console.error("Error fetching user balance:", error);
+      }
+    })();
+  }, []);
   return (
     <header className=' flex w-full h-20 items-center  px-10 justify-between'>
       <div>
@@ -34,7 +54,11 @@ export default function Header() {
         </div>
       </div>
       <div className='flex items-center gap-5'>
-        <span>{user? user.username:""}</span>
+        <span
+          className='first-letter:uppercase font-bold'
+          style={{ letterSpacing: "2px" }}>
+          {token && infoUser?.user?.username}
+        </span>
         <img
           className='inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white'
           src='Profile.svg'
@@ -44,9 +68,11 @@ export default function Header() {
           {/* cart */}
           <Link href='/cart'>
             <div className=' relative'>
-              <div className=' absolute  bg-[#BDFD00] -right-2 -bottom-2 rounded-lg text-black text-center size-5'>
-                1
-              </div>
+              {user?.cart?.length > 0 && (
+                <div className=' absolute  bg-[#BDFD00] font-bold -right-2 -bottom-2 rounded-full text-black text-center size-6 animate-pulse'>
+                  {user?.cart?.length}
+                </div>
+              )}
               <svg
                 className=' size-6'
                 viewBox='0 0 17 20'
