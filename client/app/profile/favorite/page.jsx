@@ -31,8 +31,9 @@ export default function Page() {
     fetchFavorites();
   }, [user.favorites]);
   const card =   favoriteProducts?.map((e,index) => (
-    <CardFavorite key={index} name={e?.data?.title} price={e?.data?.price} image={e?.data?.images[0]} />
+    <CardFavorite key={index} id={e?._id} name={e?.data?.title} price={e?.data?.price} image={e?.data?.images[0]} />
   ))
+  console.log(card)
   return (
     <div className="mx-10">
       <div className="mt-5">
