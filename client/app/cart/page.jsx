@@ -87,8 +87,8 @@ export const CardCart = ({
 };
 export default function Cart() {
   const constraintsRef = useRef(null);
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );

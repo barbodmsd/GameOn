@@ -1,8 +1,32 @@
-import Link from "next/link";
-import React from "react";
+"use client";
+import { login } from "@/Store/Slices/authSlice";
 import Tilt from "react-parallax-tilt";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CardFavorite({ name, id, price, image }) {
+  const dispatch = useDispatch();
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
+  const handleClick = async () => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/favorites`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId: id }),
+        }
+      );
+      const data=await res.json()
+      dispatch(login({ user: data.data.user, token }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Tilt
       perspective={4000}

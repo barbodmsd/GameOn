@@ -34,6 +34,7 @@ export default function Page() {
   const card = favoriteProducts?.map((e, index) => (
     <CardFavorite
       key={index}
+      id={e?._id}
       name={e?.data?.title}
       price={e?.data?.price}
       image={e?.data?.images[0]}
