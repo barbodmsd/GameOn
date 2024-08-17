@@ -137,13 +137,17 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-export const removeFromFavorite=catchAsync(async(req,res,next)=>{
-  const user=await User.findByIdAndUpdate(req.params.id,{$pull:{favorites:req.body.productId}},{new:true})
+export const removeFromFavorite = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { favorites: req.body.productId } },
+    { new: true }
+  );
   return res.status(200).json({
-    status:'success',
-    data:{user}
-  })
-})
+    status: "success",
+    data: { user },
+  });
+});
 
 // Add item to cart
 export const addToCart = catchAsync(async (req, res, next) => {
@@ -260,10 +264,42 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
     data: { user },
   });
 });
-// delete id product
-export const deleteProduct = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+// delete id product cart
+export const deleteProductFromCart = catchAsync(async (req, res, next) => {
+  const { userId } = req.params;
+  const { productId } = req.body;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({
+      status: "error",
+      message: "User not found",
+    });
+  }
+
+  const cart = user.cart;
+  const productIndex = cart.findIndex(
+    (item) => item.productId.toString() === productId
+  );
+
+  if (productIndex === -1) {
+    return res.status(404).json({
+      status: "error",
+      message: "Product not found in cart",
+    });
+  }
+
+  cart.splice(productIndex, 1);
+
+  await user.save();
+
+  res.status(200).json({
+    status: "success",
+    message: "Product removed from cart",
+  });
 });
+
 // Update user wallet balance
 export const updateUserWallet = catchAsync(async (req, res, next) => {
   const { wallet } = req.body;
