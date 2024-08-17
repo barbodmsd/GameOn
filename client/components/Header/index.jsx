@@ -74,7 +74,7 @@ export default function Header() {
         <span
           className='first-letter:uppercase font-bold'
           style={{ letterSpacing: "2px" }}>
-          {token && infoUser?.user?.username}
+          {token && user?.username}
         </span>
         <img
           className='inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white'

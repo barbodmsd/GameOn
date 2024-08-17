@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 export default function PdCard({
+  id,
   product,
   removeFromCart,
   addToCart,
@@ -12,7 +13,9 @@ export default function PdCard({
     product;
   const { platform, reigen, ege, language } = detailgames[0];
   const { ram, cpu, gpu, hard } = detailSistem[0];
-
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
   return (
     <>
       <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
@@ -125,6 +128,7 @@ export default function PdCard({
                         </button>
                       </div>
                     </div>
+                    <button className={user?.favorite.includes(id?'btn-focus':'btn-notFocus')}>Favorite</button>
                   </div>
                 </div>
                 {/* table */}

@@ -87,6 +87,7 @@ console.log(user)
       {products ? (
         <div className='min-h-screen w-full px-8 mt-5 '>
           <PdCard
+          id={id}
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             product={products}
