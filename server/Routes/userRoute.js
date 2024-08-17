@@ -9,6 +9,7 @@ import {
   updateUserWallet,
   deletItemQuantityCart,
   deletAllItemCart,
+  removeFromFavorite,
 } from "../Controllers/UserCn.js";
 import upload from "../Utils/UploadFile.js";
 import { checkAdmin } from "../Middleware/checkAdmin.js";
@@ -36,7 +37,7 @@ userRoute.route("/:id/remove-all-cart").delete( deletAllItemCart);
 userRoute
   .route("/:id/favorites")
   .post(checkUser, addFavoriteProduct) // Route for adding a favorite product
-  .delete(checkUser); // Route for deleting a favorite product
+  .delete(checkUser,removeFromFavorite); // Route for deleting a favorite product
 
 // Route for updating user's wallet
 userRoute.route("/:id/wallet").post(checkUser, updateUserWallet);
