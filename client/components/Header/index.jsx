@@ -3,17 +3,29 @@ import fetchData from "@/Utils/FetchData";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import LottieAnimation from "./Lottie";
 
-export const SearchResult = ({ title, id, image }) => {
+export const SearchResult = ({ title, id, image, type }) => {
   return (
     <Link
-      href={`/digital-product-page/product-details/${id}/${title
+      href={`/${
+        type == "digital" ? "digital" : "physical"
+      }-product-page/product-details/${id}/${title
         .replaceAll(" ", "-")
         .toLowerCase()}`}>
-      {" "}
-      <div className='w-full h-[100px] gap-2 flex justify-between px-3  items-center '>
-        <div className="w-[50%] h-full p-1"><img src={image} alt={title} width={"100%"} className="object-fill" height={"100%"} /></div>
-        <h2 className='font-bold text-my-yellow text-xs'>{title.slice(0,20)}</h2>
+      <div className='w-full py-2 h-[100px] gap-2 flex justify-between px-3  items-center '>
+        <div className='w-[60%] h-auto p-2'>
+          <img
+            src={image}
+            alt={title}
+            width={"100%"}
+            className='rounded'
+            height={"100%"}
+          />
+        </div>
+        <h2 className='font-bold text-my-yellow text-xs'>
+          {title.slice(0, 20)}
+        </h2>
       </div>
     </Link>
   );
@@ -24,7 +36,7 @@ export default function Header() {
     (state) => state.persistedReducer.authSlice
   );
   const [search, setSearch] = useState("");
-  const [result, setResult] = useState();
+  const [result, setResult] = useState([]);
   const [infoUser, setInfoUser] = useState();
   useEffect(() => {
     (async () => {
@@ -58,15 +70,18 @@ export default function Header() {
   const items = result?.map((e, index) => (
     <SearchResult
       key={index}
+      type={e?.key}
       id={e?._id}
       title={e?.title}
-      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[1]}/>
+      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[1]}
+    />
   ));
-  window.addEventListener('click',(e)=>{
-    if(!e.target.closest('#search')){
-      setSearch('')
+  window.addEventListener("click", (e) => {
+    if (!e.target.closest("#search")) {
+      setSearch("");
     }
-  })
+  });
+  console.log(result)
   return (
     <header className=' flex w-full h-20 items-center z-10  px-10 justify-between'>
       <div>
@@ -99,8 +114,10 @@ export default function Header() {
             {/* ///////////////////////////////////////////////////////////////// */}
             <div
               className={`absolute w-full ${
-                search ? "h-[300px]" : "h-0"
-              } duration-300 rounded bg-bg-200 top-100% z-20 overflow-y-auto`}>{items}</div>
+                search ? "h-[200px]" : "h-0"
+              } duration-300 rounded bg-bg-200 top-100% z-20 overflow-y-auto`}>
+              {result.length>0 ? items : <LottieAnimation />}
+            </div>
           </div>
         </div>
       </div>
