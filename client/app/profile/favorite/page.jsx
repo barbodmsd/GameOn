@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardFavorite from "../CardFavorite";
 import { useSelector } from "react-redux";
 import Loading from "@/components/Loading";
+import LottieAnimation from "./Lottie";
 
 const fetchProductById = async (productId) => {
   try {
@@ -40,6 +41,7 @@ export default function Page() {
       image={e?.data?.images[0]}
     />
   ));
+  console.log(favoriteProducts)
   return (
     <>
       {favoriteProducts?.length > 0 ? (
@@ -54,7 +56,7 @@ export default function Page() {
           </div>
         </div>
       ) : (
-        <Loading />
+        <div className="w-full h-full flex justify-center items-center"><LottieAnimation /></div>
       )}
     </>
   );
