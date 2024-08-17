@@ -34,7 +34,7 @@ export default function Page() {
   const card = favoriteProducts?.map((e, index) => (
     <CardFavorite
       key={index}
-      id={e?._id}
+      id={e?.data?._id}
       name={e?.data?.title}
       price={e?.data?.price}
       image={e?.data?.images[0]}
@@ -42,7 +42,7 @@ export default function Page() {
   ));
   return (
     <>
-      {favoriteProducts.length>0 ? (
+      {favoriteProducts?.length > 0 ? (
         <div className='mx-10'>
           <div className='mt-5'>
             {/* title page */}
