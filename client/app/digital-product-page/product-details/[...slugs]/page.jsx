@@ -14,7 +14,6 @@ export default function GameProductDetails({ params }) {
   );
   const dispatch = useDispatch();
   const id = params.slugs[0];
-  console.log(user);
   const addToCart = async () => {
     try {
       const res = await fetch(

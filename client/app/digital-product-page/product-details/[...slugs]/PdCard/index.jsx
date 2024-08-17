@@ -21,7 +21,7 @@ export default function PdCard({
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState(user?.favorites?.includes(id));
   const dispatch=useDispatch()
   const handleClick = async () => {
     try {
