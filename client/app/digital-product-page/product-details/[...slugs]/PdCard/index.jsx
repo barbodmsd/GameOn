@@ -1,7 +1,12 @@
 "use client";
+import Heart from "@/components/icon/Heart";
+import SolidHeart from "@/components/icon/solidHeart";
+import { login } from "@/Store/Slices/authSlice";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 import Tilt from "react-parallax-tilt";
+import { useDispatch, useSelector } from "react-redux";
 export default function PdCard({
   id,
   product,
@@ -16,6 +21,31 @@ export default function PdCard({
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  const [value, setValue] = useState(false);
+  const dispatch=useDispatch()
+  const handleClick = async () => {
+    try {
+      setValue(!value);
+      if (!value) {
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_DB_HOST + `users/${id}/add-cart`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ productId: id }),
+          }
+        );
+        const data = await res.json();
+        dispatch(login({ user: data?.data?.user, token }));
+        
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <section className='w-[100%] h-[450px] flex gap-3 items-center  p-2'>
@@ -28,7 +58,7 @@ export default function PdCard({
             <div className='w-[40%] rounded-2xl p-3 h-[100%]'>
               <Tilt className='rounded-2xl w-[100%] h-[100%]'>
                 <img
-                  className='rounded-2xl w-[100%] h-[100%]'
+                  className='rounded-2xl  w-[100%] h-[100%]'
                   src={process.env.NEXT_PUBLIC_DB_HOST + images[0]}
                   alt={title}
                 />
@@ -78,7 +108,7 @@ export default function PdCard({
                     </p>
                   </div>
                   {/* button and add to cart */}
-                  <div className='flex flex-col gap-3 '>
+                  <div className='flex flex-col gap-3 relative'>
                     <p className='text-xl text-my-yellow font-bold'>
                       $ {price}
                     </p>
@@ -128,7 +158,11 @@ export default function PdCard({
                         </button>
                       </div>
                     </div>
-                    <button className={user?.favorite.includes(id?'btn-focus':'btn-notFocus')}>Favorite</button>
+                    <button
+                      onClick={handleClick}
+                      className='absolute top-[54%] translate-y-[6px] left-[95%] text-6xl text-my-yellow'>
+                      {value ? <SolidHeart /> : <Heart />}
+                    </button>
                   </div>
                 </div>
                 {/* table */}

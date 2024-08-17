@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import CardFavorite from "../CardFavorite";
 import { useSelector } from "react-redux";
+import Loading from "@/components/Loading";
 
 const fetchProductById = async (productId) => {
   try {
@@ -30,19 +31,30 @@ export default function Page() {
 
     fetchFavorites();
   }, [user.favorites]);
-  const card =   favoriteProducts?.map((e,index) => (
-    <CardFavorite key={index} name={e?.data?.title} price={e?.data?.price} image={e?.data?.images[0]} />
-  ))
+  const card = favoriteProducts?.map((e, index) => (
+    <CardFavorite
+      key={index}
+      name={e?.data?.title}
+      price={e?.data?.price}
+      image={e?.data?.images[0]}
+    />
+  ));
   return (
-    <div className="mx-10">
-      <div className="mt-5">
-        {/* title page */}
-        <span className="text-txt font-bold text-lg">{user.username}</span>
-        <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
-      </div>
-      <div className="flex flex-wrap gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
-        {card}
-      </div>
-    </div>
+    <>
+      {favoriteProducts.length>0 ? (
+        <div className='mx-10'>
+          <div className='mt-5'>
+            {/* title page */}
+            <span className='text-txt font-bold text-lg'>{user.username}</span>
+            <h1 className='text-my-yellow font-bold text-2xl'>Good Day</h1>
+          </div>
+          <div className='flex flex-wrap gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl'>
+            {card}
+          </div>
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 }
