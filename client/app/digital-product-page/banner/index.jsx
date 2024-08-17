@@ -28,7 +28,7 @@ export default function GameBanner() {
             <img
               src={process.env.NEXT_PUBLIC_DB_HOST + banners[2]?.image}
               alt={banners[2]?.title}
-              className='w-[100%] scale-110  object-cover rounded-2xl -translate-y-2'
+              className='w-[100%] scale-110  object-cover rounded-2xl -translate-y-2 -z-0'
             />
             {/* text */}
             <div className='w-full flex flex-col gap-3 items-start p-5'>
@@ -36,7 +36,7 @@ export default function GameBanner() {
               <h6 className='text-xs '>
                 {banners[2]?.description.slice(0, 100)}
               </h6>
-              <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300'>
+              <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300 px-2'>
                 GET THE GAME
               </button>
             </div>
@@ -49,7 +49,7 @@ export default function GameBanner() {
               <h2 className='text-2xl  font-bold'>{banners[3]?.title}</h2>
               <h6 className='text-xs '>{banners[3].description}</h6>
               <div>
-                <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300'>
+                <button className='bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs hover:scale-105 duration-300 px-1'>
                   GET THE GAME
                 </button>
               </div>

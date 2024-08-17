@@ -4,12 +4,27 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+export const SearchResult = ({ title, id, image }) => {
+  return (
+    <Link
+      href={`/digital-product-page/product-details/${id}/${title
+        .replaceAll(" ", "-")
+        .toLowerCase()}`}>
+      {" "}
+      <div className='w-full h-[100px] gap-2 flex justify-between px-3  items-center '>
+        <div className="w-[50%] h-full p-1"><img src={image} alt={title} width={"100%"} className="object-fill" height={"100%"} /></div>
+        <h2 className='font-bold text-my-yellow text-xs'>{title.slice(0,20)}</h2>
+      </div>
+    </Link>
+  );
+};
+
 export default function Header() {
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
   const [search, setSearch] = useState("");
-
+  const [result, setResult] = useState();
   const [infoUser, setInfoUser] = useState();
   useEffect(() => {
     (async () => {
@@ -26,20 +41,32 @@ export default function Header() {
       }
     })();
   }, []);
-  const handleChange=async(e)=>{
-    setSearch(e.target.value)
+  const handleChange = async (e) => {
+    setSearch(e.target.value);
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+`search`, {
+      const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST + `search`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({search}),
+        body: JSON.stringify({ search }),
       });
-      const data=await res.json()
-      console.log(data);
+      const data = await res.json();
+      setResult(data.data.product);
     } catch (error) {
-      console.error( error);
+      console.error(error);
     }
-  }
+  };
+  const items = result?.map((e, index) => (
+    <SearchResult
+      key={index}
+      id={e?._id}
+      title={e?.title}
+      image={process.env.NEXT_PUBLIC_DB_HOST + e?.images[1]}/>
+  ));
+  window.addEventListener('click',(e)=>{
+    if(!e.target.closest('#search')){
+      setSearch('')
+    }
+  })
   return (
     <header className=' flex w-full h-20 items-center z-10  px-10 justify-between'>
       <div>
@@ -59,15 +86,22 @@ export default function Header() {
               </svg>
             </span>
           </div>
-          <input
-            type='text'
-            name='search'
-            id='search'
-            value={search}
-            onChange={handleChange}
-            className=' bg-[#28282A] w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-white  sm:text-sm sm:leading-6  outline-none '
-            placeholder='Search..'
-          />
+          <div className='relative'>
+            <input
+              type='text'
+              name='search'
+              id='search'
+              value={search}
+              onChange={handleChange}
+              className='searchInp bg-[#28282A] w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-white  sm:text-sm sm:leading-6  outline-none '
+              placeholder='Search..'
+            />
+            {/* ///////////////////////////////////////////////////////////////// */}
+            <div
+              className={`absolute w-full ${
+                search ? "h-[300px]" : "h-0"
+              } duration-300 rounded bg-bg-200 top-100% z-20 overflow-y-auto`}>{items}</div>
+          </div>
         </div>
       </div>
       <div className='flex items-center gap-5'>
