@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
+    
       <body className={inter.className}>
         <div className='flex'>
           <SidNavProfile />
@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
           </div>
         </div>
       </body>
-    </html>
   );
 }
 
