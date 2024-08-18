@@ -34,7 +34,7 @@ export default function Register({ banner, handlePageType }) {
     }
   };
   if (token) {
-    router.push("/profile");
+    router.push("/profile/wallet");
   }
   return (
     <>
