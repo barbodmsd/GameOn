@@ -293,7 +293,7 @@ export const deleteProductFromCart = catchAsync(async (req, res, next) => {
   cart.splice(productIndex, 1);
 
   await user.save();
-
+  await user.populate("cart.productId");
   res.status(200).json({
     status: "success",
     data: { user },
