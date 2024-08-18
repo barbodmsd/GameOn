@@ -44,30 +44,6 @@ export default function SidNavProfile() {
         </div>
         <div className="my-10">
           <ul className="space-y-9 text-[#7D8085]">
-            {/* Dashboard */}
-            <li className={`text-sm flex items-center gap-3`}>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.5 7.82031H3.5C2.11929 7.82031 1 8.7927 1 9.99216V11.0781H6H11V9.99216C11 8.7927 9.88069 7.82031 8.5 7.82031Z"
-                  stroke="#7D8085"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M6 5.64847C7.38069 5.64847 8.5 4.6761 8.5 3.47662C8.5 2.27715 7.38069 1.30478 6 1.30478C4.61929 1.30478 3.5 2.27715 3.5 3.47662C3.5 4.6761 4.61929 5.64847 6 5.64847Z"
-                  stroke="#7D8085"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <Link href={"/profile"}>Dashboard</Link>
-            </li>
             {/* Wallet */}
             <li className={`text-sm flex items-center gap-3`}>
               <svg
