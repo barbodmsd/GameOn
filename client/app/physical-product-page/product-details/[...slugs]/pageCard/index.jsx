@@ -2,20 +2,78 @@
 
 import React, { useState } from "react";
 import Tilt from "react-parallax-tilt";
+import { login } from "@/Store/Slices/authSlice";
+import SolidHeart from "@/components/icon/solidHeart";
+import Heart from "@/components/icon/Heart";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function index({ product }) {
+export default function index({ product, id }) {
+  const { user, token } = useSelector(
+    (state) => state.persistedReducer.authSlice
+  );
   const [quantity, setQuantity] = useState(0);
   const [activBtn, setActiveBtn] = useState("details");
+  const [value, setValue] = useState();
+  const dispatch = useDispatch();
   const { images, title, price, description, color, brand } = product;
   const colors = color?.map((e, index) => (
     <div key={index} className={`w-6 h-6 bg-${e} rounded-full`}></div>
   ));
+  const addToCart = async () => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/add-cart`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            productId: id,
+            quantity: quantity,
+          }),
+        }
+      );
+      const data = await res.json();
+      dispatch(login({ user: data?.data?.user, token }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleClick = async () => {
+    try {
+      setValue(!value);
+      if (!value) {
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/favorites`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ productId: product._id }),
+          }
+        );
+        const data = await res.json();
+        dispatch(login({ user: data?.data?.user, token }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="text-black my-10">
       <div className="flex justify-stretch pl-11 w-full gap-10 h-screen">
         <div className=" w-[340px] h-[700px] bg-my-yellow flex flex-col items-center justify-between py-10">
           <div className="w-52 h-52 rounded-xl bg-[#85B200]">
-            <img src="http://localhost:7000/bag-ds.png" alt="image" className="p-5"/>
+            <img
+              src="http://localhost:7000/bag-ds.png"
+              alt="image"
+              className="p-5"
+            />
           </div>
           <div className="flex flex-col items-center gap-4">
             <div>
@@ -75,7 +133,9 @@ export default function index({ product }) {
             <button
               type="button"
               onClick={() => setActiveBtn("details")}
-              className={activBtn == "details" ? "btn-focus" : "btn-notFocus text-sm"}
+              className={
+                activBtn == "details" ? "btn-focus" : "btn-notFocus text-sm"
+              }
             >
               details
             </button>
@@ -102,15 +162,24 @@ export default function index({ product }) {
           <dev className="h-full"></dev>
           {/* text */}
           <div className="text-white">
-            <p className="text-sm text-[#6b6b6b]" >Original Product ( {brand})</p>
-            <h5 className="my-4 text-2xl">
-              {title.slice(0,10)}
-            </h5>
+            <p className="text-sm text-[#6b6b6b]">
+              Original Product ( {brand})
+            </p>
+            <div className="flex gap-5">
+              <h5 className="my-4 text-2xl">{title.slice(0, 10)}</h5>
+              <button
+                onClick={handleClick}
+                className=" text-6xl text-my-yellow"
+              >
+                {value ? <SolidHeart /> : <Heart />}
+              </button>
+            </div>
           </div>
           {/* price an btn */}
           <div className="flex items-center gap-20">
             <span className="text-my-yellow font-bold text-lg">${price} </span>
             <button
+              onClick={addToCart}
               type="button"
               className="bg-my-yellow px-5 py-2 rounded-full flex gap-2 font-bold text-sm "
             >
