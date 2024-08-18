@@ -76,7 +76,7 @@ export default function Login({ handlePageType, banner }) {
     }
   };
   if (token) {
-    router.push("/profile");
+    router.push("/profile/wallet");
   }
   return (
     <>
