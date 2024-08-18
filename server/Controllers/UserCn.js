@@ -266,7 +266,7 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
 });
 // delete id product cart
 export const deleteProductFromCart = catchAsync(async (req, res, next) => {
-  const { userId } = req.params;
+  const { id:userId } = req.params;
   const { productId } = req.body;
 
   const user = await User.findById(userId);
@@ -296,7 +296,7 @@ export const deleteProductFromCart = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: "Product removed from cart",
+    data: { user },
   });
 });
 
