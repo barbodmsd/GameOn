@@ -44,7 +44,7 @@ export default function CardFavorite({ name, id, price, image }) {
                 <img
                   src={process.env.NEXT_PUBLIC_DB_HOST + image}
                   alt='product-image'
-                  srcset=''
+                  srcSet=''
                   className='w-[100%] h-[100%] rounded'
                 />
               </div>

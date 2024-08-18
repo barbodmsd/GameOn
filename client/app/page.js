@@ -149,7 +149,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="w-[268px] h-[375px] rounded-2xl "
             >
-              {banerImage[6]}
+             {banerImage ? banerImage[6] : ""}
             </motion.div>
             <div className="flex flex-col gap-4">
               <motion.div
@@ -158,7 +158,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="w-[493px] h-[148px] rounded-2xl "
               >
-                {banerImage[8]}
+                {banerImage ? banerImage[8] : ""}
               </motion.div>
               <div className="flex justify-center gap-3">
                 <motion.div
@@ -167,7 +167,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
                 >
-                  {banerImage[10]}
+                  {banerImage ? banerImage[10] : ""}
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -175,7 +175,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
                 >
-                  {banerImage[9]}
+                  {banerImage ? banerImage[9] : ""}
                 </motion.div>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="w-[268px] h-[375px] rounded-2xl "
             >
-              {banerImage[7]}
+             {banerImage ? banerImage[7] : ""}
             </motion.div>
           </div>
         )}

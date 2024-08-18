@@ -44,16 +44,16 @@ export default function PhysicalProductCard({
                 <path
                   d="M12 9V15"
                   stroke="#BDFD00"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M9 12H15"
                   stroke="#BDFD00"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <circle cx="12" cy="12" r="11.5" stroke="#BDFD00" />
               </svg>
