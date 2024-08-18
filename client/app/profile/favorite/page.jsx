@@ -19,7 +19,7 @@ const fetchProductById = async (productId) => {
   }
 };
 
-export default function Page() {
+export default function Favorite() {
   const { user } = useSelector((state) => state.persistedReducer.authSlice);
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   useEffect(() => {
