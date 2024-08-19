@@ -4,14 +4,17 @@ import PhoneIcon from "@/components/icon/phone";
 import UserIcon from "@/components/icon/user";
 import { login } from "@/Store/Slices/authSlice";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Tilt from "react-parallax-tilt";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { AnimatePresence } from 'framer-motion';
 
 export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
+  const { token } = useSelector((state) => state.persistedReducer.authSlice);
+  const router = useRouter();
   const dispatch=useDispatch()
   const { errors } = formState;
   const onSubmit = async (e) => {
@@ -30,11 +33,14 @@ export default function Register({ banner, handlePageType }) {
       console.log(error);
     }
   };
-
+  if (token) {
+    router.push("/profile/wallet");
+  }
   return (
     <>
    
       {banner && (
+        <AnimatePresence>
         <motion.div
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 50 }}
@@ -178,6 +184,7 @@ export default function Register({ banner, handlePageType }) {
 
           {/* <DevTool control={control} /> */}
         </motion.div>
+        </AnimatePresence>
       )}
     </>
   );

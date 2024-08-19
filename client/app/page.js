@@ -24,23 +24,42 @@ export default function Home() {
   const refTow = useRef(null);
   const inViewTow = useInView(refTow, { once: true });
   // Fetch sliders data
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await fetchData("sliders");
+  //       const resBanner = await fetchData("banners");
+  //       const resProducts = await fetchData("products?key=physical");
+  //       const resProductsG = await fetchData("products?key=digital");
+  //       setProducts(resProducts.data);
+  //       setProductsG(resProductsG.data);
+  //       setImageSlider(res.data);
+  //       setBanner(resBanner.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetchData("sliders");
-        const resBanner = await fetchData("banners");
-        const resProducts = await fetchData("products?key=physical");
-        const resProductsG = await fetchData("products?key=digital");
-        setProducts(resProducts.data);
-        setProductsG(resProductsG.data);
-        setImageSlider(res.data);
-        setBanner(resBanner.data);
+        const res = await fetch(process.env.NEXT_PUBLIC_DB_HOST+"sliders");
+        const data=await res.json()
+        const resBanner = await fetch(process.env.NEXT_PUBLIC_DB_HOST+"banners");
+        const dataBanner=await resBanner.json()
+        const resProducts = await fetch(process.env.NEXT_PUBLIC_DB_HOST+"products?key=physical");
+        const dataProducts=await resProducts.json()
+        const resProductsG = await fetch(process.env.NEXT_PUBLIC_DB_HOST+"products?key=digital");
+        const dataProductsG=await resProductsG.json()
+        setProducts(dataProducts.data);
+        setProductsG(dataProductsG.data);
+        setImageSlider(data.data);
+        setBanner(dataBanner.data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-
   // Create SwiperSlide components
   const sliders = imageSlider.map((e, index) => (
     <SwiperSlide key={index}>
@@ -111,7 +130,7 @@ export default function Home() {
         </div>
         <div ref={ref} className=""></div>
         {inView && (
-          <div className="show-dev flex justify-center gap-10 w-[1229px] py-10  ">
+          <div className="show-div flex justify-center gap-10 w-[1229px] py-10  ">
             <motion.div
               initial={{ opacity: 0, x: -500 }}
               animate={{ opacity: 1, x: 0 }}
@@ -140,7 +159,7 @@ export default function Home() {
             {cardsTow}
           </Swiper>
         </div>
-        <dev ref={refTow}></dev>
+        <div ref={refTow}></div>
         {inViewTow && (
           <div className="flex justify-center gap-3">
             <motion.div
@@ -149,7 +168,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="w-[268px] h-[375px] rounded-2xl "
             >
-              {banerImage[6]}
+             {banerImage ? banerImage[6] : ""}
             </motion.div>
             <div className="flex flex-col gap-4">
               <motion.div
@@ -158,7 +177,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="w-[493px] h-[148px] rounded-2xl "
               >
-                {banerImage[8]}
+                {banerImage ? banerImage[8] : ""}
               </motion.div>
               <div className="flex justify-center gap-3">
                 <motion.div
@@ -167,7 +186,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
                 >
-                  {banerImage[10]}
+                  {banerImage ? banerImage[10] : ""}
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -175,7 +194,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   className="w-[237px] h-[210px] rounded-2xl bg-bg-300"
                 >
-                  {banerImage[9]}
+                  {banerImage ? banerImage[9] : ""}
                 </motion.div>
               </div>
             </div>
@@ -185,7 +204,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="w-[268px] h-[375px] rounded-2xl "
             >
-              {banerImage[7]}
+             {banerImage ? banerImage[7] : ""}
             </motion.div>
           </div>
         )}
@@ -202,20 +221,6 @@ export default function Home() {
           </Swiper>
         </div>
       </div>
-
-      {/* toast */}
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
     </>
   );
 }

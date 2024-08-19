@@ -19,12 +19,13 @@ export default function Banner() {
               <p className=' text-xs'>{banner?.description}</p>
               <button
                 type='button'
-                className=' bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs'>
+                className='hover:scale-105 duration-300 bg-[#BDFD00] w-[40%] h-10 rounded-3xl text-black font-bold text-xs'>
                 Get The Game
               </button>
             </div>
             <div className=''>
               <img
+              
                 src={process.env.NEXT_PUBLIC_DB_HOST + banner?.image}
                 alt='baner-image'
               />

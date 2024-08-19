@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../cartAnimation/cartAnimation.json"; // Ensure this path is correct
+import animationData from "../searchAnimation/searchAnimation.json"; // Ensure this path is correct
 
 const LottieAnimation = () => {
   const defaultOptions = {
@@ -13,8 +13,8 @@ const LottieAnimation = () => {
   };
 
   return (
-    <div className="w-[500px] h-[500px]">
-      <Lottie isClickToPauseDisabled options={defaultOptions}  height={'100%'} width={'100%'} />
+    <div className="w-full h-full flex items-center justify-center">
+      <Lottie isClickToPauseDisabled options={defaultOptions}  height={'150px'} width={'150px'} />
     </div>
   );
 };

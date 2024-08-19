@@ -13,13 +13,14 @@ export const getData = async (id) => {
 };
 
 export default async function ProductDetails({ params }) {
-  const product = await getData(params.slugs[0]);
+  const id = params.slugs[0];
+  const product = await getData(id);
 
   return (
     <>
       {product ? (
         <div>
-          <PageCard product={product} />
+          <PageCard product={product} id={id} />
         </div>
       ) : (
         <Loading />

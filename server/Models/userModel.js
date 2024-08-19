@@ -90,6 +90,12 @@ const userSchema = new mongoose.Schema(
         ref: "Product", // References to the Product model for favorite items
       },
     ],
+    order: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product", // References to the Product model for favorite items
+      },
+    ],
     role: {
       type: String,
       enum: ["admin", "user"], // Role can be either 'admin' or 'user'

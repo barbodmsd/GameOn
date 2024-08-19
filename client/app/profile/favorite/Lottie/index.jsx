@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../cartAnimation/cartAnimation.json"; // Ensure this path is correct
+import animationData from "../animation/animation.json"; // Ensure this path is correct
 
 const LottieAnimation = () => {
   const defaultOptions = {

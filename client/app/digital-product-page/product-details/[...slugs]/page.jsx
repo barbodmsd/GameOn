@@ -14,7 +14,6 @@ export default function GameProductDetails({ params }) {
   );
   const dispatch = useDispatch();
   const id = params.slugs[0];
-
   const addToCart = async () => {
     try {
       const res = await fetch(
@@ -32,7 +31,8 @@ export default function GameProductDetails({ params }) {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token }));
+      console.log(data);
+      dispatch(login({ user: data?.data?.user, token }));
       setValue(!value);
     } catch (error) {
       console.log(error);
@@ -61,10 +61,9 @@ export default function GameProductDetails({ params }) {
       console.log(error);
     }
   };
-
-  const quantity=useMemo(() => {
-    if(user.cart){
-      return user?.cart?.filter((e) => e.productId._id == id)[0]?.quantity
+  const quantity = useMemo(() => {
+    if (user.cart) {
+      return user?.cart?.filter((e) => e.productId._id == id)[0]?.quantity;
     }
   }, [value]);
 
@@ -81,12 +80,13 @@ export default function GameProductDetails({ params }) {
       }
     })();
   }, [id]);
-  
+
   return (
     <>
       {products ? (
         <div className='min-h-screen w-full px-8 mt-5 '>
           <PdCard
+            id={id}
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             product={products}

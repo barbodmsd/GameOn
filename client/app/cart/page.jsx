@@ -1,16 +1,19 @@
 "use client";
 import { login } from "@/Store/Slices/authSlice";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LottieAnimation from "./Lottie";
 import { useRouter } from "next/navigation";
+import Remove from "@/components/icon/remove";
 
 export const CardCart = ({
   img,
   id,
+  pathname,
   title,
+  removeProductFromCart,
   price,
   addToCart,
   removeFromCart,
@@ -18,11 +21,16 @@ export const CardCart = ({
   quantity,
 }) => {
   return (
-    <>
+    <AnimatePresence mode='wait'>
       <motion.div
         drag
+        key={pathname}
+        initial={{x:-150,opacity:0}}
+        animate={{x:0,opacity:1}}
+        transition={{duration:1.3,type:'spring'}}
+        exit={{x:150,opacity:0}}
         dragConstraints={constraintsRef}
-        className='w-[700px] cursor-pointer px-2 h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center justify-between'>
+        className='w-[700px] relative cursor-pointer px-2 h-[80px] rounded-lg bg-bg-300 flex gap-5 items-center justify-between'>
         <Link
           href={`/digital-product-page/product-details/${id}/${title
             .replaceAll(" ", "-")
@@ -40,7 +48,7 @@ export const CardCart = ({
         {/* title */}
         <h2 className='font-bold text-lg '>{title}</h2>
         {/* brand */}
-        <h2 className="'font-bold text-md text-my-yellow">${price}</h2>
+        <h2 className="'font-bold text-md text-my-yellow">${price.toFixed(2)}</h2>
         {/* button */}
         <div className='flex gap-2 items-center'>
           {quantity && (
@@ -81,14 +89,15 @@ export const CardCart = ({
             +
           </button>
         </div>
+        <button onClick={removeProductFromCart} className="absolute top-[50%] translate-y-[-50%] left-[102%]"><Remove/></button>
       </motion.div>
-    </>
+    </AnimatePresence>
   );
 };
 export default function Cart() {
   const constraintsRef = useRef(null);
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
@@ -139,7 +148,7 @@ export default function Cart() {
       console.log(error);
     }
   };
-  const clearCart = async (id) => {
+  const clearCart = async () => {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-all-cart`,
@@ -157,10 +166,29 @@ export default function Cart() {
       console.log(error);
     }
   };
+  const removeProductFromCart = async (id) => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-product`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body:JSON.stringify({productId:id})
+        }
+      );
+      const data = await res.json();
+      dispatch(login({ user: data.data.user, token }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let totalPrice = 0;
   const items = user?.cart?.map((e, index) => {
-    totalPrice += e.productId.price * e.quantity;
+    totalPrice += (e.productId.price * e.quantity)
     return (
       <CardCart
         key={index}
@@ -172,6 +200,8 @@ export default function Cart() {
         img={process.env.NEXT_PUBLIC_DB_HOST + e?.productId?.images[0]}
         price={e?.productId?.price * e?.quantity}
         quantity={e?.quantity}
+        pathname={router.pathname}
+        removeProductFromCart={()=>removeProductFromCart(e?.productId?._id)}
       />
     );
   });
@@ -195,7 +225,7 @@ export default function Cart() {
             <div>
               <button
                 className='btn-focus border-none opacity-45 duration-300  hover:opacity-100'
-                onClick={() => clearCart(user?._id)}>
+                onClick={clearCart}>
                 Clear All
               </button>
             </div>
@@ -205,7 +235,7 @@ export default function Cart() {
             className='w-full h-full flex flex-col p-5 gap-7'>
             {items}
           </motion.div>
-          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice}</div>
+          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice.toFixed(2)}</div>
         </div>
       ) : (
         <div className='w-full h-full flex flex-col  items-center'>
