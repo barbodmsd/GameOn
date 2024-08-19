@@ -240,7 +240,7 @@ export default function SidNav() {
                 />
               </svg>
 
-              <Link href={"/post"}>Gamepads</Link>
+              <Link href={"/gamepads"}>Gamepads</Link>
             </li>
             {/* VR Glassess */}
             {/* <li
