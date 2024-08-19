@@ -294,7 +294,7 @@ export default function SidNav() {
                   fill="#7D8085"
                 />
               </svg>
-              <Link href={"/post"}>Keyboards</Link>
+              <Link href={"/key-board"}>Keyboards</Link>
             </li>
             {/* computers */}
             <li
