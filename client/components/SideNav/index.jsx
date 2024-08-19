@@ -184,7 +184,7 @@ export default function SidNav() {
                 />
               </svg>
 
-              <Link href={"/post"}>Head phones</Link>
+              <Link href={"/head-phone"}>Head phones</Link>
             </li>
             {/* Gamepads */}
             <li
