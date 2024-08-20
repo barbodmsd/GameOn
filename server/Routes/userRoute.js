@@ -11,6 +11,7 @@ import {
   deletAllItemCart,
   removeFromFavorite,
   deleteProductFromCart,
+  paymentCart,
 } from "../Controllers/UserCn.js";
 import upload from "../Utils/UploadFile.js";
 import { checkAdmin } from "../Middleware/checkAdmin.js";
@@ -31,7 +32,7 @@ userRoute
 // Route cart
 userRoute.route("/:id/add-cart").post(checkUser, addToCart); // Route for deleting a product to the cart
 userRoute.route("/:id/remove-cart").delete(checkUser, deletItemQuantityCart); // Route for adding a product to the cart
-
+userRoute.route("/payment").patch(paymentCart)
 // remove all cart
 userRoute.route("/:id/remove-all-cart").delete( deletAllItemCart).patch(deleteProductFromCart)
 userRoute.route("/:id/remove-product").delete( deleteProductFromCart)
