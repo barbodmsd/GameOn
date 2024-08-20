@@ -266,7 +266,7 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
 });
 // delete id product cart
 export const deleteProductFromCart = catchAsync(async (req, res, next) => {
-  const { id:userId } = req.params;
+  const { id: userId } = req.params;
   const { productId } = req.body;
 
   const user = await User.findById(userId);
@@ -321,4 +321,26 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
       user,
     },
   });
+});
+
+// payment cart
+export const paymentCart = catchAsync(async (req, res, next) => {
+  const { id } = jwt.verify(
+    req.headersauthorization.split(" ")[1],
+    process.env.JWT_SECRET
+  );
+  const user = await User.findById(id);
+  const cartTotalPrice = user.cart.map((e) => {
+    e.productId.price * e.quantity;
+  });
+  const walletBalnce = user.wallet.balance;
+  if(walletBalnce>=cartTotalPrice){
+    user.cart = []
+    cartTotalPrice - walletBalnce
+  }
+  await user.save
+  res.status(200).json({
+    status:"success",
+    message:"payment success"
+  })
 });
