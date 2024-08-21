@@ -325,22 +325,26 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
 
 // payment cart
 export const paymentCart = catchAsync(async (req, res, next) => {
-  const { id } = jwt.verify(
-    req.headersauthorization.split(" ")[1],
-    process.env.JWT_SECRET
-  );
+  const id = req.params.id
   const user = await User.findById(id);
-  const cartTotalPrice = user.cart.map((e) => {
-    e.productId.price * e.quantity;
-  });
-  const walletBalnce = user.wallet.balance;
+  const cartTotalPrice = user.cart.reduce((total, item) => {
+    return total + item.productId.price * item.quantity;
+  }, 0);
+  const productIds = user.cart.map((item) => {item.productId});
+
   if(walletBalnce>=cartTotalPrice){
+    user.order.push({productIds})
     user.cart = []
-    cartTotalPrice - walletBalnce
+    user.wallet.balance -= cartTotalPrice
+    await user.save
+    res.status(200).json({
+      status:"success",
+      message:"payment success"
+    })
+  }else {
+    res.status(400).json({
+      status: "error",
+      message: "insufficient balance"
+    });
   }
-  await user.save
-  res.status(200).json({
-    status:"success",
-    message:"payment success"
-  })
 });
