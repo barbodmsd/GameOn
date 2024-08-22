@@ -32,7 +32,7 @@ userRoute
 // Route cart
 userRoute.route("/:id/add-cart").post(checkUser, addToCart); // Route for deleting a product to the cart
 userRoute.route("/:id/remove-cart").delete(checkUser, deletItemQuantityCart); // Route for adding a product to the cart
-userRoute.route("/:id/payment").patch(paymentCart)
+userRoute.route("/payment").post(paymentCart)
 // remove all cart
 userRoute.route("/:id/remove-all-cart").delete( deletAllItemCart).patch(deleteProductFromCart)
 userRoute.route("/:id/remove-product").delete( deleteProductFromCart)

@@ -93,7 +93,7 @@ const userSchema = new mongoose.Schema(
     order: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product", // References to the Product model for favorite items
+        ref: "Product", // References to the Product model 
       },
     ],
     role: {

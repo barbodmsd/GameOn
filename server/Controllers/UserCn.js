@@ -325,26 +325,17 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
 
 // payment cart
 export const paymentCart = catchAsync(async (req, res, next) => {
-  const id = req.params.id
+  const token = req?.headers?.authorization.split(" ")[1];
+  const { id } = jwt.verify(token, process.env.SECRET_KEY);
+  const { totalPrice } = req?.body;
   const user = await User.findById(id);
-  const cartTotalPrice = user.cart.reduce((total, item) => {
-    return total + item.productId.price * item.quantity;
-  }, 0);
-  const productIds = user.cart.map((item) => {item.productId});
-
-  if(walletBalnce>=cartTotalPrice){
-    user.order.push({productIds})
-    user.cart = []
-    user.wallet.balance -= cartTotalPrice
-    await user.save
-    res.status(200).json({
-      status:"success",
-      message:"payment success"
-    })
-  }else {
-    res.status(400).json({
-      status: "error",
-      message: "insufficient balance"
-    });
-  }
+  user.cart.forEach((e) => user.order.push(e));
+  user.cart = [];
+  user.wallet.balance -= totalPrice;
+  await user.save();
+  const updatedUser = await User.findById(id).populate("order");
+  return res.status(200).json({
+    status: "success",
+    data: { user: updatedUser },
+  });
 });
