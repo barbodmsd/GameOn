@@ -3,10 +3,19 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import fetchData from "@/Utils/FetchData";
 import { login } from "@/Store/Slices/authSlice";
+import { useRouter } from "next/navigation";
 
-export default function Page() {
-  const token = useSelector((state) => state.persistedReducer.authSlice.token);
-  const oldUser = useSelector((state) => state.persistedReducer.authSlice.user);
+export default function Wallet() {
+  const router = useRouter();
+  const token = useSelector(
+    (state) => state?.persistedReducer?.authSlice?.token
+  );
+  if (!token) {
+    router.push("/auth");
+  }
+  const oldUser = useSelector(
+    (state) => state?.persistedReducer?.authSlice?.user
+  );
   const [user, setUser] = useState(oldUser);
   const [userBalance, setUserBalance] = useState();
   const [cardPrice, setCardPrice] = useState(0);
@@ -50,9 +59,9 @@ export default function Page() {
         }
       );
       const data = await resPost.json();
-      setUserBalance(data.data);
-      dispatch(login({ user: data.data.user, token }));
-      setUser(data.data.user);
+      setUserBalance(data?.data);
+      dispatch(login({ user: data?.data?.user, token }));
+      setUser(data?.data?.user);
     } catch (error) {
       console.error("Error posting user data:", error);
     }
