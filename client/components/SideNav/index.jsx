@@ -27,7 +27,7 @@ export default function SidNav() {
             {/* profile */}
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/profile"
+                pageAddress === "/profile/wallet"
                   ? "text-[#BDFD00]"
                   : "hover:text-[#BDFD00]"
               }  `}>
@@ -51,28 +51,6 @@ export default function SidNav() {
                 />
               </svg>
               <Link href={"/profile/wallet"}>Profile</Link>
-            </li>
-            {/* favorite */}
-            <li
-              className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/profile/favorite"
-                  ? "text-[#BDFD00]"
-                  : "hover:text-[#BDFD00]"
-              }  `}>
-              <svg
-                width='12'
-                height='11'
-                viewBox='0 0 12 11'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'>
-                <path
-                  d='M1.73967 5.22331L6 9.54126L10.2603 5.22331C10.7339 4.74328 11 4.09226 11 3.41343C11 1.99983 9.86933 0.853882 8.47461 0.853882C7.80483 0.853882 7.1625 1.12355 6.68889 1.60355L6 2.30178L5.31111 1.60355C4.83749 1.12355 4.19516 0.853882 3.52538 0.853882C2.13065 0.853882 1 1.99983 1 3.41343C1 4.09226 1.26607 4.74328 1.73967 5.22331Z'
-                  stroke='#7D8085'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              <Link href={"/profile/favorite"}>Favorite</Link>
             </li>
             {/* Balance */}
             <li
@@ -386,7 +364,7 @@ export default function SidNav() {
           <ul className='space-y-5 text-[#7D8085]'>
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
+                pageAddress === "/help" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
               }  `}>
               <svg
                 width='17'
@@ -404,7 +382,7 @@ export default function SidNav() {
             </li>
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
+                pageAddress === "/conditions" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
               }  `}>
               <svg
                 width='14'
@@ -438,7 +416,7 @@ export default function SidNav() {
             </li>
             <li
               className={`text-sm flex items-center gap-3 ${
-                pageAddress === "/" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
+                pageAddress === "/con" ? "text-[#BDFD00]" : "hover:text-[#BDFD00]"
               }  `}>
               <svg
                 width='15'

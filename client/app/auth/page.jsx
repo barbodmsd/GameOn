@@ -11,6 +11,7 @@ export default function Auth() {
   const handlePageType = () => {
     setPageType(pageType === "login" ? "register" : "login");
   };
+  
   useEffect(() => {
     (async () => {
       try {
