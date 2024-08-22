@@ -6,7 +6,8 @@ import ProductsList from "../physical-product-page/ProductsList";
 import Banner from "../physical-product-page/Banner";
 import Loading from "@/components/Loading";
 
-export default function GamePads() {
+
+export default function Computers() {
   const [products, setProducts] = useState();
 
   useEffect(() => {
