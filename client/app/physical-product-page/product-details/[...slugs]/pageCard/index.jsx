@@ -15,6 +15,7 @@ export default function index({ product, id }) {
   const [activBtn, setActiveBtn] = useState("details");
   const [value, setValue] = useState();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const { images, title, price, description, color, brand } = product;
   const colors = color?.map((e, index) => (
     <div key={index} className={`w-6 h-6 bg-${e} rounded-full`}></div>
@@ -64,6 +65,14 @@ export default function index({ product, id }) {
       console.log(error);
     }
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <div className="text-black my-10">
       <div className="flex justify-stretch pl-11 w-full gap-10 h-screen">
@@ -132,7 +141,7 @@ export default function index({ product, id }) {
           <div className="flex gap-5 justify-end text-sm">
             <button
               type="button"
-              onClick={() => setActiveBtn("details")}
+              onClick={() => setActiveBtn("details") || handleClose()}
               className={
                 activBtn == "details" ? "btn-focus" : "btn-notFocus text-sm"
               }
@@ -141,7 +150,7 @@ export default function index({ product, id }) {
             </button>
             <button
               type="button"
-              onClick={() => setActiveBtn("description")}
+              onClick={() => setActiveBtn("description") || handleOpen()}
               className={
                 activBtn == "description" ? "btn-focus" : "btn-notFocus text-sm"
               }
@@ -230,6 +239,13 @@ export default function index({ product, id }) {
           </div>
         </div>
       </div>
+      {open ? (
+        <div onClick={handleClose} className="bg-black/30 w-[900px] h-[400px] absolute rounded-3xl left-[30%] top-[25%] text-white p-10 backdrop-blur-3xl">
+          <span>{description}</span>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
