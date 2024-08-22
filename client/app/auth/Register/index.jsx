@@ -33,9 +33,7 @@ export default function Register({ banner, handlePageType }) {
       console.log(error);
     }
   };
-  if(token){
-    router.push('/profile/wallet')
-   }
+  
   return (
     <>
    

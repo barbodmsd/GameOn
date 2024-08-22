@@ -75,9 +75,7 @@ export default function Login({ handlePageType, banner }) {
       console.log(error);
     }
   };
- if(token){
-  router.push('/profile/wallet')
- }
+ 
   return (
     <>
       {banner && (

@@ -99,7 +99,7 @@ export default function Cart() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { user, token } = useSelector(
-    (state) => state.persistedReducer.authSlice
+    (state) => state?.persistedReducer?.authSlice
   );
   if (!token) {
     router.push("/auth");
@@ -169,7 +169,7 @@ export default function Cart() {
   const removeProductFromCart = async (id) => {
     try {
       const res = await fetch(
-        process.env.NEXT_PUBLIC_DB_HOST + `users/${user._id}/remove-product`,
+        process.env.NEXT_PUBLIC_DB_HOST + `users/${user?._id}/remove-product`,
         {
           method: "DELETE",
           headers: {
@@ -180,7 +180,7 @@ export default function Cart() {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token }));
+      dispatch(login({ user: data?.data?.user, token }));
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +195,7 @@ export default function Cart() {
         constraintsRef={constraintsRef}
         id={e?.productId?._id}
         addToCart={() => addToCart(e?.productId?._id)}
-        removeFromCart={() => removeFromCart(e.productId?._id)}
+        removeFromCart={() => removeFromCart(e?.productId?._id)}
         title={e?.productId?.title}
         img={process.env.NEXT_PUBLIC_DB_HOST + e?.productId?.images[0]}
         price={e?.productId?.price * e?.quantity}
@@ -205,7 +205,7 @@ export default function Cart() {
       />
     );
   });
-  console.log({ totalPrice });
+  
   return (
     <>
       {user?.cart?.length > 0 ? (
