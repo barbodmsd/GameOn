@@ -22,6 +22,7 @@ export default function Wallet() {
   const [cardPrice, setCardPrice] = useState(0);
   const dispatch = useDispatch();
   const [count, setCount] = useState(true);
+  
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
