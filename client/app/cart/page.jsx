@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LottieAnimation from "./Lottie";
 import { useRouter } from "next/navigation";
 import Remove from "@/components/icon/remove";
+import { fetchData } from "@/Utils/fetchhData";
 
 export const CardCart = ({
   img,
@@ -121,7 +122,7 @@ export default function Cart() {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token }));
+      dispatch(login({ user: data?.data?.user, token }));
     } catch (error) {
       console.log(error);
     }
@@ -143,7 +144,7 @@ export default function Cart() {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token }));
+      dispatch(login({ user: data?.data?.user, token }));
     } catch (error) {
       console.log(error);
     }
@@ -161,7 +162,7 @@ export default function Cart() {
         }
       );
       const data = await res.json();
-      dispatch(login({ user: data.data.user, token }));
+      dispatch(login({ user: data?.data?.user, token }));
     } catch (error) {
       console.log(error);
     }
@@ -207,6 +208,26 @@ export default function Cart() {
   });
   let tax=totalPrice.toFixed(2)/13
   let shipping=totalPrice.toFixed(2)/20
+
+  const handleClick=async()=>{
+    try {
+      const res=await fetch(process.env.NEXT_PUBLIC_DB_HOST+'users/payment',{
+        method:"POST",
+        headers:{'content-type':'application/json',
+          authorization:`Bearer ${token}`
+        },
+        body:JSON.stringify({totalPrice})
+      })
+      const data=await res.json()
+      dispatch(login({ user: data?.data?.user, token }));
+      console.log(data)
+      if(data.status=='success'){
+        router.push('/profile/wallet')
+      }
+    } catch (error) {
+      
+    }
+  }
   return (
     <>
       {user?.cart?.length > 0 ? (
@@ -260,9 +281,9 @@ export default function Cart() {
             </div>
             <div className="flex w-full px-5 py-3 justify-between  border-t-2">
               <h2 className="font-bold text-xl">Total</h2>
-              <h3 className='text-my-yellow font-bold text-xl'>${totalPrice}</h3>
+              <h3 className='text-my-yellow font-bold text-xl'>${totalPrice.toFixed(2)}</h3>
             </div>
-            <div className='w-full text-center '><button className='animate-bounce bg-my-yellow py-1 px-20 rounded-md text-black font-bold'>Pay now</button></div>
+            <div className='w-full text-center '><button onClick={handleClick} className='animate-pulse transition hover:animate-none bg-my-yellow py-1 px-20 rounded-md text-black font-bold'>Pay now</button></div>
           </div>
         </section>
        </div>
