@@ -205,11 +205,14 @@ export default function Cart() {
       />
     );
   });
-  
+  let tax=totalPrice.toFixed(2)/13
+  let shipping=totalPrice.toFixed(2)/20
   return (
     <>
       {user?.cart?.length > 0 ? (
-        <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
+       <div className="flex pr-12">
+        {/* cart */}
+         <div className='min-h-screen w-full pl-[50px] flex flex-col gap-10 mt-5 '>
           {/* text cart and clear button */}
           <div className='flex px-3 items-center gap-[600px]'>
             <motion.div
@@ -235,8 +238,34 @@ export default function Cart() {
             className='w-full h-full flex flex-col p-5 gap-7'>
             {items}
           </motion.div>
-          <div className="bg-my-yellow text-black border border-txt px-4 py-1  font-bold w-[200px] border-none rounded">Total Price : ${totalPrice.toFixed(2)}</div>
+          
         </div>
+        {/* payment */}
+        <section className=' w-[410px] pt-[70px] h-full flex justify-center items-center'>
+          <div className="w-full flex flex-col py-5 gap-5 rounded-md  bg-bg-300 ">
+            <div className="px-5"><h2 className=' text-2xl '>Order Summary</h2></div>
+            <div className='flex px-5 flex-col gap-5 my-3'>
+              <div className="flex justify-between w-full">
+                <h2 >subTotal</h2>
+                <h3 className='text-my-yellow text-sm '>${(totalPrice-tax-shipping).toFixed(2)}</h3>
+              </div>
+              <div className="flex justify-between w-full">
+                <h2 >tax</h2>
+                <h3 className='text-my-yellow text-sm'>${tax.toFixed(2)}</h3>
+              </div>
+              <div className="flex justify-between w-full">
+                <h2 >shipping</h2>
+                <h3 className='text-my-yellow  text-sm '>${shipping.toFixed(2)}</h3>
+              </div>
+            </div>
+            <div className="flex w-full px-5 py-3 justify-between  border-t-2">
+              <h2 className="font-bold text-xl">Total</h2>
+              <h3 className='text-my-yellow font-bold text-xl'>${totalPrice}</h3>
+            </div>
+            <div className='w-full text-center '><button className='animate-bounce bg-my-yellow py-1 px-20 rounded-md text-black font-bold'>Pay now</button></div>
+          </div>
+        </section>
+       </div>
       ) : (
         <div className='w-full h-full flex flex-col  items-center'>
           <LottieAnimation />
