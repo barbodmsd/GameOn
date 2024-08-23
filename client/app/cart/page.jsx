@@ -284,19 +284,19 @@ export default function Cart() {
                   </div>
                   <div className='flex px-5 flex-col gap-5 my-3'>
                     <div className='flex justify-between w-full'>
-                      <h2>subTotal</h2>
+                      <h2>Subtotal</h2>
                       <h3 className='text-my-yellow text-sm '>
                         ${(totalPrice - tax - shipping).toFixed(2)}
                       </h3>
                     </div>
                     <div className='flex justify-between w-full'>
-                      <h2>tax</h2>
+                      <h2>Tax</h2>
                       <h3 className='text-my-yellow text-sm'>
                         ${tax.toFixed(2)}
                       </h3>
                     </div>
                     <div className='flex justify-between w-full'>
-                      <h2>shipping</h2>
+                      <h2>Shipping</h2>
                       <h3 className='text-my-yellow  text-sm '>
                         ${shipping.toFixed(2)}
                       </h3>

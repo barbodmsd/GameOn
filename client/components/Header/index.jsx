@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LottieAnimation from "./Lottie";
+import UserHead from "../icon/userHead";
 
 export const SearchResult = ({ title, id, image, type }) => {
   return (
@@ -125,11 +126,13 @@ export default function Header() {
           style={{ letterSpacing: "2px" }}>
           {token && user?.username}
         </span>
-        <img
+        {/* <img
           className='inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white'
           src='Profile.svg'
           alt='profile imge'
-        />
+        /> */}
+        <div  className='inline-block h-10 w-10 rounded-full ring-2 ring-[#BDFD00] bg-white '><UserHead /></div>
+        
         <div className='flex gap-5'>
           {/* cart */}
           <Link href='/cart'>
