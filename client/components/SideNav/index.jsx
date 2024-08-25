@@ -329,7 +329,7 @@ export default function SidNav() {
                   </clipPath>
                 </defs>
               </svg>
-              <Link href={"/post"}>computers</Link>
+              <Link href={"/computer"}>computers</Link>
             </li>
             {/* games */}
             <li
