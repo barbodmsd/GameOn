@@ -31,7 +31,6 @@ export default function GameProductDetails({ params }) {
         }
       );
       const data = await res.json();
-      console.log(data);
       dispatch(login({ user: data?.data?.user, token }));
       setValue(!value);
     } catch (error) {
@@ -62,7 +61,7 @@ export default function GameProductDetails({ params }) {
     }
   };
   const quantity = useMemo(() => {
-    if (user.cart) {
+    if (user?.cart) {
       return user?.cart?.filter((e) => e.productId._id == id)[0]?.quantity;
     }
   }, [value]);

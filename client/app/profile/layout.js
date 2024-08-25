@@ -1,14 +1,16 @@
-import { Inter } from "next/font/google";
+'use client'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SidNavProfile from "./sideNav";
+import { useSelector } from "react-redux";
 
-const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({ children }) {
+export default function profileLayout({ children }) {
+  const { token,user } = useSelector((state) => state?.persistedReducer?.authSlice);
+  console.log(token)
   return (
     
-      <body className={inter.className}>
+      <body >
         <div className='flex'>
           <SidNavProfile />
           <div className='w-full'>

@@ -1,12 +1,13 @@
 "use client";
 import fetchData from "@/Utils/FetchData";
 import React, { useEffect, useState } from "react";
-import BestGames from "./BestGames";
-import ProductsList from "./ProductsList";
-import Banner from "./Banner";
+import BestGames from "../physical-product-page/BestGames"; 
+import ProductsList from "../physical-product-page/ProductsList";
+import Banner from "../physical-product-page/Banner";
 import Loading from "@/components/Loading";
 
-export default function Mouse() {
+
+export default function HeadPhones() {
   const [products, setProducts] = useState();
 
   useEffect(() => {

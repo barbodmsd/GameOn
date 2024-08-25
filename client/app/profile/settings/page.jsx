@@ -1,6 +1,7 @@
 "use client";
 import fetchData from "@/Utils/FetchData";
 import { DevTool } from "@hookform/devtools";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -9,6 +10,10 @@ export default function Page() {
   const { user, token } = useSelector(
     (state) => state.persistedReducer.authSlice
   );
+  const router=useRouter()
+  if (!token) {
+    router.push("/auth");
+  }
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const [infoUser, setInfoUser] = useState();

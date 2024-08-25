@@ -1,7 +1,7 @@
 "use client";
 import Heart from "@/components/icon/Heart";
 import SolidHeart from "@/components/icon/solidHeart";
-import { login } from "@/Store/Slices/authSlice";
+import { login, logOut } from "@/Store/Slices/authSlice";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";

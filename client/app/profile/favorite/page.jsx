@@ -4,6 +4,7 @@ import CardFavorite from "../CardFavorite";
 import { useSelector } from "react-redux";
 import Loading from "@/components/Loading";
 import LottieAnimation from "./Lottie";
+import { useRouter } from "next/navigation";
 
 const fetchProductById = async (productId) => {
   try {
@@ -20,18 +21,24 @@ const fetchProductById = async (productId) => {
 };
 
 export default function Favorite() {
-  const { user } = useSelector((state) => state.persistedReducer.authSlice);
+  const { user, token } = useSelector(
+    (state) => state?.persistedReducer?.authSlice
+  );
   const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const router = useRouter();
+  if (!token) {
+    router.push("/auth");
+  }
   useEffect(() => {
     const fetchFavorites = async () => {
       const products = await Promise.all(
-        user.favorites.map((productId) => fetchProductById(productId))
+        user?.favorites?.map((productId) => fetchProductById(productId))
       );
       setFavoriteProducts(products.filter((product) => product !== null));
     };
 
     fetchFavorites();
-  }, [user.favorites]);
+  }, [user?.favorites]);
   const card = favoriteProducts?.map((e, index) => (
     <CardFavorite
       key={index}
@@ -55,7 +62,9 @@ export default function Favorite() {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex justify-center items-center"><LottieAnimation /></div>
+        <div className='w-full h-full flex justify-center items-center'>
+          <LottieAnimation />
+        </div>
       )}
     </>
   );

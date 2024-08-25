@@ -266,7 +266,7 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
 });
 // delete id product cart
 export const deleteProductFromCart = catchAsync(async (req, res, next) => {
-  const { id:userId } = req.params;
+  const { id: userId } = req.params;
   const { productId } = req.body;
 
   const user = await User.findById(userId);
@@ -320,5 +320,22 @@ export const updateUserWallet = catchAsync(async (req, res, next) => {
     data: {
       user,
     },
+  });
+});
+
+// payment cart
+export const paymentCart = catchAsync(async (req, res, next) => {
+  const token = req?.headers?.authorization.split(" ")[1];
+  const { id } = jwt.verify(token, process.env.SECRET_KEY);
+  const { totalPrice } = req?.body;
+  const user = await User.findById(id);
+  user.cart.forEach((e) => user.order.push(e));
+  user.cart = [];
+  user.wallet.balance -= totalPrice;
+  await user.save();
+  const updatedUser = await User.findById(id).populate("order");
+  return res.status(200).json({
+    status: "success",
+    data: { user: updatedUser },
   });
 });

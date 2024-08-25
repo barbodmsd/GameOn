@@ -13,7 +13,7 @@ import { AnimatePresence } from 'framer-motion';
 export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
-  const { token } = useSelector((state) => state.persistedReducer.authSlice);
+  const { token } = useSelector((state) => state?.persistedReducer?.authSlice);
   const router = useRouter();
   const dispatch=useDispatch()
   const { errors } = formState;
@@ -33,9 +33,7 @@ export default function Register({ banner, handlePageType }) {
       console.log(error);
     }
   };
-  if (token) {
-    router.push("/profile/wallet");
-  }
+  
   return (
     <>
    

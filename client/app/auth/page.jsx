@@ -4,13 +4,20 @@ import Login from "./Login";
 import Register from "./Register";
 import HomeButton from "./Home";
 import Loading from "@/components/Loading";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
   const [pageType, setPageType] = useState("register");
   const [banner, setBanner] = useState();
+  const { token } = useSelector((state) => state?.persistedReducer?.authSlice);
+  const router=useRouter()
   const handlePageType = () => {
     setPageType(pageType === "login" ? "register" : "login");
   };
+  // if(token){
+  //   router.push('/profile/wallet')
+  //  }
   useEffect(() => {
     (async () => {
       try {
