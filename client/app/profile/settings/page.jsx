@@ -1,4 +1,5 @@
 "use client";
+import UserHead from "@/components/icon/userHead";
 import fetchData from "@/Utils/FetchData";
 import { DevTool } from "@hookform/devtools";
 import { useRouter } from "next/navigation";
@@ -70,23 +71,17 @@ export default function Page() {
         {/* user setting */}
         <div className="flex flex-col gap-10 w-[30%] h-full bg-bg-100 p-10 rounded-3xl">
           <div className="flex flex-col justify-center items-center gap-5">
-            <img
-              src="../Profile.svg"
-              alt="profile-image"
-              className="bg-white rounded-full w-[100px]"
-            />
-            <span>{token && infoUser?.user?.username}</span>
+          <div  className='inline-block h-20 w-20 rounded-full ring-2 ring-[#BDFD00] bg-white '><UserHead /></div>
+            <span style={{letterSpacing:'2px'}} className='text-xl font-bold first-letter:uppercase'>{token && infoUser?.user?.username}</span>
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <span>
-              Email: <span className="text-sm">{infoUser?.user?.email}</span>
-            </span>
+            
             <span>
               Phone: <span className="text-sm">{infoUser?.user?.phone}</span>
             </span>
           </div>
           <div >
-            <div className="bg-bg-300 w-full h-36">
+            <div className="bg-bg-300 w-full rounded p-2">
               <h5 className="p-1">Address:</h5>
               <div className="flex flex-col gap-0">
                 <span className="p-5">
@@ -95,9 +90,7 @@ export default function Page() {
                 <span className="p-5">
                   State: {infoUser?.user?.address[0]?.state}
                 </span>
-                <span className="p-5">
-                  country : {infoUser?.user?.address[0]?.country}
-                </span>
+               
               </div>
             </div>
           </div>
