@@ -17,6 +17,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
     .populate()
     .paginate();
   const users = await features.query;
+
   res.status(200).json({
     status: "success",
     results: users.length,
@@ -329,11 +330,11 @@ export const paymentCart = catchAsync(async (req, res, next) => {
   const { id } = jwt.verify(token, process.env.SECRET_KEY);
   const { totalPrice } = req?.body;
   const user = await User.findById(id);
-  user.cart.forEach((e) => user.order.push(e));
+  user.cart.forEach((e) => user.orders.push(e.productId));
   user.cart = [];
   user.wallet.balance -= totalPrice;
   await user.save();
-  const updatedUser = await User.findById(id).populate("order");
+  const updatedUser = await User.findById(id);
   return res.status(200).json({
     status: "success",
     data: { user: updatedUser },
