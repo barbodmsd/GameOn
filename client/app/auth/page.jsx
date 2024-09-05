@@ -15,9 +15,9 @@ export default function Auth() {
   const handlePageType = () => {
     setPageType(pageType === "login" ? "register" : "login");
   };
-  // if(token){
-  //   router.push('/profile/wallet')
-  //  }
+  if(token){
+    router.push('/profile/wallet')
+   }
   useEffect(() => {
     (async () => {
       try {

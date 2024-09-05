@@ -107,7 +107,7 @@ export const addFavoriteProduct = catchAsync(async (req, res, next) => {
   const { productId } = req.body;
 
   // Check if user exists
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate('orders')
   if (!user) {
     return res.status(404).json({
       status: "fail",
@@ -334,7 +334,7 @@ export const paymentCart = catchAsync(async (req, res, next) => {
   user.cart = [];
   user.wallet.balance -= totalPrice;
   await user.save();
-  const updatedUser = await User.findById(id);
+  const updatedUser = await User.findById(id).populate('orders')
   return res.status(200).json({
     status: "success",
     data: { user: updatedUser },

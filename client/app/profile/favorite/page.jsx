@@ -48,7 +48,6 @@ export default function Favorite() {
       image={e?.data?.images[0]}
     />
   ));
-  console.log(favoriteProducts)
   return (
     <>
       {favoriteProducts?.length > 0 ? (

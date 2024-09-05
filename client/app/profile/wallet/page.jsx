@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import fetchData from "@/Utils/FetchData";
 import { login } from "@/Store/Slices/authSlice";
 import { useRouter } from "next/navigation";
+import Tilt from "react-parallax-tilt";
 import Loading from "@/components/Loading";
+import CardFavorite from "../CardFavorite";
+import Link from "next/link";
 
 const fetchProductById = async (productId) => {
   try {
@@ -20,7 +23,34 @@ const fetchProductById = async (productId) => {
     return null;
   }
 };
-
+const OrderCard = ({id,name,image,price}) => {
+  return (
+    <div className='flex relative flex-col h-72 w-60 justify-center gap-5 items-center bg-bg-200 px-6 py-5 rounded-lg'>
+      <Link
+        href={`/digital-product-page/product-details/${id}/${name
+          ?.replaceAll(" ", "-")
+          ?.toLowerCase()}`}>
+        <Tilt perspective={4000} glareMaxOpacity={1} scale={1}>
+          <div className='h-[200px] w-[170px] '>
+            <img
+              src={process.env.NEXT_PUBLIC_DB_HOST + image}
+              alt='product-image'
+              srcSet=''
+              className='w-[100%] h-[100%] rounded'
+            />
+          </div>
+        </Tilt>
+      </Link>
+      {/* </Link> */}
+      <div className='w-full text-left'>
+        {" "}
+        <div className='font-bold '>{name?.slice(0, 20)}</div>
+        <div className='text-my-yellow '>${price}</div>
+      </div>
+      
+    </div>
+  );
+};
 export default function Wallet() {
   const router = useRouter();
   const token = useSelector(
@@ -34,13 +64,12 @@ export default function Wallet() {
   const [cardPrice, setCardPrice] = useState(0);
   const dispatch = useDispatch();
   const [orderProducts, setOrderProducts] = useState([]);
-  console.log(user)
+  const [order, setOrder] = useState();
   useEffect(() => {
     if (!token) {
       router.push("/auth");
     }
   }, [token, router]);
-
   useEffect(() => {
     const fetchUserBalance = async () => {
       try {
@@ -94,89 +123,70 @@ export default function Wallet() {
   const handleAddPrice = () => {
     postUserData();
   };
-
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      if (user?.order && Array.isArray(user.order)) {
-        console.log("Fetching products with IDs:", user.order); // Log product IDs
-        const products = await Promise.all(
-          user.order.map((productId) => fetchProductById(productId))
-        );
-        setOrderProducts(products.filter((product) => product?.data !== null));
-      }
-    };
-
-    fetchFavorites();
-  }, [user?.order]);
-
   const newWallet = user?.wallet?.balance;
-
+  const items = user.orders?.map((e, index) =>{ 
+    return <OrderCard
+      key={index}
+      id={e?._id}
+      name={e?.title}
+      price={e?.price}
+      image={e?.images[0]}
+    />
+  });
   return (
     <>
       {token ? (
-        <div className="mx-10">
-          <div className="mt-5">
-            <span className="text-txt font-bold text-lg">{user?.username}</span>
-            <h1 className="text-my-yellow font-bold text-2xl">Good Day</h1>
+        <div className='mx-10'>
+          <div className='mt-5'>
+            <span className='text-txt font-bold text-lg'>{user?.username}</span>
+            <h1 className='text-my-yellow font-bold text-2xl'>Good Day</h1>
           </div>
-          <div className="main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl">
-            <div className="flex w-full gap-5">
-              <div className="bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl">
-                <div className="flex justify-between">
+          <div className='main flex flex-col gap-5 bg-bg-300 w-full h-full my-8 p-5 rounded-3xl'>
+            <div className='flex w-full gap-5'>
+              <div className='bg-bg-100 w-[50%] h-full p-5 flex flex-col gap-32 rounded-2xl'>
+                <div className='flex justify-between'>
                   <div>
-                    <span className="text-3xl font-bold">
+                    <span className='text-3xl font-bold'>
                       {newWallet?.toFixed(2)}
                     </span>
-                    <div className="flex gap-10">
-                      <span className="text-green-800 text-lg">$ 20 +</span>
-                      <span className="text-red-800 text-lg">$ 5 -</span>
+                    <div className='flex gap-10'>
+                      <span className='text-green-800 text-lg'>$ 20 +</span>
+                      <span className='text-red-800 text-lg'>$ 5 -</span>
                     </div>
                   </div>
                   <div>
-                    <span className="text-lg">$</span>
+                    <span className='text-lg'>$</span>
                   </div>
                 </div>
-                <div className="flex justify-between">
-                  <div className="border-my-yellow border rounded-lg p-2">
+                <div className='flex justify-between'>
+                  <div className='border-my-yellow border rounded-lg p-2'>
                     <span>$ {cardPrice}</span>
                   </div>
                   <button
-                    type="button"
-                    className="bg-my-yellow px-10 rounded-md text-bg-100 font-bold"
-                    onClick={handleAddPrice}
-                  >
+                    type='button'
+                    className='bg-my-yellow px-10 rounded-md text-bg-100 font-bold'
+                    onClick={handleAddPrice}>
                     Add Wallet
                   </button>
                 </div>
               </div>
-              <div className="w-[50%] h-full flex flex-wrap gap-5 justify-center">
+              <div className='w-[50%] h-full flex flex-wrap gap-5 justify-center'>
                 {[50, 100, 150, 200].map((value) => (
                   <button
                     key={value}
-                    type="button"
+                    type='button'
                     onClick={() => handlePriceCard(value)}
-                    className="w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow"
-                  >
+                    className='w-[180px] h-[120px] bg-bg-100 hover:border hover:border-my-yellow rounded-2xl text-2xl hover:text-my-yellow'>
                     $ {value}
                   </button>
                 ))}
               </div>
             </div>
             <div>
-              <div className="w-full bg-bg-100 p-5 rounded-lg">
+              <div className='w-full bg-bg-100 p-5 rounded-lg'>
                 <h3>Purchases</h3>
-                <div className="w-full flex flex-col gap-5 py-5">
-                  {orderProducts.length > 0 ? (
-                    orderProducts.map((product, index) => (
-                      <div key={index} className="border p-3 rounded-lg">
-                        <h4 className="text-xl font-bold">{product.data?.name}</h4>
-                        <p>Price: ${product.data?.price}</p>
-                        <p>Quantity: {product.data?.quantity}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No products found for this order.</p>
-                  )}
+                <div className='w-full flex gap-5 py-5 flex-wrap'>
+                  {items ? items : <p>No products found for this order.</p>}
                 </div>
               </div>
             </div>

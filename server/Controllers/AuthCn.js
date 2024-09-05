@@ -21,7 +21,7 @@ export const register = catchAsync(async (req, res, next) => {
 });
 export const login = catchAsync(async (req, res, next) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }).populate('orders')
   if (!user) {
     return next(new HandleError("username or password is incorrect"));
   }
