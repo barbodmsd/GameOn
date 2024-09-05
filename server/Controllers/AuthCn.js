@@ -60,7 +60,7 @@ export const sendSms = catchAsync(async (req, res, next) => {
 
 export const verifyCode = catchAsync(async (req, res, next) => {
   const { code, phone } = req.body;
-  const user = await User.findOne({ phone });
+  const user = await User.findOne({ phone }).populate('orders')
   const verify = await verifyAuthCode(phone, code);
   if (!verify.success) {
     return next(new HandleError("code incorrect", 400));

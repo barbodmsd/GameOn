@@ -124,7 +124,7 @@ export default function Wallet() {
     postUserData();
   };
   const newWallet = user?.wallet?.balance;
-  const items = user.orders?.map((e, index) =>{ 
+  const items = user?.orders?.map((e, index) =>{ 
     return <OrderCard
       key={index}
       id={e?._id}

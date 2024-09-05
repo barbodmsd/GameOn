@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Tilt from "react-parallax-tilt";
 import { useDispatch, useSelector } from "react-redux";
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from "framer-motion";
 
 export default function Register({ banner, handlePageType }) {
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { token } = useSelector((state) => state?.persistedReducer?.authSlice);
   const router = useRouter();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const { errors } = formState;
   const onSubmit = async (e) => {
     try {
@@ -33,12 +33,10 @@ export default function Register({ banner, handlePageType }) {
       console.log(error);
     }
   };
-  
+
   return (
     <>
-   
       {banner && (
-        <AnimatePresence>
         <motion.div
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 50 }}
@@ -56,27 +54,19 @@ export default function Register({ banner, handlePageType }) {
           <Tilt className='h-full w-[380px]'>
             <motion.div
               initial={{
-                rotate: "0deg",
+                rotate: 360,
                 scale: 0,
                 y: 0,
               }}
               animate={{
-                rotate: "360deg",
+                rotate: 0,
                 scale: 1,
-                y: [0, 200, -200, -200, 0], //keyframe
-              }}
-              exit={{
-                rotate: "0deg",
-                scale: 0,
-                y: 0,
-                // when you use exit props should be in AnimatePresence cmp
               }}
               transition={{
                 duration: 0.5,
-                times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                 ease: "backInOut",
               }}
-              className='relative w-full pb-8 h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2 pb-3 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
+              className='relative w-full pb-8 h-full hover:shadow-xl duration-300 hover:shadow-my-yellow/20  p-2  px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
                 style={{ letterSpacing: "2px" }}>
@@ -182,7 +172,6 @@ export default function Register({ banner, handlePageType }) {
 
           {/* <DevTool control={control} /> */}
         </motion.div>
-        </AnimatePresence>
       )}
     </>
   );

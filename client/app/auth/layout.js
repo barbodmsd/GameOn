@@ -1,13 +1,16 @@
+import { Inter } from "next/font/google";
 import React from "react";
 
 export const metadata = {
   title: "Auth",
 };
-
-export default function Authlayout({ children }) {
+const inter = Inter({ subsets: ["latin"] });
+export default function AuthLayout({ children }) {
   return (
-      <body>
+    <html>
+      <body className={inter.className}>
         <main>{children}</main>
       </body>
+    </html>
   );
 }

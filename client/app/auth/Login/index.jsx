@@ -4,7 +4,7 @@ import UserIcon from "@/components/icon/user";
 import { DevTool } from "@hookform/devtools";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/Store/Slices/authSlice";
 import { useRouter } from "next/navigation";
@@ -87,27 +87,19 @@ export default function Login({ handlePageType, banner }) {
           {/* form */}
           {forgetPass ? (
             <motion.div
-              initial={{
-                rotate: "0deg",
-                scale: 0,
-                y: 0,
-              }}
-              animate={{
-                rotate: "360deg",
-                scale: 1,
-                y: [0, 200, -200, -200, 0], //keyframe
-              }}
-              exit={{
-                rotate: "0deg",
-                scale: 0,
-                y: 0,
-                // when you use exit props should be in AnimatePresence cmp
-              }}
-              transition={{
-                duration: 0.5,
-                times: [0, 0.25, 0.5, 0.85, 1], //keyframe
-                ease: "backInOut",
-              }}
+            initial={{
+              rotate: 360,
+              scale: 0,
+              y: 0,
+            }}
+            animate={{
+              rotate: 0,
+              scale: 1,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "backInOut",
+            }}
               className='w-[380px] hover:shadow-xl duration-300 hover:shadow-my-yellow/20 h-full p-2 pb-8 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
               <h5
                 className='font-bold text-xl'
@@ -194,25 +186,17 @@ export default function Login({ handlePageType, banner }) {
           ) : (
             <Tilt className='w-[380px] h-full '>
               <motion.div
-                initial={{
-                  rotate: "0deg",
+                 initial={{
+                  rotate: 360,
                   scale: 0,
                   y: 0,
                 }}
                 animate={{
-                  rotate: "360deg",
+                  rotate: 0,
                   scale: 1,
-                  y: [0, 200, -200, -200, 0], //keyframe
-                }}
-                exit={{
-                  rotate: "0deg",
-                  scale: 0,
-                  y: 0,
-                  // when you use exit props should be in AnimatePresence cmp
                 }}
                 transition={{
                   duration: 0.5,
-                  times: [0, 0.25, 0.5, 0.85, 1], //keyframe
                   ease: "backInOut",
                 }}
                 className='w-full h-full hover:shadow-xl pb-8 duration-300 hover:shadow-my-yellow/20  p-2 px-5 pt-10 rounded-xl flex flex-col items-center gap-2 bg-bg-100'>
