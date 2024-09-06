@@ -4,7 +4,7 @@ import BestGame from "./bestGame";
 
 export default function DigitalProductPage() {
   return <>
-  <div className='min-h-screen pl-8 mt-5 pr-1 flex justify-between gap-3'>
+  <div className='h-[100%] pl-8 mt-5 pr-1 flex justify-between gap-3'>
     {/* main */}
     <div className='w-full min-h-[300px]'>
     <GameBanner/>

@@ -193,7 +193,9 @@ export default function Wallet() {
           </div>
         </div>
       ) : (
-        <Loading />
+        <div className='h-[100vh] pl-8 mt-5 pr-1 flex justify-between gap-3'>
+          <Loading />
+        </div>
       )}
     </>
   );

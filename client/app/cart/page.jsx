@@ -238,7 +238,6 @@ export default function Cart() {
       }
     } catch (error) {}
   };
-  console.log(isPayment)
   return (
     <>
       {user?.cart?.length > 0 ? (

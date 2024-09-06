@@ -165,7 +165,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
   }
 
   // Check if product exists
-  const cardProduct = await Product.findById(productId);
+  const cardProduct = await Product.findById(productId)
   if (!cardProduct) {
     return res.status(404).json({
       status: "error",
